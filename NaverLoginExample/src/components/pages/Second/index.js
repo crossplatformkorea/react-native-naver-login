@@ -46,7 +46,7 @@ class Page extends Component {
         <View style={ styles.content }>
           <ScrollView style={{ alignSelf: 'stretch', }}>
             <Text style={ styles.txtResult }>
-              {JSON.stringify(this.props.navigation.state.params.results, null, '\t')}
+              {JSON.stringify(this.props.navigation.state.params.result, null, '\t')}
             </Text>
             <NativeButton
               onPress={this.onNaverLogout}

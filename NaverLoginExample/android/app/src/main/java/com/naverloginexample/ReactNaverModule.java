@@ -1,5 +1,6 @@
 package com.naverloginexample;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.facebook.react.bridge.Callback;
@@ -36,27 +37,40 @@ public class ReactNaverModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void naverLogout() {
+  public void getProfile(String accessToken, final Callback cb) {
+    AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+    asyncHttpClient.addHeader("Authorization", "Bearer " + accessToken);
+    asyncHttpClient.get(reactContext, "https://openapi.naver.com/v1/nid/me", new JsonHttpResponseHandler() {
+      @Override
+      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+        super.onSuccess(statusCode, headers, response);
+        cb.invoke(null, response.toString());
+      }
+    });
+  }
+
+  @ReactMethod
+  public void logout() {
     mOAuthLoginModule.logout(reactContext);
   }
 
   @ReactMethod
-  public void naverLogin(String initials, final Callback cb) {
+  public void login(String initials, final Callback cb) {
+    final Activity activity = getCurrentActivity();
     try {
       JSONObject jsonObject = new JSONObject(initials);
       mOAuthLoginModule = OAuthLogin.getInstance();
       mOAuthLoginModule.init(
-        reactContext,
-        jsonObject.getString("key"),
-        jsonObject.getString("secret"),
-        jsonObject.getString("name")
+          reactContext,
+          jsonObject.getString("key"),
+          jsonObject.getString("secret"),
+          jsonObject.getString("name")
       );
-
       UiThreadUtil.runOnUiThread(new Runnable() {
         @Override
         public void run() {
           mOAuthLoginModule.startOauthLoginActivity(
-              reactContext.getCurrentActivity(),
+              activity,
               new OAuthLoginHandler() {
                 @Override
                 public void run(boolean success) {
@@ -66,21 +80,18 @@ public class ReactNaverModule extends ReactContextBaseJavaModule {
                     long expiresAt = mOAuthLoginModule.getExpiresAt(reactContext);
                     String tokenType = mOAuthLoginModule.getTokenType(reactContext);
 
-                    AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-                    asyncHttpClient.addHeader("Authorization", "Bearer " + accessToken);
-                    asyncHttpClient.get(reactContext, "https://openapi.naver.com/v1/nid/me", new JsonHttpResponseHandler() {
-                      @Override
-                      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        super.onSuccess(statusCode, headers, response);
-                        try {
-                          response.put("accessToken", accessToken);
-                          cb.invoke(null, response.toString());
-                        } catch (JSONException je) {
-                          Log.e(TAG, "JSONException: " + je);
-                          cb.invoke(je.getMessage(), null, null);
-                        }
-                      }
-                    });
+                    try {
+                      JSONObject response = new JSONObject();
+                      response.put("accessToken", accessToken);
+                      response.put("refreshToken", refreshToken);
+                      response.put("expiresAt", expiresAt);
+                      response.put("tokenType", tokenType);
+                      cb.invoke(null, response.toString());
+                    } catch (JSONException je) {
+                      Log.e(TAG, "JSONEXception: " + je.getMessage());
+                      cb.invoke(je.getMessage(), null);
+                    }
+
                   } else {
                     String errCode = mOAuthLoginModule.getLastErrorCode(reactContext).getCode();
                     String errDesc = mOAuthLoginModule.getLastErrorDesc(reactContext);

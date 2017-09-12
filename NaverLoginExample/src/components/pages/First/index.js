@@ -9,7 +9,7 @@ import NativeButton from 'apsl-react-native-button';
 
 import Navbar from '../../shared/Navbar';
 import styles from './styles';
-import { naverLogin } from '../../../apis/AuthApi';
+import { naverLogin, getNaverProfile } from '../../../apis/AuthApi';
 
 class Page extends Component {
   constructor(props) {
@@ -27,15 +27,28 @@ class Page extends Component {
       name: 'dooboolab',
       urlScheme: 'dooboolaburlscheme', // only for iOS
     };
-    const results = await naverLogin(JSON.stringify(initials));
-    // Alert.alert('results');
-    console.log('response');
-    console.log(results);
+    
+    try {
+      const result = await naverLogin(JSON.stringify(initials));
+      // Alert.alert('results');
+      console.log('response');
+      console.log(result);
+  
+      if (result) {
+        const profileResult = await getNaverProfile(result.accessToken);
+        console.log('profile');
+        console.log(profileResult);
+        result.profile = profileResult;
 
+        this.props.navigation.navigate('Second', {
+          result,
+        });
+      }
 
-    this.props.navigation.navigate('Second', {
-      results,
-    });
+    } catch (err) {
+      console.log('error');
+      console.log(err);
+    }
   }
 
   render() {

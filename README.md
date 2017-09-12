@@ -52,7 +52,70 @@ Tutorial을 곧 업데이트 예정중이나 현재는 NaverLoginExample 폴더 
 ```javascript
 import RNNaverLogin from 'react-native-naver-login';
 
-// TODO: What to do with the module?
-RNNaverLogin;
+// 현재 라이브러리는 3가지의 브릿지 함수로 구현되어 있습니다.
+// 1. login
+// 2. getProfile
+// 3. naverLogin
+// NaverLoginExample에 보시면 어떻게 쓰는지 확인할 수 있습니다. 간략한 코드는 아래 기재하겠습니다.
+
+// 우선 네이버 로그인에 필요한 값들을 설정합니다.
+const initials = {
+	key: 'VN6WKGFQ3pJ0xBXRtlN9',
+	secret: 'AHBgzH9ZkM',
+	name: 'dooboolab',
+	urlScheme: 'dooboolaburlscheme', // only for iOS
+};
+
+const naverLogin = (initials) => {
+  return new Promise(function (resolve, reject) {
+    RNNaverLogin.login(initials, (err, response) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      console.log('response');
+      console.log(response);
+      resolve(JSON.parse(response));
+    });
+  });
+};
+
+const naverLogout = () => {
+  RNNaverLogin.logout();
+}
+
+const getNaverProfile = (token) => {
+  return new Promise(function (resolve, reject) {
+    RNNaverLogin.getProfile(token, (err, response) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      console.log('response');
+      console.log(response);
+      resolve(JSON.parse(response));
+    });
+  });
+}
+
+// 위와 같이 함수를 짜주고 아래서 사용한다.
+onNaverLogin = async() => {
+	try {
+		const result = await naverLogin(JSON.stringify(initials));
+		if (result) {
+			const profileResult = await getNaverProfile(result.accessToken);
+			result.profile = profileResult;
+
+			// 다음 페이지로 넘어간다.
+			this.props.navigation.navigate('Second', {
+				result,
+			});
+		}
+	} catch (err) {
+		console.log('error');
+		console.log(err);
+	}
+}
+
 ```
   

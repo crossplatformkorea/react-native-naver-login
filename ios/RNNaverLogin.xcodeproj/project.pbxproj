@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B3E7B58A1CC2AC0600A0062D /* RNNaverLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNNaverLogin.m */; };
+		BD3B79C91F694A7C007DE103 /* ReactIosAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3B79BD1F694A7C007DE103 /* ReactIosAuth.m */; };
+		BD3B79CA1F694A7C007DE103 /* libNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD3B79C41F694A7C007DE103 /* libNaverLogin.a */; };
+		BD3B79CB1F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3B79C81F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +29,18 @@
 		134814201AA4EA6300B7C361 /* libRNNaverLogin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNaverLogin.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E7B5881CC2AC0600A0062D /* RNNaverLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNaverLogin.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNNaverLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNaverLogin.m; sourceTree = "<group>"; };
+		BD3B79BB1F694A7C007DE103 /* NaverConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaverConstant.h; sourceTree = "<group>"; };
+		BD3B79BC1F694A7C007DE103 /* ReactIosAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactIosAuth.h; sourceTree = "<group>"; };
+		BD3B79BD1F694A7C007DE103 /* ReactIosAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactIosAuth.m; sourceTree = "<group>"; };
+		BD3B79BF1F694A7C007DE103 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		BD3B79C01F694A7C007DE103 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
+		BD3B79C11F694A7C007DE103 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
+		BD3B79C21F694A7C007DE103 /* NaverAuth.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NaverAuth.bundle; sourceTree = "<group>"; };
+		BD3B79C41F694A7C007DE103 /* libNaverLogin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNaverLogin.a; sourceTree = "<group>"; };
+		BD3B79C51F694A7C007DE103 /* NaverThirdPartyConstantsForApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaverThirdPartyConstantsForApp.h; sourceTree = "<group>"; };
+		BD3B79C61F694A7C007DE103 /* NaverThirdPartyLoginConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaverThirdPartyLoginConnection.h; sourceTree = "<group>"; };
+		BD3B79C71F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLoginThirdPartyOAuth20InAppBrowserViewController.h; sourceTree = "<group>"; };
+		BD3B79C81F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLoginThirdPartyOAuth20InAppBrowserViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD3B79CA1F694A7C007DE103 /* libNaverLogin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,10 +66,46 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				BD3B79BA1F694A7C007DE103 /* NaverAuth */,
 				B3E7B5881CC2AC0600A0062D /* RNNaverLogin.h */,
 				B3E7B5891CC2AC0600A0062D /* RNNaverLogin.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		BD3B79BA1F694A7C007DE103 /* NaverAuth */ = {
+			isa = PBXGroup;
+			children = (
+				BD3B79BB1F694A7C007DE103 /* NaverConstant.h */,
+				BD3B79BC1F694A7C007DE103 /* ReactIosAuth.h */,
+				BD3B79BD1F694A7C007DE103 /* ReactIosAuth.m */,
+				BD3B79BE1F694A7C007DE103 /* Resource */,
+				BD3B79C31F694A7C007DE103 /* thirdPartyModule */,
+			);
+			path = NaverAuth;
+			sourceTree = "<group>";
+		};
+		BD3B79BE1F694A7C007DE103 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				BD3B79BF1F694A7C007DE103 /* Default-568h@2x.png */,
+				BD3B79C01F694A7C007DE103 /* Default-667h@2x.png */,
+				BD3B79C11F694A7C007DE103 /* Default-736h@3x.png */,
+				BD3B79C21F694A7C007DE103 /* NaverAuth.bundle */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		BD3B79C31F694A7C007DE103 /* thirdPartyModule */ = {
+			isa = PBXGroup;
+			children = (
+				BD3B79C41F694A7C007DE103 /* libNaverLogin.a */,
+				BD3B79C51F694A7C007DE103 /* NaverThirdPartyConstantsForApp.h */,
+				BD3B79C61F694A7C007DE103 /* NaverThirdPartyLoginConnection.h */,
+				BD3B79C71F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.h */,
+				BD3B79C81F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m */,
+			);
+			path = thirdPartyModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -113,6 +165,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E7B58A1CC2AC0600A0062D /* RNNaverLogin.m in Sources */,
+				BD3B79C91F694A7C007DE103 /* ReactIosAuth.m in Sources */,
+				BD3B79CB1F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,12 +258,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-				"$(inherited)",
+					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NaverAuth/thirdPartyModule",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNNaverLogin;
 				SKIP_INSTALL = YES;
@@ -225,7 +282,10 @@
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NaverAuth/thirdPartyModule",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNNaverLogin;
 				SKIP_INSTALL = YES;

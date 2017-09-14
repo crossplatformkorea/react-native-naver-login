@@ -17,6 +17,7 @@
 
 
 ////////////////////////////////////////////////////     _//////////_  // Implementation
+// TODO :: 아래 소스는 필요한 건지요 ?
 @implementation RNNaverLogin
 
 - (dispatch_queue_t)methodQueue
@@ -68,12 +69,18 @@
 RCT_EXPORT_MODULE();
 
 ////////////////////////////////////////////////////     _//////////_// 네이버 관련 세팅
-RCT_EXPORT_METHOD(startNaverAuth:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(startNaverAuth:(NSDictionary *)keyObj callback:(RCTResponseSenderBlock)callback) {
   RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: startNaverAuth \n\n\n\n .");
-  NSLog(@" Nearo  log this ???");
-  // [naverConn requestThirdPartyLogin];
-  NSString *token = [naverConn accessToken];
+  
   naverTokenSend = callback;
+  
+  // kServiceAppUrlScheme, kConsumerKey, kConsumerSecret, kServiceAppName }
+  [naverConn setConsumerKey:[RCTConvert NSString:details[@"kConsumerKey"]]];
+  [naverConn setConsumerSecret:[RCTConvert NSString:details[@"kConsumerSecret"]]];
+  [naverConn setAppName:[RCTConvert NSString:details[@"kServiceAppName"]]];
+  [naverConn setServiceUrlScheme:[RCTConvert NSString:details[@"kServiceAppUrlScheme"]]];
+  
+  NSString *token = [naverConn accessToken];
   NSLog(@"\n\n\n Nearo Token ::  %@", token);
   
   if ([naverConn isValidAccessTokenExpireTimeNow]) {

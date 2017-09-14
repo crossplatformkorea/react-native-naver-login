@@ -9,7 +9,7 @@
 #ifndef NaverAuthRct_h
 #define NaverAuthRct_h
 
-
+//  이 파일은 참고 용..  나중에 지울 예정..
 #import <React/RCTBridgeModule.h>
 
 #import "NaverThirdPartyConstantsForApp.h"

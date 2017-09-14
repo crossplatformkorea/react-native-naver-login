@@ -21,3 +21,15 @@ export async function startNaverLogin(keyObj) {
     // Android Part ..
   }
 };
+
+export async function fetchProfile(token) {
+  if (Platform.OS === 'ios') {
+    IosNaverLogin.fetchProfile(token, (err, profile) => {
+
+      console.log(`\n\n   Profile is fetched from iOS :: ${profile} \n\n`);
+
+    });
+  } else {
+    // Android Part ..
+  }
+};

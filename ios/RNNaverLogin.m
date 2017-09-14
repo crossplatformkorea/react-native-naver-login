@@ -51,7 +51,7 @@
 
 -(void)oauth20ConnectionDidOpenInAppBrowserForOAuth:(NSURLRequest *)request {
   NSLog(@"\n\n\n Nearo oauth20ConnectionDidOpenInAppBrowserForOAuth \n\n\n xx");
-  
+  // 여기서 웹뷰를 띄웁니다.
   dispatch_async(dispatch_get_main_queue(), ^{
     NLoginThirdPartyOAuth20InAppBrowserViewController *inappAuthBrowser =
     [[NLoginThirdPartyOAuth20InAppBrowserViewController alloc] initWithRequest:request];
@@ -80,6 +80,9 @@ RCT_EXPORT_METHOD(startNaverAuth:(NSDictionary *)keyObj callback:(RCTResponseSen
   [naverConn setAppName:[RCTConvert NSString:details[@"kServiceAppName"]]];
   [naverConn setServiceUrlScheme:[RCTConvert NSString:details[@"kServiceAppUrlScheme"]]];
   
+  [naverConn setIsNaverAppOauthEnable:YES]; // 네이버 앱 사용 안할 때는 NO
+  [naverConn setIsInAppOauthEnable:YES]; // 내장 웹뷰 사용 안할 때는 NO
+  
   NSString *token = [naverConn accessToken];
   NSLog(@"\n\n\n Nearo Token ::  %@", token);
   
@@ -91,6 +94,25 @@ RCT_EXPORT_METHOD(startNaverAuth:(NSDictionary *)keyObj callback:(RCTResponseSen
     [naverConn requestThirdPartyLogin];
   }
 }
+
+RCT_EXPORT_METHOD(fetchProfile:(NSDictionary *)token callback:(RCTResponseSenderBlock)callback) {
+  NSString *urlString = @"https://openapi.naver.com/v1/nid/me"; // 사용자 프로필 호출 API URL
+  NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+  NSString *authValue = [NSString stringWithFormat:@"Bearer %@", token];
+  [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+  NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:Nil error:&error];
+  if(data == NULL){
+    // 통신 실패 !
+    NSLog(@"통신 실패 ! : %@",[error LocalizedDescription]);
+  }
+  else{
+    // 통신 성공 // 받아온 정보가 스트링인 경우
+    NSString *returnStr = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"Return String : %@",returnStr);
+    callback(@[[NSNull null], returnStr]);
+  }
+}
+
 
 RCT_EXPORT_METHOD(resetNaverAuth:(RCTResponseSenderBlock)callback) {
   RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: reset \n\n\n\n .");

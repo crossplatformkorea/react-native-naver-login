@@ -7,7 +7,6 @@ import { AsyncStorage, Alert, NativeModules, Platform, } from 'react-native';
 // Below is version for real module test
 import RNNaverLogin from 'react-native-naver-login';
 
-
 const naverLogin = (initials) => {
   return new Promise(function (resolve, reject) {
     /*
@@ -15,37 +14,28 @@ const naverLogin = (initials) => {
     */
     if (Platform.OS === 'ios') {
       console.log(' iOS Naver Login ');
-      // AuthIOS.startNaverAuth(initials, (err, token) => {
-      //   Alert.alert(token);
-      //   if (err) {
-      //     reject(err);
-      //     return;
-      //   }
-        //resolve(JSON.parse(response)); 토큰을 파싱할 때 에러..
-      // });
+      RNNaverLogin.startNaverAuth(keyObj, (err, token) => {
+        console.log(`\n\n   Token is fetched from iOS :: ${token} \n\n`);
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(token);
+      });
     } else {
-      // AuthAndroid.login(initials, (err, response) => {
-      //   if (err) {
-      //     reject(err);
-      //     return;
-      //   }
-      //   console.log('response');
-      //   console.log(response);
-      //   resolve(JSON.parse(response));
-      // });
+      RNNaverLogin.login(initials, (err, response) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        console.log('response');
+        console.log(response);
+        resolve(JSON.parse(response));
+      });
     }
     /*
       퍼블리싱 라이브러리 소스는 따로 ios와 android 구분없이 만들기로 한다.
     */
-    RNNaverLogin.login(initials, (err, response) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      console.log('response');
-      console.log(response);
-      resolve(JSON.parse(response));
-    });
   });
 };
 
@@ -55,15 +45,26 @@ const naverLogout = () => {
 
 const getNaverProfile = (token) => {
   return new Promise(function (resolve, reject) {
-    RNNaverLogin.getProfile(token, (err, response) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      console.log('response');
-      console.log(response);
-      resolve(JSON.parse(response));
-    });
+    if (Platform.OS === 'ios') {
+      RNNaverLogin.fetchProfile(token, (err, profile) => {
+        console.log(`\n\n   Profile is fetched from iOS :: ${profile} \n\n`);
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(JSON.parse(profile));
+      });
+    } else {
+      RNNaverLogin.getProfile(token, (err, response) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        console.log('response');
+        console.log(response);
+        resolve(JSON.parse(response));
+      });
+    }
   });
 }
 

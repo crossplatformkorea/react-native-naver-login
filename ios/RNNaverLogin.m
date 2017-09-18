@@ -121,6 +121,12 @@ RCT_EXPORT_METHOD(resetNaverAuth:(RCTResponseSenderBlock)callback) {
   callback(@[[NSNull null], @"reset called"]);
 }
 
+RCT_EXPORT_METHOD(logout) {
+  RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: logout \n\n\n\n .");
+  [naverConn resetToken];
+  naverTokenSend = nil;
+}
+
 RCT_EXPORT_METHOD(isNaverValidToken:(RCTResponseSenderBlock)getToken) {
   RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: isNaverValidToken \n\n\n\n .");
   naverTokenSend = getToken;

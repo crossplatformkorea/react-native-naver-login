@@ -14,6 +14,7 @@ import { naverLogin, getNaverProfile } from '../../../apis/AuthApi';
 class Page extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isNaverLoggingin: false,
     };
@@ -22,18 +23,20 @@ class Page extends Component {
   onNaverLogin = async() => {
     console.log('Naver Login');
     const initials = {
-      key: 'VN6WKGFQ3pJ0xBXRtlN9',
-      secret: 'AHBgzH9ZkM',
-      name: 'dooboolab',
-      urlScheme: 'dooboolaburlscheme', // only for iOS
+      // // kServiceAppUrlScheme, kConsumerKey, kConsumerSecret, kServiceAppName }
+      kConsumerKey: 'VN6WKGFQ3pJ0xBXRtlN9',
+      kConsumerSecret: 'AHBgzH9ZkM',
+      kServiceAppName: 'dooboolab',
+      kServiceAppUrlScheme: 'dooboolaburlscheme', // only for iOS
     };
-    
+
     try {
       const result = await naverLogin(JSON.stringify(initials));
+
       // Alert.alert('results');
       console.log('response');
       console.log(result);
-  
+
       if (result) {
         const profileResult = await getNaverProfile(result.accessToken);
         console.log('profile');

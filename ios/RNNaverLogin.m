@@ -3,7 +3,7 @@
 
 
 // 네이버 관련 세팅
-#import "AppDelegate.h"
+// #import "AppDelegate.h"
 #import "NaverThirdPartyConstantsForApp.h"
 #import "NaverThirdPartyLoginConnection.h"
 #import "NLoginThirdPartyOAuth20InAppBrowserViewController.h"
@@ -141,7 +141,7 @@ RCT_EXPORT_METHOD(getProfile:(NSString *)token resp:(RCTResponseSenderBlock)resp
   NSString *decodingString = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
 
   NSLog(@" Naver Profile to send from obj-c :  %@", decodingString);
-  
+
   if (error) {
     NSLog(@"Error happened - %@", [error description]);
   } else {

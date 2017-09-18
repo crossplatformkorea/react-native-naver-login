@@ -62,9 +62,9 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
       mOAuthLoginModule = OAuthLogin.getInstance();
       mOAuthLoginModule.init(
           reactContext,
-          jsonObject.getString("key"),
-          jsonObject.getString("secret"),
-          jsonObject.getString("name")
+          jsonObject.getString("kConsumerKey"),
+          jsonObject.getString("kConsumerSecret"),
+          jsonObject.getString("kServiceAppName")
       );
       UiThreadUtil.runOnUiThread(new Runnable() {
         @Override

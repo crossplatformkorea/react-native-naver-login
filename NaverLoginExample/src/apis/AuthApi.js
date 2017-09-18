@@ -45,26 +45,15 @@ const naverLogout = () => {
 
 const getNaverProfile = (token) => {
   return new Promise(function (resolve, reject) {
-    if (Platform.OS === 'ios') {
-      RNNaverLogin.fetchProfile(token, (err, profile) => {
-        console.log(`\n\n   Profile is fetched from iOS :: ${profile} \n\n`);
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(JSON.parse(profile));
-      });
-    } else {
-      RNNaverLogin.getProfile(token, (err, response) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        console.log('response');
-        console.log(response);
-        resolve(JSON.parse(response));
-      });
-    }
+    RNNaverLogin.getProfile(token, (err, response) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      console.log('response');
+      console.log(response);
+      resolve(JSON.parse(response));
+    });
   });
 }
 

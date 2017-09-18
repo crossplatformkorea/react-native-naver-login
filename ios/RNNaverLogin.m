@@ -127,6 +127,29 @@ RCT_EXPORT_METHOD(logout) {
   naverTokenSend = nil;
 }
 
+
+RCT_EXPORT_METHOD(getProfile:(NSString *)token resp:(RCTResponseSenderBlock)response) {
+  NSString *urlString = @"https://openapi.naver.com/v1/nid/getUserProfile.xml";  // 사용자 프로필 호출
+  NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+  NSString *authValue = [NSString stringWithFormat:@"Bearer %@", _thirdPartyLoginConn.accessToken];
+
+  [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+
+  NSHTTPURLResponse *response = nil;
+  NSError *error = nil;
+  NSData *receivedData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+  NSString *decodingString = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
+
+  NSLog(@" Naver Profile to send from obj-c :  %@", decodingString);
+  
+  if (error) {
+    NSLog(@"Error happened - %@", [error description]);
+  } else {
+    NSLog(@"recevied data - %@", decodingString);
+    response(@[[NSNull null], decodingString]);
+  }
+}
+
 RCT_EXPORT_METHOD(isNaverValidToken:(RCTResponseSenderBlock)getToken) {
   RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: isNaverValidToken \n\n\n\n .");
   naverTokenSend = getToken;

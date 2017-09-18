@@ -55,7 +55,7 @@
   dispatch_async(dispatch_get_main_queue(), ^{
     NLoginThirdPartyOAuth20InAppBrowserViewController *inappAuthBrowser =
     [[NLoginThirdPartyOAuth20InAppBrowserViewController alloc] initWithRequest:request];
-    
+
     UIViewController *vc = UIApplication.sharedApplication.delegate.window.rootViewController;
     [vc presentViewController:inappAuthBrowser animated:NO completion:nil];
   });
@@ -69,23 +69,23 @@
 RCT_EXPORT_MODULE();
 
 ////////////////////////////////////////////////////     _//////////_// 네이버 관련 세팅
-RCT_EXPORT_METHOD(startNaverAuth:(NSDictionary *)keyObj callback:(RCTResponseSenderBlock)callback) {
-  RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: startNaverAuth \n\n\n\n .");
-  
+RCT_EXPORT_METHOD(login:(NSDictionary *)keyObj callback:(RCTResponseSenderBlock)callback) {
+  RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: login \n\n\n\n .");
+
   naverTokenSend = callback;
-  
+
   // kServiceAppUrlScheme, kConsumerKey, kConsumerSecret, kServiceAppName }
   [naverConn setConsumerKey:[RCTConvert NSString:details[@"kConsumerKey"]]];
   [naverConn setConsumerSecret:[RCTConvert NSString:details[@"kConsumerSecret"]]];
   [naverConn setAppName:[RCTConvert NSString:details[@"kServiceAppName"]]];
   [naverConn setServiceUrlScheme:[RCTConvert NSString:details[@"kServiceAppUrlScheme"]]];
-  
+
   [naverConn setIsNaverAppOauthEnable:YES]; // 네이버 앱 사용 안할 때는 NO
   [naverConn setIsInAppOauthEnable:YES]; // 내장 웹뷰 사용 안할 때는 NO
-  
+
   NSString *token = [naverConn accessToken];
   NSLog(@"\n\n\n Nearo Token ::  %@", token);
-  
+
   if ([naverConn isValidAccessTokenExpireTimeNow]) {
     NSLog(@"\n\n\n Nearo Token  ::   >>>>>>>>  VALID");
     naverTokenSend(@[[NSNull null], token]);
@@ -139,11 +139,10 @@ RCT_EXPORT_METHOD(getNaverToken:(RCTResponseSenderBlock)getNaverToken) {
   RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: startNaverAuth \n\n\n\n .");
   NSString *token = [naverConn accessToken];
   RCTLogInfo(@"\n\n\n  Nearo Token ::  %@", token);
-  
+
   if (token != NULL) {
     getNaverToken(@[[NSNull null], token]);
   }
 }
 
 @end
-

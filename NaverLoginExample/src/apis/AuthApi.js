@@ -14,7 +14,7 @@ const naverLogin = (initials) => {
     */
     if (Platform.OS === 'ios') {
       console.log(' iOS Naver Login ');
-      RNNaverLogin.startNaverAuth(initials, (err, token) => {
+      RNNaverLogin.login(initials, (err, token) => {
         console.log(`\n\n   Token is fetched from iOS :: ${token} \n\n`);
         if (err) {
           reject(err);

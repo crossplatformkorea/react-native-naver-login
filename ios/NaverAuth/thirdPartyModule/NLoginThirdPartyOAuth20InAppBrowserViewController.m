@@ -148,7 +148,8 @@
     bannerMessage.textAlignment = NSTextAlignmentLeft;
     bannerMessage.lineBreakMode = NSLineBreakByWordWrapping;
     bannerMessage.numberOfLines = 0;
-    bannerMessage.text = kNaverAuthBannerMessage;
+    // bannerMessage.text = kNaverAuthBannerMessage; // Crash : MOOON 여기 크래쉬는 나중에 잡자.
+    bannerMessage.text = @"Get NAVER App and sign in faster";
     
     CGSize bannerMessageSize = [NaverThirdPartyLoginConnection sizeWithText:bannerMessage.text withFont:bannerMessage.font];
     
@@ -159,7 +160,10 @@
     downloadLinkMessage.textAlignment = NSTextAlignmentLeft;
     downloadLinkMessage.lineBreakMode = NSLineBreakByWordWrapping;
     downloadLinkMessage.numberOfLines = 0;
-    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:kNaverAuthBannerDownloadLink];
+  
+    // Crash : MOOON 여기 크래쉬는 나중에 잡자.
+    // NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:kNaverAuthBannerDownloadLink];
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:@"Download App"];
     [attributeString addAttribute:NSUnderlineStyleAttributeName
                             value:[NSNumber numberWithInt:1]
                             range:(NSRange){0,[attributeString length]}];

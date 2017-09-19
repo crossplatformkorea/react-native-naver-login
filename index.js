@@ -1,6 +1,22 @@
-
 import { NativeModules, Platform } from 'react-native';
 
-const { RNNaverLogin } = NativeModules;
+const { IosNaverLogin } = NativeModules; // 여기 이름은 달라야 함.
 
-export default RNNaverLogin;
+const RNNaverLogin = {
+  login(param, callback) {
+    if (Platform.OS === 'ios') {
+      IosNaverLogin.login(param, callback);
+    } else {
+      // Android Login..
+    }
+  },
+  logout() {
+    if (Platform.OS === 'ios') {
+      IosNaverLogin.logout();
+    } else {
+      // Android Login..
+    }
+  }
+}
+
+module.exports = { RNNaverLogin }

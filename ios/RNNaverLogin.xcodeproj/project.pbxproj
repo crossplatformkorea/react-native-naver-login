@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B3E7B58A1CC2AC0600A0062D /* RNNaverLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNNaverLogin.m */; };
 		BD3B79CA1F694A7C007DE103 /* libNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD3B79C41F694A7C007DE103 /* libNaverLogin.a */; };
 		BD3B79CB1F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3B79C81F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m */; };
+		BDABEAA31F7138BF0078AB33 /* IosNaverLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = BDABEAA21F7138BF0078AB33 /* IosNaverLogin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,8 +26,6 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNNaverLogin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNaverLogin.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3E7B5881CC2AC0600A0062D /* RNNaverLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNaverLogin.h; sourceTree = "<group>"; };
-		B3E7B5891CC2AC0600A0062D /* RNNaverLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNaverLogin.m; sourceTree = "<group>"; };
 		BD3B79BF1F694A7C007DE103 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BD3B79C01F694A7C007DE103 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		BD3B79C11F694A7C007DE103 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
@@ -37,6 +35,8 @@
 		BD3B79C61F694A7C007DE103 /* NaverThirdPartyLoginConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaverThirdPartyLoginConnection.h; sourceTree = "<group>"; };
 		BD3B79C71F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLoginThirdPartyOAuth20InAppBrowserViewController.h; sourceTree = "<group>"; };
 		BD3B79C81F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLoginThirdPartyOAuth20InAppBrowserViewController.m; sourceTree = "<group>"; };
+		BDABEAA11F7138BF0078AB33 /* IosNaverLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IosNaverLogin.h; sourceTree = SOURCE_ROOT; };
+		BDABEAA21F7138BF0078AB33 /* IosNaverLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IosNaverLogin.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +63,6 @@
 			isa = PBXGroup;
 			children = (
 				BD3B79BA1F694A7C007DE103 /* NaverAuth */,
-				B3E7B5881CC2AC0600A0062D /* RNNaverLogin.h */,
-				B3E7B5891CC2AC0600A0062D /* RNNaverLogin.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,6 +70,8 @@
 		BD3B79BA1F694A7C007DE103 /* NaverAuth */ = {
 			isa = PBXGroup;
 			children = (
+				BDABEAA11F7138BF0078AB33 /* IosNaverLogin.h */,
+				BDABEAA21F7138BF0078AB33 /* IosNaverLogin.m */,
 				BD3B79BE1F694A7C007DE103 /* Resource */,
 				BD3B79C31F694A7C007DE103 /* thirdPartyModule */,
 			);
@@ -157,7 +157,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E7B58A1CC2AC0600A0062D /* RNNaverLogin.m in Sources */,
+				BDABEAA31F7138BF0078AB33 /* IosNaverLogin.m in Sources */,
 				BD3B79CB1F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

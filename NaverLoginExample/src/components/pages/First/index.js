@@ -24,29 +24,36 @@ class Page extends Component {
     console.log('Naver Login');
     const initials = {
       // // kServiceAppUrlScheme, kConsumerKey, kConsumerSecret, kServiceAppName }
-      kConsumerKey: 'VN6WKGFQ3pJ0xBXRtlN9',
-      kConsumerSecret: 'AHBgzH9ZkM',
-      kServiceAppName: 'dooboolab',
-      kServiceAppUrlScheme: 'dooboolaburlscheme', // only for iOS
+      // kConsumerKey: 'VN6WKGFQ3pJ0xBXRtlN9',
+      // kConsumerSecret: 'AHBgzH9ZkM',
+      // kServiceAppName: 'dooboolab',
+      // kServiceAppUrlScheme: 'dooboolaburlscheme', // only for iOS
+
+      kConsumerKey: "SIVlb8pJop7NMpNJcy9c",
+      kServiceAppUrlScheme: "comthemoinremiturlscheme",
+      kConsumerSecret: "YV0HTkaPda",
+      kServiceAppName: "MOIN"
     };
 
     try {
-      const result = await naverLogin(JSON.stringify(initials));
+      // const result = await naverLogin(JSON.stringify(initials));
+
+      const result = await naverLogin(initials);
 
       // Alert.alert('results');
       console.log('response');
       console.log(result);
-
-      if (result) {
-        const profileResult = await getNaverProfile(result.accessToken);
-        console.log('profile');
-        console.log(profileResult);
-        result.profile = profileResult;
-
-        this.props.navigation.navigate('Second', {
-          result,
-        });
-      }
+      //
+      // if (result) {
+      //   const profileResult = await getNaverProfile(result.accessToken);
+      //   console.log('profile');
+      //   console.log(profileResult);
+      //   result.profile = profileResult;
+      //
+      //   this.props.navigation.navigate('Second', {
+      //     result,
+      //   });
+      // }
 
     } catch (err) {
       console.log('error');

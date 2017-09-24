@@ -31,11 +31,7 @@ class Page extends Component {
 
     try {
       const result = await naverLogin(JSON.stringify(initials));
-      // const result = await naverLogin(initials);
-
-      // Alert.alert('results');
-      console.log('response');
-      console.log(result);
+      console.log('token: ' + result);
 
       if (result) {
         console.log('yes result');

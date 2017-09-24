@@ -23,6 +23,9 @@ Tutorial을 곧 업데이트 예정중이나 현재는 NaverLoginExample 폴더 
 2. Go to `node_modules` ➜ `react-native-naver-login` and add `RNNaverLogin.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libRNNaverLogin.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. Run your project (`Cmd+R`)<
+5. include LSApplicationQueriesSchemes 
+  - naversearchapp
+  - naversearchthirdlogin
 
 #### Android
 
@@ -39,18 +42,9 @@ Tutorial을 곧 업데이트 예정중이나 현재는 NaverLoginExample 폴더 
       compile project(':react-native-naver-login')
   	```
 
-#### Windows
-[Read it! :D](https://github.com/ReactWindows/react-native)
-
-1. In Visual Studio add the `RNNaverLogin.sln` in `node_modules/react-native-naver-login/windows/RNNaverLogin.sln` folder to their solution, reference from their app.
-2. Open up your `MainPage.cs` app
-  - Add `using Naver.Login.RNNaverLogin;` to the usings at the top of the file
-  - Add `new RNNaverLoginPackage()` to the `List<IReactPackage>` returned by the `Packages` method
-
-
 ## Usage
 ```javascript
-import RNNaverLogin from 'react-native-naver-login';
+import { NaverLogin, getProfile } from 'react-native-naver-login';
 
 // 현재 라이브러리는 3가지의 브릿지 함수로 구현되어 있습니다.
 // 1. login
@@ -66,36 +60,33 @@ const initials = {
 	urlScheme: 'dooboolaburlscheme', // only for iOS
 };
 
-const naverLogin = (initials) => {
+const naverLogin = (props) => {
   return new Promise(function (resolve, reject) {
-    RNNaverLogin.login(initials, (err, response) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      console.log('response');
-      console.log(response);
-      resolve(JSON.parse(response));
-    });
+      console.log(props);
+      NaverLogin.login(props, (err, token) => {
+        console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(token);
+      });
   });
 };
 
 const naverLogout = () => {
-  RNNaverLogin.logout();
+  NaverLogin.logout();
 }
 
-const getNaverProfile = (token) => {
-  return new Promise(function (resolve, reject) {
-    RNNaverLogin.getProfile(token, (err, response) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      console.log('response');
-      console.log(response);
-      resolve(JSON.parse(response));
-    });
-  });
+const getNaverProfile = async(token) => {
+  let result = null;
+  try {
+    result = await getProfile(token);
+  } catch (err) {
+    console.log('err');
+    console.log(err);
+  }
+  return result;
 }
 
 // 위와 같이 함수를 짜주고 아래서 사용한다.

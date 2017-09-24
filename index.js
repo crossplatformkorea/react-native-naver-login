@@ -1,22 +1,35 @@
 import { NativeModules, Platform } from 'react-native';
 
-const { IosNaverLogin } = NativeModules; // 여기 이름은 달라야 함.
+const { IosNaverLogin, RNNaverLogin } = NativeModules; // 여기 이름은 달라야 함.
 
-const RNNaverLogin = {
+// const getNaverProfile = {}
+
+
+const NaverLoginIos = {
   login(param, callback) {
-    if (Platform.OS === 'ios') {
-      IosNaverLogin.login(param, callback);
-    } else {
-      // Android Login..
-    }
+    IosNaverLogin.login(JSON.parse(param), callback);
   },
   logout() {
-    if (Platform.OS === 'ios') {
-      IosNaverLogin.logout();
-    } else {
-      // Android Login..
-    }
+    IosNaverLogin.logout();
   }
 }
 
-module.exports = { RNNaverLogin }
+const getProfile = (token) => {
+  return fetch('https://openapi.naver.com/v1/nid/me', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  }).then((response) => response.json()).then((responseJson) => {
+    return responseJson;
+  }).catch((err) => {
+    console.log('getProfile err');
+    console.log(err);
+  });
+};
+
+const NaverLogin = Platform.OS === 'ios'
+  ? NaverLoginIos
+  : RNNaverLogin;
+
+module.exports = { NaverLogin, getProfile }

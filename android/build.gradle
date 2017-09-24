@@ -36,6 +36,5 @@ repositories {
 
 dependencies {
   compile 'com.facebook.react:react-native:+'
-  compile 'com.loopj.android:android-async-http:1.4.9'
   compile files('src/main/libs/3rdparty_login_library_android_4.1.4.jar')
 }

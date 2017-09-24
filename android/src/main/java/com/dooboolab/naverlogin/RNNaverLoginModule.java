@@ -10,15 +10,11 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.UiThreadUtil;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
 
 public class RNNaverLoginModule extends ReactContextBaseJavaModule {
   final String TAG = "ReactNaverModule";
@@ -36,18 +32,18 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
     return "RNNaverLogin";
   }
 
-  @ReactMethod
-  public void getProfile(String accessToken, final Callback cb) {
-    AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-    asyncHttpClient.addHeader("Authorization", "Bearer " + accessToken);
-    asyncHttpClient.get(reactContext, "https://openapi.naver.com/v1/nid/me", new JsonHttpResponseHandler() {
-      @Override
-      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-        super.onSuccess(statusCode, headers, response);
-        cb.invoke(null, response.toString());
-      }
-    });
-  }
+//  @ReactMethod
+//  public void getProfile(String accessToken, final Callback cb) {
+//    AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+//    asyncHttpClient.addHeader("Authorization", "Bearer " + accessToken);
+//    asyncHttpClient.get(reactContext, "https://openapi.naver.com/v1/nid/me", new JsonHttpResponseHandler() {
+//      @Override
+//      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//        super.onSuccess(statusCode, headers, response);
+//        cb.invoke(null, response.toString());
+//      }
+//    });
+//  }
 
   @ReactMethod
   public void logout() {
@@ -86,7 +82,8 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
                       response.put("refreshToken", refreshToken);
                       response.put("expiresAt", expiresAt);
                       response.put("tokenType", tokenType);
-                      cb.invoke(null, response.toString());
+                      // cb.invoke(null, response.toString());
+                      cb.invoke(null, accessToken);
                     } catch (JSONException je) {
                       Log.e(TAG, "JSONEXception: " + je.getMessage());
                       cb.invoke(je.getMessage(), null);

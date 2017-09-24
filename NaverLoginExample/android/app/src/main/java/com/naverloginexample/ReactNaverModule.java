@@ -36,18 +36,18 @@ public class ReactNaverModule extends ReactContextBaseJavaModule {
     return "ReactNaverModule";
   }
 
-  @ReactMethod
-  public void getProfile(String accessToken, final Callback cb) {
-    AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-    asyncHttpClient.addHeader("Authorization", "Bearer " + accessToken);
-    asyncHttpClient.get(reactContext, "https://openapi.naver.com/v1/nid/me", new JsonHttpResponseHandler() {
-      @Override
-      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-        super.onSuccess(statusCode, headers, response);
-        cb.invoke(null, response.toString());
-      }
-    });
-  }
+//  @ReactMethod
+//  public void getProfile(String accessToken, final Callback cb) {
+//    AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+//    asyncHttpClient.addHeader("Authorization", "Bearer " + accessToken);
+//    asyncHttpClient.get(reactContext, "https://openapi.naver.com/v1/nid/me", new JsonHttpResponseHandler() {
+//      @Override
+//      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//        super.onSuccess(statusCode, headers, response);
+//        cb.invoke(null, response.toString());
+//      }
+//    });
+//  }
 
   @ReactMethod
   public void logout() {

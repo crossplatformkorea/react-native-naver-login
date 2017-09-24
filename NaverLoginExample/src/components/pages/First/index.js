@@ -23,37 +23,38 @@ class Page extends Component {
   onNaverLogin = async() => {
     console.log('Naver Login');
     const initials = {
-      // // kServiceAppUrlScheme, kConsumerKey, kConsumerSecret, kServiceAppName }
-      // kConsumerKey: 'VN6WKGFQ3pJ0xBXRtlN9',
-      // kConsumerSecret: 'AHBgzH9ZkM',
-      // kServiceAppName: 'dooboolab',
-      // kServiceAppUrlScheme: 'dooboolaburlscheme', // only for iOS
-
-      kConsumerKey: "SIVlb8pJop7NMpNJcy9c",
-      kServiceAppUrlScheme: "comthemoinremiturlscheme",
-      kConsumerSecret: "YV0HTkaPda",
-      kServiceAppName: "MOIN"
+      kConsumerKey: 'VN6WKGFQ3pJ0xBXRtlN9',
+      kConsumerSecret: 'AHBgzH9ZkM',
+      kServiceAppName: 'dooboolab',
+      kServiceAppUrlScheme: 'dooboolaburlscheme', // only for iOS
     };
 
     try {
-      // const result = await naverLogin(JSON.stringify(initials));
-
-      const result = await naverLogin(initials);
+      const result = await naverLogin(JSON.stringify(initials));
+      // const result = await naverLogin(initials);
 
       // Alert.alert('results');
       console.log('response');
       console.log(result);
-      //
-      // if (result) {
-      //   const profileResult = await getNaverProfile(result.accessToken);
-      //   console.log('profile');
-      //   console.log(profileResult);
-      //   result.profile = profileResult;
-      //
-      //   this.props.navigation.navigate('Second', {
-      //     result,
-      //   });
-      // }
+
+      if (result) {
+        console.log('yes result');
+        const profileResult = await getNaverProfile(result);
+        console.log('profile');
+        console.log(profileResult);
+        if (profileResult.resultcode === '024') {
+          Alert.alert('로그인 실패', profileResult.message);
+          return;
+        }
+
+        result.profile = profileResult;
+        this.props.navigation.navigate('Second', {
+          result,
+          profileResult,
+        });
+      } else {
+        console.log('no result');
+      }
 
     } catch (err) {
       console.log('error');

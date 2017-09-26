@@ -19,13 +19,22 @@ Repository 주소: https://github.com/hyochan35/react-native-naver-login
 
 #### iOS
 
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-naver-login` and add `RNNaverLogin.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRNNaverLogin.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project (`Cmd+R`)<
-5. include LSApplicationQueriesSchemes 
+프로젝트 링크(Xcode project 와 Build Phase에 libRNNaverLogin.a 파일 링크)는 react-native link 명령어를 통하여 세팅이 되며 추가적인 세팅, 주의사항은 아래와 같습니다.
+
+1. [info.plist] 파일 LSApplicationQueriesSchemes 항목에 아래 항목을 추가합니다.
   - naversearchapp
   - naversearchthirdlogin
+  * 세팅 후 Facebook 관련 세팅을 할 때 이 항목이 지워지는 경우가 있습니다.
+2. 네이버 문서와 같이 세팅 페이지의 info 탭의 URL Types 에 URL Schemes 를 추가합니다.
+3. AppDelegate 클래스에 추가되는 세팅은 매뉴얼로 하셔야 합니다.
+  [application: openURL: options] 에서는  if ([url.scheme isEqualToString:@"your_apps_urlscheme"]) 을 통하여 이 함수를 사용하는 다른 액션과 구별하시면 됩니다.
+4. NLoginThirdPartyOAuth20InAppBrowserViewController.m 파일의 다음 2군데에서 Crash 가 날 때가 있습니다.
+  이 부분은 웹뷰를 띄울 경우 언어별 메시지를 표시하는 부분입니다만 에러가 나는 경우가 있어 현재는 영어로 표시했습니다.
+```
+  bannerMessage.text = kNaverAuthBannerMessage;
+  NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:kNaverAuthBannerDownloadLink];
+
+```
 
 #### Android
 
@@ -109,4 +118,3 @@ onNaverLogin = async() => {
 }
 
 ```
-  

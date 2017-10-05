@@ -101,16 +101,29 @@ const getNaverProfile = async(token) => {
 // 위와 같이 함수를 짜주고 아래서 사용한다.
 onNaverLogin = async() => {
 	try {
-		const result = await naverLogin(JSON.stringify(initials));
-		if (result) {
-			const profileResult = await getNaverProfile(result.accessToken);
-			result.profile = profileResult;
+      const result = await naverLogin(JSON.stringify(initials));
+      console.log('token: ' + result);
 
-			// 다음 페이지로 넘어간다.
-			this.props.navigation.navigate('Second', {
-				result,
-			});
-		}
+      if (result) {
+        console.log('yes result');
+        const profileResult = await getNaverProfile(result);
+        console.log('profile');
+        console.log(profileResult);
+        if (profileResult.resultcode === '024') {
+          Alert.alert('로그인 실패', profileResult.message);
+          return;
+        }
+
+        result.profile = profileResult;
+
+        // 성공시 다음 페이지로 넘어간다.
+        this.props.navigation.navigate('Second', {
+          result,
+          profileResult,
+        });
+      } else {
+        console.log('no result');
+      }
 	} catch (err) {
 		console.log('error');
 		console.log(err);

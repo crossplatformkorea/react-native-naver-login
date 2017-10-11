@@ -62,24 +62,25 @@ import { NaverLogin, getProfile } from 'react-native-naver-login';
 // NaverLoginExample에 보시면 어떻게 쓰는지 확인할 수 있습니다. 간략한 코드는 아래 기재하겠습니다.
 
 // 우선 네이버 로그인에 필요한 값들을 설정합니다.
+console.log('Naver Login');
 const initials = {
-	key: 'VN6WKGFQ3pJ0xBXRtlN9',
-	secret: 'AHBgzH9ZkM',
-	name: 'dooboolab',
-	urlScheme: 'dooboolaburlscheme', // only for iOS
+  kConsumerKey: 'VN6WKGFQ3pJ0xBXRtlN9',
+  kConsumerSecret: 'AHBgzH9ZkM',
+  kServiceAppName: 'dooboolab',
+  kServiceAppUrlScheme: 'dooboolaburlscheme', // only for iOS
 };
 
 const naverLogin = (props) => {
   return new Promise(function (resolve, reject) {
-      console.log(props);
-      NaverLogin.login(props, (err, token) => {
-        console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(token);
-      });
+    console.log(props);
+    NaverLogin.login(props, (err, token) => {
+      console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(token);
+    });
   });
 };
 
@@ -100,34 +101,34 @@ const getNaverProfile = async(token) => {
 
 // 위와 같이 함수를 짜주고 아래서 사용한다.
 onNaverLogin = async() => {
-	try {
-      const result = await naverLogin(JSON.stringify(initials));
-      console.log('token: ' + result);
+  try {
+    const result = await naverLogin(JSON.stringify(initials));
+    console.log('token: ' + result);
 
-      if (result) {
-        console.log('yes result');
-        const profileResult = await getNaverProfile(result);
-        console.log('profile');
-        console.log(profileResult);
-        if (profileResult.resultcode === '024') {
-          Alert.alert('로그인 실패', profileResult.message);
-          return;
-        }
-
-        result.profile = profileResult;
-
-        // 성공시 다음 페이지로 넘어간다.
-        this.props.navigation.navigate('Second', {
-          result,
-          profileResult,
-        });
-      } else {
-        console.log('no result');
+    if (result) {
+      console.log('yes result');
+      const profileResult = await getNaverProfile(result);
+      console.log('profile');
+      console.log(profileResult);
+      if (profileResult.resultcode === '024') {
+        Alert.alert('로그인 실패', profileResult.message);
+        return;
       }
-	} catch (err) {
-		console.log('error');
-		console.log(err);
-	}
+
+      result.profile = profileResult;
+
+      // 성공시 다음 페이지로 넘어간다.
+      this.props.navigation.navigate('Second', {
+        result,
+        profileResult,
+      });
+    } else {
+      console.log('no result');
+    }
+  } catch (err) {
+    console.log('error');
+    console.log(err);
+  }
 }
 
 ```

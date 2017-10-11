@@ -7,7 +7,7 @@ const { IosNaverLogin, RNNaverLogin } = NativeModules; // 여기 이름은 달�
 
 const NaverLoginIos = {
   login(param, callback) {
-    IosNaverLogin.login(JSON.parse(param), callback);
+    IosNaverLogin.login(JSON.stringify(param), callback);
   },
   logout() {
     IosNaverLogin.logout();

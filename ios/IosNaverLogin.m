@@ -61,26 +61,30 @@
 RCT_EXPORT_MODULE();
 
 ////////////////////////////////////////////////////     _//////////_// 네이버 관련 세팅
-RCT_EXPORT_METHOD(login:(NSDictionary *)keyObj callback:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(login:(NSString *)keyJson callback:(RCTResponseSenderBlock)callback) {
   RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: login \n\n\n\n .");
   naverTokenSend = callback;
-  
+
   naverConn = [NaverThirdPartyLoginConnection getSharedInstance];
   naverConn.delegate = self;
-  
+
+  NSData *jsonData = [keyJson dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *e;
+  NSDictionary *keyObj = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e];
+
   [naverConn setConsumerKey:[keyObj objectForKey:@"kConsumerKey"]];
   [naverConn setConsumerSecret:[keyObj objectForKey:@"kConsumerSecret"]];
   [naverConn setAppName:[keyObj objectForKey:@"kServiceAppName"]];
   [naverConn setServiceUrlScheme:[keyObj objectForKey:@"kServiceAppUrlScheme"]];
-  
+
   [naverConn setIsNaverAppOauthEnable:YES]; // 네이버 앱 사용 안할 때는 NO
   [naverConn setIsInAppOauthEnable:YES]; // 내장 웹뷰 사용 안할 때는 NO
-  
+
   [naverConn setOnlyPortraitSupportInIphone:YES]; // 포트레이트 레이아웃만 사용하는 경우.
-  
+
   NSString *token = [naverConn accessToken];
   NSLog(@"\n\n\n Nearo Token ::  %@", token);
-  
+
   if ([naverConn isValidAccessTokenExpireTimeNow]) {
     NSLog(@"\n\n\n Nearo Token  ::   >>>>>>>>  VALID 바로 RN 로 넘겨줌.");
     naverTokenSend(@[[NSNull null], token]);

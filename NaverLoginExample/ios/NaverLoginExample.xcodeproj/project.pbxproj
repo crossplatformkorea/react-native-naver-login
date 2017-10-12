@@ -1165,7 +1165,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.themoin.remit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dooboolab.naverlogin;
 				PRODUCT_NAME = NaverLoginExample;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1188,7 +1188,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.themoin.remit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dooboolab.naverlogin;
 				PRODUCT_NAME = NaverLoginExample;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

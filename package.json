@@ -7,11 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "react-native"
+    "react-native", "naver", "네아로", "네이버"
   ],
-  "author": "",
-  "license": "",
+  "author": "Hyochan Jang, Jongwoo Moon",
+  "license": "MIT",
   "peerDependencies": {
-    "react-native": "^0.41.2"
+    "react-native": "^0.49.1"
   }
 }

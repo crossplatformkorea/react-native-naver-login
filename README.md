@@ -51,6 +51,18 @@ Repository 주소: https://github.com/hyochan35/react-native-naver-login
       compile project(':react-native-naver-login')
   	```
 
+### Additional Check in Android
+1. Check if applicationId is set in your defaultConfig in app/build.gradle file.
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+    ...
+
+    defaultConfig {
+        applicationId "com.my.app.name"
+        ...
+}
+
 ## Usage
 ```javascript
 import { NaverLogin, getProfile } from 'react-native-naver-login';

@@ -136,7 +136,7 @@ const getNaverProfile = async(token) => {
 // 위와 같이 함수를 짜주고 아래서 사용한다.
 onNaverLogin = async() => {
   try {
-    const result = await naverLogin(JSON.stringify(initials));
+    const result = await naverLogin(initials);
     console.log('token: ' + result);
 
     if (result) {

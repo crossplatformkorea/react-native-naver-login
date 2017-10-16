@@ -37,38 +37,7 @@ class Page extends Component {
     };
   }
 
-  // onNaverLogin = async() => {
-  //   console.log('Naver Login');
-  //
-  //   try {
-  //     const result = await naverLogin(initials);
-  //     console.log('token: ' + result);
-  //
-  //     if (result) {
-  //       console.log('yes result');
-  //       const profileResult = await getNaverProfile(result);
-  //       console.log('profile');
-  //       console.log(profileResult);
-  //       if (profileResult.resultcode === '024') {
-  //         Alert.alert('로그인 실패', profileResult.message);
-  //         return;
-  //       }
-  //
-  //       result.profile = profileResult;
-  //       this.props.navigation.navigate('Second', {
-  //         result,
-  //         profileResult,
-  //       });
-  //     } else {
-  //       console.log('no result');
-  //     }
-  //
-  //   } catch (err) {
-  //     console.log('error');
-  //     console.log(err);
-  //   }
-  // }
-
+  // 로그인 후 내 프로필 가져오기.
   async fetchProfile() {
     const profileResult = await getProfile(this.state.theToken);
     console.log(profileResult);
@@ -81,6 +50,7 @@ class Page extends Component {
     });
   }
 
+  // 네이버 로그인 시작.
   async naverLoginStart() {
     console.log('  naverLoginStart  ed');
     NaverLogin.login(initials, (err, token) => {

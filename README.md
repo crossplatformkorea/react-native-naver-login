@@ -62,6 +62,17 @@ android {
         applicationId "com.my.app.name"
         ...
 }
+4. Build 과정에서 WrongManifestParent 에러 발생 시 (로그에 나오는 대로)아래 코드를 app/build.gradle 에 추가해 줍니다.
+```
+android {
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
+```
 
 ## Usage
 ```javascript

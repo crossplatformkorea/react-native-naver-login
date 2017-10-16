@@ -62,7 +62,7 @@ android {
         applicationId "com.my.app.name"
         ...
 }
-4. Build 과정에서 WrongManifestParent 에러 발생 시 (로그에 나오는 대로)아래 코드를 app/build.gradle 에 추가해 줍니다.
+2. Build 과정에서 WrongManifestParent 에러 발생 시 (로그에 나오는 대로)아래 코드를 app/build.gradle 에 추가해 줍니다.
 ```
 android {
     lintOptions {
@@ -72,6 +72,17 @@ android {
         abortOnError false
     }
 }
+```
+3. 필요하면 Manifest 파일에 Activity 를 추가합니다.
+```
+<activity
+  android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
+  android:screenOrientation="portrait"
+  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+<activity
+  android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
+  android:label="OAuth2.0 In-app"
+  android:screenOrientation="portrait" />
 ```
 
 ## Usage

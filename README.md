@@ -86,7 +86,12 @@ android {
 ```
 
 ## Usage
+
+실제 예는 다음 소스를 참고하세요.
+https://github.com/dooboolab/react-native-naver-login/blob/master/NaverLoginExample/src/components/pages/First/index.js
+
 ```javascript
+
 import { NaverLogin, getProfile } from 'react-native-naver-login';
 
 // 현재 라이브러리는 3가지의 브릿지 함수로 구현되어 있습니다.

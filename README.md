@@ -53,6 +53,7 @@ Repository 주소: https://github.com/hyochan35/react-native-naver-login
 
 ### Additional Check in Android
 1. Check if applicationId is set in your defaultConfig in app/build.gradle file.
+```
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -62,6 +63,7 @@ android {
         applicationId "com.my.app.name"
         ...
 }
+```
 2. Build 과정에서 WrongManifestParent 에러 발생 시 (로그에 나오는 대로)아래 코드를 app/build.gradle 에 추가해 줍니다.
 ```
 android {
@@ -86,9 +88,8 @@ android {
 ```
 
 ## Usage
-
-실제 예는 다음 소스를 참고하세요.
-https://github.com/dooboolab/react-native-naver-login/blob/master/NaverLoginExample/src/components/pages/First/index.js
+* 실제 예는 다음 소스를 참고하세요.
+* https://github.com/dooboolab/react-native-naver-login/blob/master/NaverLoginExample/src/components/pages/First/index.js
 
 ```javascript
 

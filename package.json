@@ -1,6 +1,6 @@
 {
   "name": "react-native-naver-login",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "네이버 아이디로 로그인 모듈",
   "main": "index.js",
   "scripts": {

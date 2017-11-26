@@ -28,10 +28,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.themoin.remit</string>
+			<string>com.dooboolab.naverlogin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>comthemoinremiturlscheme</string>
+				<string>dooboolaburlscheme</string>
 			</array>
 		</dict>
 	</array>

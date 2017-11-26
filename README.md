@@ -53,6 +53,7 @@ Repository 주소: https://github.com/hyochan35/react-native-naver-login
 
 ### Additional Check in Android
 1. Check if applicationId is set in your defaultConfig in app/build.gradle file.
+```
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -62,9 +63,36 @@ android {
         applicationId "com.my.app.name"
         ...
 }
+```
+2. Build 과정에서 WrongManifestParent 에러 발생 시 (로그에 나오는 대로)아래 코드를 app/build.gradle 에 추가해 줍니다.
+```
+android {
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
+```
+3. 필요하면 Manifest 파일에 Activity 를 추가합니다.
+```
+<activity
+  android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
+  android:screenOrientation="portrait"
+  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+<activity
+  android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
+  android:label="OAuth2.0 In-app"
+  android:screenOrientation="portrait" />
+```
 
 ## Usage
+* 실제 예는 다음 소스를 참고하세요.
+* https://github.com/dooboolab/react-native-naver-login/blob/master/NaverLoginExample/src/components/pages/First/index.js
+
 ```javascript
+
 import { NaverLogin, getProfile } from 'react-native-naver-login';
 
 // 현재 라이브러리는 3가지의 브릿지 함수로 구현되어 있습니다.
@@ -114,7 +142,7 @@ const getNaverProfile = async(token) => {
 // 위와 같이 함수를 짜주고 아래서 사용한다.
 onNaverLogin = async() => {
   try {
-    const result = await naverLogin(JSON.stringify(initials));
+    const result = await naverLogin(initials);
     console.log('token: ' + result);
 
     if (result) {

@@ -1,7 +1,8 @@
 {
   "name": "react-native-naver-login",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
+  "postinstall": "node node_modules/dooboolab-welcome/index.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +14,8 @@
   "license": "",
   "peerDependencies": {
     "react-native": "^0.41.2"
+  },
+  "devDependencies": {
+    "dooboolab-welcome": "^1.0.0"
   }
 }

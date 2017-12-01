@@ -1,8 +1,7 @@
 
 # react-native-naver-login
 React Native 네이버 로그인 라이브러리 입니다.
-Tutorial을 곧 업데이트 예정중이나 현재는 NaverLoginExample 폴더 안의
-튜토리얼을 확인해주시면 감사하겠습니다.
+세부 예제는 NaverLoginExample 폴더 안의 Example 프로젝트를 확인해주시면 감사하겠습니다.
 
 Repository 주소: https://github.com/hyochan35/react-native-naver-login
 

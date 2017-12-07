@@ -1,6 +1,6 @@
 {
   "name": "react-native-naver-login",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "네이버 아이디로 로그인 모듈",
   "main": "index.js",
   "postinstall": "node node_modules/dooboolab-welcome/index.js",

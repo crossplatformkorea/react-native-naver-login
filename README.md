@@ -1,10 +1,14 @@
-
 # react-native-naver-login
+<p align="left">
+  <a href="https://npmjs.org/package/react-native-naver-login"><img alt="npm version" src="http://img.shields.io/npm/v/react-native-naver-login.svg?style=flat-square"></a>
+  <a href="https://npmjs.org/package/react-native-naver-login"><img alt="npm version" src="http://img.shields.io/npm/dm/react-native-naver-login.svg?style=flat-square"></a>
+  <a href="https://npmjs.org/package/react-native-naver-login"><img alt="npm version" src="http://img.shields.io/npm/dm/react-native-naver-login.svg?style=flat-square"></a>
+</p>
 React Native 네이버 로그인 라이브러리 입니다.
 Tutorial을 곧 업데이트 예정중이나 현재는 NaverLoginExample 폴더 안의
 튜토리얼을 확인해주시면 감사하겠습니다.
 
-Repository 주소: https://github.com/hyochan35/react-native-naver-login
+Repository 주소: https://github.com/dooboolab/react-native-naver-login
 
 ## Getting started
 
@@ -86,6 +90,13 @@ android {
   android:label="OAuth2.0 In-app"
   android:screenOrientation="portrait" />
 ```
+
+#### Methods
+| Func  | Param  | Return | Description |
+| :------------ |:---------------:| :---------------:| :-----|
+| login | `Object` | `Promise` | 로그인. |
+| getProfile | `String` | `Promise` | 프로필 불러오기. |
+| logout |  |  | 로그아웃. |
 
 ## Usage
 * 실제 예는 다음 소스를 참고하세요.

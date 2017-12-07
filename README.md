@@ -2,7 +2,6 @@
 <p align="left">
   <a href="https://npmjs.org/package/react-native-naver-login"><img alt="npm version" src="http://img.shields.io/npm/v/react-native-naver-login.svg?style=flat-square"></a>
   <a href="https://npmjs.org/package/react-native-naver-login"><img alt="npm version" src="http://img.shields.io/npm/dm/react-native-naver-login.svg?style=flat-square"></a>
-  <a href="https://npmjs.org/package/react-native-naver-login"><img alt="npm version" src="http://img.shields.io/npm/dm/react-native-naver-login.svg?style=flat-square"></a>
 </p>
 React Native 네이버 로그인 라이브러리 입니다.
 세부 예제는 NaverLoginExample 폴더 안의 Example 프로젝트를 확인해주시면 감사하겠습니다.

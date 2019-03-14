@@ -1,7 +1,7 @@
 {
   "name": "react-native-naver-login",
-  "version": "1.2.0",
-  "description": "네이버 아이디로 로그인 모듈",
+  "version": "1.2.1",
+  "description": "React Native Module for Naver Login",
   "main": "index.js",
   "postinstall": "dooboolab-welcome postinstall",
   "scripts": {
@@ -11,7 +11,7 @@
     "react-native", "naver", "네아로", "네이버"
   ],
   "author": "dooboolab, Jongwoo Moon",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "peerDependencies": {
     "react": "*",
     "react-native": "*"

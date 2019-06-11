@@ -79,6 +79,7 @@ android {
 }
 ```
 3. 필요하면 Manifest 파일에 Activity 를 추가합니다.
+첫번째 항목이 있으면 중복된다는 에러가 날 수도 있습니다. (1.3 이후 기준)
 ```
 <activity
   android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
@@ -88,6 +89,14 @@ android {
   android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
   android:label="OAuth2.0 In-app"
   android:screenOrientation="portrait" />
+```
+
+4. Proguard 적용 제외 설정
+네이버 아이디로 로그인 라이브러리는 ProGuard로 코드 난독화를 적용하면 안 됩니다. 네이버 아이디로 로그인 라이브러리를 사용하는 애플리케이션을 .apk 파일로 빌드할 때 ProGuard를 적용한다면, 다음과 같이 proguard-project.txt 파일을 수정해 ProGuard 적용 대상에서 네이버 아이디로 로그인 라이브러리 파일을 제외합니다. 라이브러리 파일의 이름과 폴더는 버전이나 개발 환경에 따라 다를 수 있습니다. (혹은 proguard-rules.pro)
+```
+-keep public class com.nhn.android.naverlogin.** {
+       public protected *;
+}
 ```
 
 #### Methods

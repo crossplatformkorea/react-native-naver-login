@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 public class RNNaverLoginModule extends ReactContextBaseJavaModule {
   final String TAG = "ReactNaverModule";
+  private boolean loginAllow = false;
 
   private final ReactApplicationContext reactContext;
   private OAuthLogin mOAuthLoginModule;
@@ -65,6 +66,7 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void login(String initials, final Callback cb) {
+    loginAllow = true;
     final Activity activity = getCurrentActivity();
     try {
       JSONObject jsonObject = new JSONObject(initials);
@@ -96,18 +98,26 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
                       response.put("expiresAt", expiresAt);
                       response.put("tokenType", tokenType);
                       // cb.invoke(null, response.toString());
-                      cb.invoke(null, accessToken);
+                      if (loginAllow) {
+                        cb.invoke(null, accessToken);
+                        loginAllow = false;
+                      }
                     } catch (JSONException je) {
                       Log.e(TAG, "JSONEXception: " + je.getMessage());
-                      cb.invoke(je.getMessage(), null);
+                      if (loginAllow) {
+                        cb.invoke(je.getMessage(), null);
+                        loginAllow = false;
+                      }
                     }
-
                   } else {
                     String errCode = mOAuthLoginModule.getLastErrorCode(reactContext).getCode();
                     String errDesc = mOAuthLoginModule.getLastErrorDesc(reactContext);
                     String message = "errCode: " + errCode + ", errDesc: " + errDesc;
                     Log.e(TAG, message);
-                    cb.invoke(message, null);
+                    if (loginAllow) {
+                      cb.invoke(message, null);
+                      loginAllow = false;
+                    }    
                   }
                 }
               }

@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                   RNNaverLogin
                    DESC
-  s.homepage     = "https://github.com/react-native-seoul/react-native-naver-login"
+  s.homepage     = "https://github.com/react-native-seoul/react-native-naver-login.git"
   s.license      = "MIT"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author             = { "author" => "author@domain.cn" }

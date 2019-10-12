@@ -4,40 +4,44 @@ const { IosNaverLogin, RNNaverLogin } = NativeModules; // 여기 이름은 달�
 
 // const getNaverProfile = {}
 
+export interface ICallback<T> {
+  (error: Error | undefined, result: T | undefined): void;
+}
+
 const NaverLoginIos = {
-  login(param, callback) {
+  login(param: string, callback: ICallback<string>) {
     IosNaverLogin.login(JSON.stringify(param), callback);
   },
   logout() {
     IosNaverLogin.logout();
-  }
-}
+  },
+};
 
 const RNNaverLoginAndr = {
-  login(param, callback) {
+  login(param: string, callback: ICallback<string>) {
     RNNaverLogin.login(JSON.stringify(param), callback);
   },
   logout() {
     RNNaverLogin.logout();
-  }
-}
+  },
+};
 
-const getProfile = (token) => {
+export const getProfile = (token: string): Promise<Response> => {
   return fetch('https://openapi.naver.com/v1/nid/me', {
     method: 'GET',
     headers: {
       Authorization: 'Bearer ' + token,
     },
-  }).then((response) => response.json()).then((responseJson) => {
-    return responseJson;
-  }).catch((err) => {
-    console.log('getProfile err');
-    console.log(err);
-  });
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((err) => {
+      console.log('getProfile err');
+      console.log(err);
+    });
 };
 
-const NaverLogin = Platform.OS === 'ios'
-  ? NaverLoginIos
-  : RNNaverLoginAndr;
-
-module.exports = { NaverLogin, getProfile }
+export const NaverLogin =
+  Platform.OS === 'ios' ? NaverLoginIos : RNNaverLoginAndr;

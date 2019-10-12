@@ -1,5 +1,5 @@
 import { Alert, Text, View } from 'react-native';
-import { NaverLogin, getProfile } from 'react-native-naver-login';
+import { NaverLogin, getProfile } from '@react-native-seoul/naver-login';
 import React, { Component } from 'react';
 
 import NativeButton from 'apsl-react-native-button';

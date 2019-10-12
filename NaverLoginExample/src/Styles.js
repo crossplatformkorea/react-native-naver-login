@@ -1,5 +1,6 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
-import { ratio, width, height } from './constants/GlobalStyles';
+import { height, ratio, width } from './constants/GlobalStyles';
+
+import { StyleSheet } from 'react-native';
 
 EStyleSheet.build({
   $screenWidth: width,

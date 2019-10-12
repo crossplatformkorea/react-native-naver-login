@@ -1,13 +1,11 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
-import { Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
-const styles = EStyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    marginTop: Platform.OS === 'ios' ? 0 : '$statusSize',
-    paddingTop: Platform.OS === 'ios' ? '$statusPaddingSize' : 0,
-    backgroundColor: 'white',
+    marginTop: Platform.OS === 'ios' ? 0 : 40,
+    paddingTop: Platform.OS === 'ios' ? 40 : 0,
   },
   header: {
     flex: 8.8,
@@ -24,19 +22,19 @@ const styles = EStyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: '$24',
+    fontSize: 24,
     fontWeight: 'bold',
   },
   btnNaverLogin: {
-    height: '$48',
-    width: '240 * $ratio',
+    height: 48,
+    width: 240,
     alignSelf: 'center',
     backgroundColor: '#00c40f',
     borderRadius: 0,
     borderWidth: 0,
   },
   txtNaverLogin: {
-    fontSize: '$fontSize',
+    fontSize: 16,
     color: 'white',
   },
 });

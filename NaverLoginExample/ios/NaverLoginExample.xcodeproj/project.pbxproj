@@ -35,11 +35,10 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* NaverLoginExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NaverLoginExampleTests.m */; };
+		4D6204E88EE04D8D9D797DFF /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEF8961958FE4EC0A09A4FFC /* libRNNaverLogin.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		BDABEA1D1F6F8EA80078AB33 /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDABEA1C1F6F8E950078AB33 /* libRNNaverLogin.a */; };
 		BDABEA861F70FABD0078AB33 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		BDABEA941F70FCE70078AB33 /* libRNNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDABEA1C1F6F8E950078AB33 /* libRNNaverLogin.a */; };
 		EFB7F306AA1549B18B0A8079 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DABCC1C687BF4E64BC6943D0 /* libRNGestureHandler.a */; };
 /* End PBXBuildFile section */
 
@@ -212,6 +211,13 @@
 			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
 			remoteInfo = "jschelpers-tvOS";
 		};
+		45ADF2F32351AA6400F65168 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C78440D28034DABB079F4A6 /* RNNaverLogin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNNaverLogin;
+		};
 		45D809502351A7BB00F656DB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
@@ -331,13 +337,6 @@
 			remoteGlobalIDString = 3D383D621EBD27B9005632C8;
 			remoteInfo = "double-conversion-tvOS";
 		};
-		BDABEA1B1F6F8E950078AB33 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BDABEA171F6F8E950078AB33 /* RNNaverLogin.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNNaverLogin;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -361,15 +360,16 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NaverLoginExample/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1B8A60A92C9E44BCB79529CD /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
+		1C78440D28034DABB079F4A6 /* RNNaverLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNNaverLogin.xcodeproj; path = "../node_modules/@react-native-seoul/naver-login/ios/RNNaverLogin.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* NaverLoginExample-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NaverLoginExample-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* NaverLoginExample-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NaverLoginExample-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		BDABEA171F6F8E950078AB33 /* RNNaverLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNNaverLogin.xcodeproj; path = "../node_modules/react-native-naver-login/ios/RNNaverLogin.xcodeproj"; sourceTree = "<group>"; };
 		BDB0223818E7417288736DD5 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
 		DABCC1C687BF4E64BC6943D0 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
+		DEF8961958FE4EC0A09A4FFC /* libRNNaverLogin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNNaverLogin.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,8 +397,8 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				BDABEA941F70FCE70078AB33 /* libRNNaverLogin.a in Frameworks */,
 				EFB7F306AA1549B18B0A8079 /* libRNGestureHandler.a in Frameworks */,
+				4D6204E88EE04D8D9D797DFF /* libRNNaverLogin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,7 +406,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDABEA1D1F6F8EA80078AB33 /* libRNNaverLogin.a in Frameworks */,
 				2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */,
 				2D02E4C21E0B4AEC006451C7 /* libRCTAnimation.a in Frameworks */,
 				2D02E4C31E0B4AEC006451C7 /* libRCTImage-tvOS.a in Frameworks */,
@@ -545,11 +544,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		45ADF2F02351AA6400F65168 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				45ADF2F42351AA6400F65168 /* libRNNaverLogin.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		45D8093A2351A7BA00F656DB /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				DABCC1C687BF4E64BC6943D0 /* libRNGestureHandler.a */,
 				BDB0223818E7417288736DD5 /* libRNGestureHandler-tvOS.a */,
+				DEF8961958FE4EC0A09A4FFC /* libRNNaverLogin.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -584,7 +592,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				BDABEA171F6F8E950078AB33 /* RNNaverLogin.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -598,6 +605,7 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				1B8A60A92C9E44BCB79529CD /* RNGestureHandler.xcodeproj */,
+				1C78440D28034DABB079F4A6 /* RNNaverLogin.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -641,14 +649,6 @@
 			children = (
 				ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */,
 				0EB386C31F6AB7620075EC05 /* libRCTBlob-tvOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		BDABEA181F6F8E950078AB33 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BDABEA1C1F6F8E950078AB33 /* libRNNaverLogin.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -823,8 +823,8 @@
 					ProjectRef = 1B8A60A92C9E44BCB79529CD /* RNGestureHandler.xcodeproj */;
 				},
 				{
-					ProductGroup = BDABEA181F6F8E950078AB33 /* Products */;
-					ProjectRef = BDABEA171F6F8E950078AB33 /* RNNaverLogin.xcodeproj */;
+					ProductGroup = 45ADF2F02351AA6400F65168 /* Products */;
+					ProjectRef = 1C78440D28034DABB079F4A6 /* RNNaverLogin.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -992,6 +992,13 @@
 			remoteRef = 3DAD3EAE1DF850E9000B6D8A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		45ADF2F42351AA6400F65168 /* libRNNaverLogin.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNNaverLogin.a;
+			remoteRef = 45ADF2F32351AA6400F65168 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		45D809512351A7BB00F656DB /* libfishhook.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1109,13 +1116,6 @@
 			fileType = archive.ar;
 			path = "libdouble-conversion.a";
 			remoteRef = BDABE9E51F6F88A50078AB33 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BDABEA1C1F6F8E950078AB33 /* libRNNaverLogin.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNNaverLogin.a;
-			remoteRef = BDABEA1B1F6F8E950078AB33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1261,13 +1261,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-seoul/naver-login/ios/**",
 				);
 				INFOPLIST_FILE = NaverLoginExampleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1289,13 +1289,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-seoul/naver-login/ios/**",
 				);
 				INFOPLIST_FILE = NaverLoginExampleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1316,8 +1316,8 @@
 				DEVELOPMENT_TEAM = LCXV255WTL;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-seoul/naver-login/ios/**",
 				);
 				INFOPLIST_FILE = NaverLoginExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1340,8 +1340,8 @@
 				DEVELOPMENT_TEAM = LCXV255WTL;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-naver-login/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-seoul/naver-login/ios/**",
 				);
 				INFOPLIST_FILE = NaverLoginExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1373,12 +1373,12 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-seoul/naver-login/ios/**",
 				);
 				INFOPLIST_FILE = "NaverLoginExample-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1410,12 +1410,12 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-naver-login/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/@react-native-seoul/naver-login/ios/**",
 				);
 				INFOPLIST_FILE = "NaverLoginExample-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1446,7 +1446,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.NaverLoginExample-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1471,7 +1470,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.NaverLoginExample-tvOSTests";

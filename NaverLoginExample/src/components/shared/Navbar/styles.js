@@ -1,7 +1,6 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
-import { Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
-const styles = EStyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -13,7 +12,7 @@ const styles = EStyleSheet.create({
     borderColor: '#eee',
   },
   title: {
-    fontSize: '$20',
+    fontSize: 20,
     fontWeight: 'bold',
   },
   center: {
@@ -22,15 +21,15 @@ const styles = EStyleSheet.create({
     alignSelf: 'center',
   },
   leftMenu: {
-    width: '$48',
-    height: '$48',
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
   },
   rightMenu: {
-    width: '$48',
-    height: '$48',
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',

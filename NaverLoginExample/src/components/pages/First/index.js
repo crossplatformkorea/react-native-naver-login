@@ -1,15 +1,11 @@
+import { Alert, Text, View } from 'react-native';
+import { NaverLogin, getProfile } from 'react-native-naver-login';
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  Alert,
-} from 'react-native';
 
 import NativeButton from 'apsl-react-native-button';
-import { NaverLogin, getProfile } from 'react-native-naver-login';
-
 import Navbar from '../../shared/Navbar';
 import styles from './styles';
+
 // import { naverLogin, getNaverProfile } from '../../../apis/AuthApi';
 
 const initials = {
@@ -29,11 +25,13 @@ class Page extends Component {
   constructor(props) {
     super(props);
 
-    console.log('\n\n Initial Page :: src/components/pages/First/index.js \n\n');
+    console.log(
+      '\n\n Initial Page :: src/components/pages/First/index.js \n\n',
+    );
 
     this.state = {
       isNaverLoggingin: false,
-      theToken: 'token has not fetched'
+      theToken: 'token has not fetched',
     };
   }
 
@@ -58,7 +56,6 @@ class Page extends Component {
       this.setState({ theToken: token });
       if (err) {
         console.log(err);
-        return;
       }
     });
   }
@@ -66,18 +63,20 @@ class Page extends Component {
   render() {
     const { theToken } = this.state;
     return (
-      <View style={ styles.container }>
-        <View style={ styles.header }>
+      <View style={styles.container}>
+        <View style={styles.header}>
           <Navbar>SOCIAL LOGIN</Navbar>
         </View>
-        <View style={ styles.content }>
+        <View style={styles.content}>
           <NativeButton
             isLoading={this.state.isNaverLoggingin}
             onPress={() => this.naverLoginStart()}
             activeOpacity={0.5}
             style={styles.btnNaverLogin}
             textStyle={styles.txtNaverLogin}
-          >NAVER LOGIN</NativeButton>
+          >
+            NAVER LOGIN
+          </NativeButton>
           <Text>{theToken}</Text>
           <NativeButton
             isLoading={this.state.isNaverLoggingin}
@@ -85,8 +84,9 @@ class Page extends Component {
             activeOpacity={0.5}
             style={styles.btnNaverLogin}
             textStyle={styles.txtNaverLogin}
-          >Fetch Profile</NativeButton>
-
+          >
+            Fetch Profile
+          </NativeButton>
         </View>
       </View>
     );

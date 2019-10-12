@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  BackHandler,
-  StatusBar,
-} from 'react-native';
-
-import Styles from './Styles';
-
+import { StatusBar, View } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
+
 import FirstPage from './components/pages/First';
 import SecondPage from './components/pages/Second';
 
@@ -24,33 +15,34 @@ class App extends Component {
   }
 
   render() {
-    const StackNavigator = createStackNavigator({
-      First: {
-        screen: FirstPage,
-        path: 'first',
+    const StackNavigator = createStackNavigator(
+      {
+        First: {
+          screen: FirstPage,
+          path: 'first',
+        },
+        Second: {
+          screen: SecondPage,
+          path: 'second',
+        },
       },
-      Second: {
-        screen: SecondPage,
-        path: 'second',
-      },
-    }, {
-      initialRouteName: startPage,
-      header: null,
-      headerMode: 'none',
-      navigationOptions: {
+      {
+        initialRouteName: startPage,
         header: null,
+        headerMode: 'none',
+        navigationOptions: {
+          header: null,
+        },
       },
-    });
+    );
     const AppContainer = createAppContainer(StackNavigator);
     return (
-      <View style={{ flex: 1, }}>
-        <StatusBar
-          barStyle="dark-content"
-        />
-        <AppContainer/>
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" />
+        <AppContainer />
       </View>
     );
   }
 }
 
-module.exports = { App, };
+module.exports = { App };

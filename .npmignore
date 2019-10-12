@@ -2,3 +2,5 @@ NaverLoginExample/
 .idea/
 gen/
 node_modules/
+
+index.ts

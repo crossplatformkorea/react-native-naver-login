@@ -1,38 +1,42 @@
-# react-native-naver-login
+# @react-native-seoul/naver-login
+
 <p align="left">
-  <a href="https://npmjs.org/package/react-native-naver-login"><img alt="npm version" src="http://img.shields.io/npm/v/react-native-naver-login.svg?style=flat-square"></a>
-  <a href="https://npmjs.org/package/react-native-naver-login"><img src="http://img.shields.io/npm/dm/react-native-naver-login.svg?style=flat-square"></a>
-  <a href="https://npmjs.org/package/react-native-naver-login"><img src="http://img.shields.io/npm/l/react-native-naver-login.svg?style=flat-square"></a>
+  <a href="https://npmjs.org/package/@react-native-seoul/naver-login"><img alt="npm version" src="http://img.shields.io/npm/v/@react-native-seoul/naver-login.svg?style=flat-square"></a>
+  <a href="https://npmjs.org/package/@react-native-seoul/naver-login"><img src="http://img.shields.io/npm/dm/@react-native-seoul/naver-login.svg?style=flat-square"></a>
+  <a href="https://npmjs.org/package/@react-native-seoul/naver-login"><img src="http://img.shields.io/npm/l/@react-native-seoul/naver-login.svg?style=flat-square"></a>
 </p>
 React Native 네이버 로그인 라이브러리 입니다.
 세부 예제는 NaverLoginExample 폴더 안의 Example 프로젝트를 확인해주시면 감사하겠습니다.
 
-Repository 주소: https://github.com/react-native-seoul/react-native-naver-login
+Repository 주소: https://github.com/react-native-seoul/@react-native-seoul/naver-login
 
 ## Getting started
 
-`$ npm install react-native-naver-login --save`
+`$ npm install @react-native-seoul/naver-login --save`
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-naver-login`
+`$ react-native link @react-native-seoul/naver-login`
 
 ### Manual installation
-
 
 #### iOS
 
 프로젝트 링크(Xcode project 와 Build Phase에 libRNNaverLogin.a 파일 링크)는 react-native link 명령어를 통하여 세팅이 되며 추가적인 세팅, 주의사항은 아래와 같습니다.
 
 1. [info.plist] 파일 LSApplicationQueriesSchemes 항목에 아래 항목을 추가합니다.
-  - naversearchapp
-  - naversearchthirdlogin
-  * 세팅 후 Facebook 관련 세팅을 할 때 이 항목이 지워지는 경우가 있습니다.
+
+- naversearchapp
+- naversearchthirdlogin
+
+* 세팅 후 Facebook 관련 세팅을 할 때 이 항목이 지워지는 경우가 있습니다.
+
 2. 네이버 문서와 같이 세팅 페이지의 info 탭의 URL Types 에 URL Schemes 를 추가합니다.
 3. AppDelegate 클래스에 추가되는 세팅은 매뉴얼로 하셔야 합니다.
-  [application: openURL: options] 에서는  if ([url.scheme isEqualToString:@"your_apps_urlscheme"]) 을 통하여 이 함수를 사용하는 다른 액션과 구별하시면 됩니다.
+   [application: openURL: options] 에서는 if ([url.scheme isEqualToString:@"your_apps_urlscheme"]) 을 통하여 이 함수를 사용하는 다른 액션과 구별하시면 됩니다.
 4. NLoginThirdPartyOAuth20InAppBrowserViewController.m 파일의 다음 2군데에서 Crash 가 날 때가 있습니다.
-  이 부분은 웹뷰를 띄울 경우 언어별 메시지를 표시하는 부분입니다만 에러가 나는 경우가 있어 현재는 영어로 표시했습니다.
+   이 부분은 웹뷰를 띄울 경우 언어별 메시지를 표시하는 부분입니다만 에러가 나는 경우가 있어 현재는 영어로 표시했습니다.
+
 ```
   bannerMessage.text = kNaverAuthBannerMessage;
   NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:kNaverAuthBannerDownloadLink];
@@ -42,20 +46,24 @@ Repository 주소: https://github.com/react-native-seoul/react-native-naver-logi
 #### Android
 
 1. Open up `android/app/src/main/java/[...]/MainActivity.java`
-  - Add `import com.dooboolab.naverlogin.RNNaverLoginPackage;` to the imports at the top of the file
-  - Add `new RNNaverLoginPackage()` to the list returned by the `getPackages()` method
+
+- Add `import com.dooboolab.naverlogin.RNNaverLoginPackage;` to the imports at the top of the file
+- Add `new RNNaverLoginPackage()` to the list returned by the `getPackages()` method
+
 2. Append the following lines to `android/settings.gradle`:
-  	```
-  	include ':react-native-naver-login'
-  	project(':react-native-naver-login').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-naver-login/android')
-  	```
+   ```
+   include ':@react-native-seoul/naver-login'
+   project(':@react-native-seoul/naver-login').projectDir = new File(rootProject.projectDir, 	'../node_modules/@react-native-seoul/naver-login/android')
+   ```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-  	```
-      compile project(':react-native-naver-login')
-  	```
+   ```
+     compile project(':@react-native-seoul/naver-login')
+   ```
 
 ### Additional Check in Android
+
 1. Check if applicationId is set in your defaultConfig in app/build.gradle file.
+
 ```
 android {
     compileSdkVersion 23
@@ -67,7 +75,9 @@ android {
         ...
 }
 ```
+
 2. Build 과정에서 WrongManifestParent 에러 발생 시 (로그에 나오는 대로)아래 코드를 app/build.gradle 에 추가해 줍니다.
+
 ```
 android {
     lintOptions {
@@ -78,8 +88,10 @@ android {
     }
 }
 ```
+
 3. 필요하면 Manifest 파일에 Activity 를 추가합니다.
-첫번째 항목이 있으면 중복된다는 에러가 날 수도 있습니다. (1.3 이후 기준)
+   첫번째 항목이 있으면 중복된다는 에러가 날 수도 있습니다. (1.3 이후 기준)
+
 ```
 <activity
   android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
@@ -92,7 +104,8 @@ android {
 ```
 
 4. Proguard 적용 제외 설정
-네이버 아이디로 로그인 라이브러리는 ProGuard로 코드 난독화를 적용하면 안 됩니다. 네이버 아이디로 로그인 라이브러리를 사용하는 애플리케이션을 .apk 파일로 빌드할 때 ProGuard를 적용한다면, 다음과 같이 proguard-project.txt 파일을 수정해 ProGuard 적용 대상에서 네이버 아이디로 로그인 라이브러리 파일을 제외합니다. 라이브러리 파일의 이름과 폴더는 버전이나 개발 환경에 따라 다를 수 있습니다. (혹은 proguard-rules.pro)
+   네이버 아이디로 로그인 라이브러리는 ProGuard로 코드 난독화를 적용하면 안 됩니다. 네이버 아이디로 로그인 라이브러리를 사용하는 애플리케이션을 .apk 파일로 빌드할 때 ProGuard를 적용한다면, 다음과 같이 proguard-project.txt 파일을 수정해 ProGuard 적용 대상에서 네이버 아이디로 로그인 라이브러리 파일을 제외합니다. 라이브러리 파일의 이름과 폴더는 버전이나 개발 환경에 따라 다를 수 있습니다. (혹은 proguard-rules.pro)
+
 ```
 -keep public class com.nhn.android.naverlogin.** {
        public protected *;
@@ -100,19 +113,20 @@ android {
 ```
 
 #### Methods
-| Func  | Param  | Return | Description |
-| :------------ |:---------------:| :---------------:| :-----|
-| login | `Object` | `Promise` | 로그인. |
+
+| Func       |  Param   |  Return   | Description      |
+| :--------- | :------: | :-------: | :--------------- |
+| login      | `Object` | `Promise` | 로그인.          |
 | getProfile | `String` | `Promise` | 프로필 불러오기. |
-| logout |  |  | 로그아웃. |
+| logout     |          |           | 로그아웃.        |
 
 ## Usage
-* 실제 예는 다음 소스를 참고하세요.
-* https://github.com/dooboolab/react-native-naver-login/blob/master/NaverLoginExample/src/components/pages/First/index.js
+
+- 실제 예는 다음 소스를 참고하세요.
+- https://github.com/dooboolab/@react-native-seoul/naver-login/blob/master/NaverLoginExample/src/components/pages/First/index.js
 
 ```javascript
-
-import { NaverLogin, getProfile } from 'react-native-naver-login';
+import { NaverLogin, getProfile } from '@react-native-seoul/naver-login';
 
 // 현재 라이브러리는 3가지의 브릿지 함수로 구현되어 있습니다.
 // 1. login
@@ -130,7 +144,7 @@ const initials = {
 };
 
 const naverLogin = (props) => {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     console.log(props);
     NaverLogin.login(props, (err, token) => {
       console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
@@ -145,9 +159,9 @@ const naverLogin = (props) => {
 
 const naverLogout = () => {
   NaverLogin.logout();
-}
+};
 
-const getNaverProfile = async(token) => {
+const getNaverProfile = async (token) => {
   let result = null;
   try {
     result = await getProfile(token);
@@ -156,10 +170,10 @@ const getNaverProfile = async(token) => {
     console.log(err);
   }
   return result;
-}
+};
 
 // 위와 같이 함수를 짜주고 아래서 사용한다.
-onNaverLogin = async() => {
+onNaverLogin = async () => {
   try {
     const result = await naverLogin(initials);
     console.log('token: ' + result);
@@ -188,6 +202,5 @@ onNaverLogin = async() => {
     console.log('error');
     console.log(err);
   }
-}
-
+};
 ```

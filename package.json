@@ -1,14 +1,31 @@
 {
-  "name": "react-native-naver-login",
-  "version": "1.3.1",
+  "name": "@react-native-seoul/naver-login",
+  "version": "1.0.0-rc1",
   "description": "React Native Module for Naver Login",
   "main": "index.js",
   "postinstall": "dooboolab-welcome postinstall",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && flowgen index.d.ts -o index.js.flow",
+    "flow": "flow",
+    "lint": "eslint -c .eslintrc.js 'index.ts'",
+    "validate": "npm run lint && npm run test:typescript && npm run test:flow && npm run test"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-native-seoul/react-native-naver-login"
   },
   "keywords": [
-    "react-native", "naver", "네아로", "네이버"
+    "react-native",
+    "naver",
+    "네아로",
+    "네이버",
+    "react-native-seoul",
+    "dooboolab",
+    "naver-login"
   ],
   "author": "dooboolab, Jongwoo Moon",
   "license": "MIT",
@@ -17,6 +34,18 @@
     "react-native": "*"
   },
   "dependencies": {
-    "dooboolab-welcome": "^1.0.5"
+    "dooboolab-welcome": "^1.1.1"
+  },
+  "devDependencies": {
+    "@dooboo/eslint-config": "^0.2.0",
+    "@types/eslint": "^6.1.1",
+    "@types/node": "^12.7.12",
+    "@types/react": "16.9.5",
+    "@types/react-native": "^0.60.19",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.4.0",
+    "flow-bin": "^0.104.0",
+    "flowgen": "^1.10.0",
+    "typescript": "^3.6.3"
   }
 }

@@ -5390,17 +5390,6 @@ react-native-debugger-open@^0.3.17:
     minimist "^1.2.0"
     semver "^5.4.1"
 
-<<<<<<< HEAD
-=======
-react-native-extended-stylesheet@^0.11.1:
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/react-native-extended-stylesheet/-/react-native-extended-stylesheet-0.11.2.tgz#4f7568f809623a2e9c186f464d7341f4ac13c806"
-  integrity sha512-FLg23MYp+JwYiz/ueS4gRySMXNJxVcFOJkPpw83/Z9co4anJL6Wiq/taC7nS7Pm4UTStF/p2ZZ8Dbqudfc+7nQ==
-  dependencies:
-    css-mediaquery "^0.1.2"
-    object-resolve-path "^1.1.0"
-
->>>>>>> master
 react-native-gesture-handler@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.4.1.tgz#c38d9e57637b95e221722a79f2bafac62e3aeb21"

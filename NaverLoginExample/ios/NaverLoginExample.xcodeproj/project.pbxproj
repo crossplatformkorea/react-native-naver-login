@@ -1259,10 +1259,6 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-<<<<<<< HEAD
-=======
-					"$(SRCROOT)/../node_modules/react-native-naver-login/ios",
->>>>>>> master
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/@react-native-seoul/naver-login/ios/**",
 				);
@@ -1290,10 +1286,6 @@
 				DEVELOPMENT_TEAM = MVTQKZUT7G;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-<<<<<<< HEAD
-=======
-					"$(SRCROOT)/../node_modules/react-native-naver-login/ios",
->>>>>>> master
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/@react-native-seoul/naver-login/ios/**",
 				);
@@ -1377,10 +1369,6 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-<<<<<<< HEAD
-=======
-					"$(SRCROOT)/../node_modules/react-native-naver-login/ios",
->>>>>>> master
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/@react-native-seoul/naver-login/ios/**",
 				);
@@ -1417,10 +1405,6 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-<<<<<<< HEAD
-=======
-					"$(SRCROOT)/../node_modules/react-native-naver-login/ios",
->>>>>>> master
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
 					"$(SRCROOT)/../node_modules/@react-native-seoul/naver-login/ios/**",
 				);

@@ -2,7 +2,7 @@
   "name": "@react-native-seoul/naver-login",
   "version": "1.0.0-rc1",
   "description": "React Native Module for Naver Login",
-  "main": "index.js",
+  "main": "index.ts",
   "postinstall": "dooboolab-welcome postinstall",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

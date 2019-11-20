@@ -8,8 +8,18 @@ export interface ICallback<T> {
   (error: Error | undefined, result: T | undefined): void;
 }
 
+
+export interface ConfigParam {
+    kConsumerKey: string
+    kConsumerSecret: string
+    kServiceAppName: string
+    
+    /** Only for iOS */
+    kServiceAppUrlScheme?: string
+}
+
 const NaverLoginIos = {
-  login(param: string, callback: ICallback<string>) {
+  login(param: ConfigParam, callback: ICallback<string>) {
     IosNaverLogin.login(JSON.stringify(param), callback);
   },
   logout() {
@@ -18,7 +28,7 @@ const NaverLoginIos = {
 };
 
 const RNNaverLoginAndr = {
-  login(param: string, callback: ICallback<string>) {
+  login(param: ConfigParam, callback: ICallback<string>) {
     RNNaverLogin.login(JSON.stringify(param), callback);
   },
   logout() {

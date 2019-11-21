@@ -28,6 +28,7 @@ const App = () => {
 
   const naverLogout = () => {
     NaverLogin.logout();
+    setNaverToken('');
   };
 
   const getUserProfile = async () => {
@@ -45,7 +46,7 @@ const App = () => {
         title="네이버 아이디로 로그인하기"
         onPress={() => naverLogin(initials)}
       />
-      <Button title="로그아웃하기" onPress={naverLogout} />
+      {!!naverToken && <Button title="로그아웃하기" onPress={naverLogout} />}
 
       {!!naverToken && (
         <Button title="회원정보 가져오기" onPress={getUserProfile} />

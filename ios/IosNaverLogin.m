@@ -7,7 +7,6 @@
 // 네이버 관련 세팅
 #import "NaverThirdPartyConstantsForApp.h"
 #import "NaverThirdPartyLoginConnection.h"
-#import "NLoginThirdPartyOAuth20InAppBrowserViewController.h"
 
 ////////////////////////////////////////////////////     _//////////_  // Private Members
 @interface IosNaverLogin() {

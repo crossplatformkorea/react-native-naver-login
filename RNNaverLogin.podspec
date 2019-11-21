@@ -20,8 +20,7 @@ Pod::Spec.new do |s|
 
 
   s.dependency "React"
-  #s.dependency "others"
+  s.dependency 'naveridlogin-sdk-ios', '~> 4.1'
 
 end
 
-  

@@ -8,7 +8,7 @@
 
 React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 [NaverLoginExample](https://github.com/react-native-seoul/react-native-naver-login/tree/master/NaverLoginExample) 에서 확인 가능합니다
 
-`typecript`와 `flow`를 지원합니다
+`typescript`와 `flow`를 지원합니다
 
 ## Getting started
 

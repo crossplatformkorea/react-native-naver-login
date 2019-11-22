@@ -33,6 +33,8 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
     return "RNNaverLogin";
   }
 
+// 자바스크립트에서 처리 하므로 네이티브 코드가 불필요 해서 주석처리 합니다
+
 //  @ReactMethod
 //  public void getProfile(String accessToken, final Callback cb) {
 //    AsyncHttpClient asyncHttpClient = new AsyncHttpClient();

@@ -1,7 +1,6 @@
 
 #import "IosNaverLogin.h"
 
-#import <React/RCTLog.h>
 #import <React/RCTConvert.h>
 
 // 네이버 관련 세팅
@@ -51,7 +50,6 @@ RCT_EXPORT_MODULE();
 
 ////////////////////////////////////////////////////     _//////////_// 네이버 관련 세팅
 RCT_EXPORT_METHOD(login:(NSString *)keyJson callback:(RCTResponseSenderBlock)callback) {
-    RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: login \n\n\n\n .");
     naverTokenSend = callback;
     
     naverConn = [NaverThirdPartyLoginConnection getSharedInstance];
@@ -84,35 +82,36 @@ RCT_EXPORT_METHOD(login:(NSString *)keyJson callback:(RCTResponseSenderBlock)cal
 }
 
 RCT_EXPORT_METHOD(logout) {
-    RCTLogInfo(@"\n\n\n\n Obj c >> Nearo ReactIosAuth :: logout \n\n\n\n .");
     [naverConn resetToken];
     naverTokenSend = nil;
 }
 
-RCT_EXPORT_METHOD(getProfile:(NSString *)token callback: (RCTResponseSenderBlock)callback) {
-    if (NO == [naverConn isValidAccessTokenExpireTimeNow]) {
-        return;
-    }
-    
-    NSString *urlString = @"https://openapi.naver.com/v1/nid/getUserProfile.xml";  // 사용자 프로필 호출
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    NSString *authValue = [NSString stringWithFormat:@"Bearer %@", token];
-    
-    [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
-    
-    NSError *error = nil;
-    NSHTTPURLResponse *urlResponse = nil;
-    NSData *receivedData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&urlResponse error:&error];
-    NSString *decodingString = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
-    
-    if (error) {
-        NSLog(@"Error happened - %@", [error description]);
-        
-    } else {
-        NSLog(@"recevied data - %@", decodingString);
-        callback(@[[NSNull null], decodingString]);
-    }
-}
+// 자바스크립트에서 처리 하므로 네이티브 코드가 불필요 해서 주석처리 합니다
+
+//RCT_EXPORT_METHOD(getProfile:(NSString *)token callback: (RCTResponseSenderBlock)callback) {
+//    if (NO == [naverConn isValidAccessTokenExpireTimeNow]) {
+//        return;
+//    }
+//
+//    NSString *urlString = @"https://openapi.naver.com/v1/nid/getUserProfile.xml";  // 사용자 프로필 호출
+//    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+//    NSString *authValue = [NSString stringWithFormat:@"Bearer %@", token];
+//
+//    [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+//
+//    NSError *error = nil;
+//    NSHTTPURLResponse *urlResponse = nil;
+//    NSData *receivedData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&urlResponse error:&error];
+//    NSString *decodingString = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
+//
+//    if (error) {
+//        NSLog(@"Error happened - %@", [error description]);
+//
+//    } else {
+//        NSLog(@"recevied data - %@", decodingString);
+//        callback(@[[NSNull null], decodingString]);
+//    }
+//}
 
 
 @end

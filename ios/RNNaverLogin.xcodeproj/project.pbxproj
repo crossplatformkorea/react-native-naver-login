@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BD3B79CA1F694A7C007DE103 /* libNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD3B79C41F694A7C007DE103 /* libNaverLogin.a */; };
-		BD3B79CB1F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3B79C81F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m */; };
 		BDABEAA31F7138BF0078AB33 /* IosNaverLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = BDABEAA21F7138BF0078AB33 /* IosNaverLogin.m */; };
 /* End PBXBuildFile section */
 
@@ -26,15 +24,6 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNNaverLogin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNaverLogin.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD3B79BF1F694A7C007DE103 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		BD3B79C01F694A7C007DE103 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
-		BD3B79C11F694A7C007DE103 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
-		BD3B79C21F694A7C007DE103 /* NaverAuth.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NaverAuth.bundle; sourceTree = "<group>"; };
-		BD3B79C41F694A7C007DE103 /* libNaverLogin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNaverLogin.a; sourceTree = "<group>"; };
-		BD3B79C51F694A7C007DE103 /* NaverThirdPartyConstantsForApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaverThirdPartyConstantsForApp.h; sourceTree = "<group>"; };
-		BD3B79C61F694A7C007DE103 /* NaverThirdPartyLoginConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaverThirdPartyLoginConnection.h; sourceTree = "<group>"; };
-		BD3B79C71F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLoginThirdPartyOAuth20InAppBrowserViewController.h; sourceTree = "<group>"; };
-		BD3B79C81F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLoginThirdPartyOAuth20InAppBrowserViewController.m; sourceTree = "<group>"; };
 		BDABEAA11F7138BF0078AB33 /* IosNaverLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IosNaverLogin.h; sourceTree = SOURCE_ROOT; };
 		BDABEAA21F7138BF0078AB33 /* IosNaverLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IosNaverLogin.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -44,7 +33,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD3B79CA1F694A7C007DE103 /* libNaverLogin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,33 +60,8 @@
 			children = (
 				BDABEAA11F7138BF0078AB33 /* IosNaverLogin.h */,
 				BDABEAA21F7138BF0078AB33 /* IosNaverLogin.m */,
-				BD3B79BE1F694A7C007DE103 /* Resource */,
-				BD3B79C31F694A7C007DE103 /* thirdPartyModule */,
 			);
 			path = NaverAuth;
-			sourceTree = "<group>";
-		};
-		BD3B79BE1F694A7C007DE103 /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				BD3B79BF1F694A7C007DE103 /* Default-568h@2x.png */,
-				BD3B79C01F694A7C007DE103 /* Default-667h@2x.png */,
-				BD3B79C11F694A7C007DE103 /* Default-736h@3x.png */,
-				BD3B79C21F694A7C007DE103 /* NaverAuth.bundle */,
-			);
-			path = Resource;
-			sourceTree = "<group>";
-		};
-		BD3B79C31F694A7C007DE103 /* thirdPartyModule */ = {
-			isa = PBXGroup;
-			children = (
-				BD3B79C41F694A7C007DE103 /* libNaverLogin.a */,
-				BD3B79C51F694A7C007DE103 /* NaverThirdPartyConstantsForApp.h */,
-				BD3B79C61F694A7C007DE103 /* NaverThirdPartyLoginConnection.h */,
-				BD3B79C71F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.h */,
-				BD3B79C81F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m */,
-			);
-			path = thirdPartyModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +103,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
@@ -158,7 +122,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDABEAA31F7138BF0078AB33 /* IosNaverLogin.m in Sources */,
-				BD3B79CB1F694A7C007DE103 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

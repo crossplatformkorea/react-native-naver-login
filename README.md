@@ -12,8 +12,8 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 
 ## Getting started
 
-`$ npm install @react-native-seoul/naver-login --save`
-또는
+`$ npm install @react-native-seoul/naver-login --save`  
+또는  
 `$ yarn add @react-native-seoul/naver-login`
 
 ### Mostly automatic installation
@@ -30,7 +30,7 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 
 1. [info.plist] 파일 LSApplicationQueriesSchemes 항목에 아래 항목을 추가합니다.
 
-```plist
+```
    <key>LSApplicationQueriesSchemes</key>
    <array>
      <string>naversearchapp</string>
@@ -78,7 +78,7 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
 
    ```gradle
-     implementation project(':react-native-seoul-naver-login')
+    implementation project(':react-native-seoul-naver-login')
    ```
 
 ### Additional Check in Android

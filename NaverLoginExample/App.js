@@ -1,13 +1,27 @@
 import React from 'react';
-import { Alert, SafeAreaView, StyleSheet, Button } from 'react-native';
+import {
+  Alert,
+  SafeAreaView,
+  StyleSheet,
+  Button,
+  Platform,
+} from 'react-native';
 import { NaverLogin, getProfile } from '@react-native-seoul/naver-login';
 
-const initials = {
+const iosKyes = {
   kConsumerKey: 'VC5CPfjRigclJV_TFACU',
   kConsumerSecret: 'f7tLFw0AHn',
-  kServiceAppName: '테스트앱',
+  kServiceAppName: '테스트앱(iOS)',
   kServiceAppUrlScheme: 'testapp', // only for iOS
 };
+
+const androidKyes = {
+  kConsumerKey: 'QfXNXVO8RnqfbPS9x0LR',
+  kConsumerSecret: '6ZGEYZabM9',
+  kServiceAppName: '테스트앱(안드로이드)',
+};
+
+const initials = Platform.OS === 'ios' ? iosKyes : androidKyes;
 
 const App = () => {
   const [naverToken, setNaverToken] = React.useState('');

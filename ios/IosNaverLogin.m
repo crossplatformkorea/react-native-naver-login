@@ -26,17 +26,33 @@
 
 -(void)oauth20ConnectionDidFinishRequestACTokenWithAuthCode {
     NSLog(@"\n\n\n  Nearo oauth20ConnectionDidFinishRequestACTokenWithAuthCode");
-    NSString *token = [naverConn accessToken];
+    NSString *accessToken = [naverConn accessToken];
+    NSDate *expiresAt = [naverConn accessTokenExpireDate];
+    NSString *tokenType = [naverConn tokenType];
+
+    NSDateFormatter *Formatter = [[NSDateFormatter alloc] init];
     if (naverTokenSend != nil) {
-        naverTokenSend(@[[NSNull null], token]);
+        naverTokenSend(@[[NSNull null], @{
+                             @"accessToken": accessToken,
+                             @"expiresAt": [Formatter stringFromDate: expiresAt],
+                             @"tokenType": tokenType
+        }]);
         naverTokenSend = nil;
     }
 }
 -(void)oauth20ConnectionDidFinishRequestACTokenWithRefreshToken {
-    NSString *token = [naverConn accessToken];
-    NSLog(@" \n\n\n Nearo oauth20ConnectionDidFinishRequestACTokenWithRefreshToken \n\n\n  %@ \n\n .", token);
+    NSString *refreshToken = [naverConn refreshToken];
+    NSDate *expiresAt = [naverConn accessTokenExpireDate];
+    NSString *tokenType = [naverConn tokenType];
+
+    NSDateFormatter *Formatter = [[NSDateFormatter alloc] init];
+    NSLog(@" \n\n\n Nearo oauth20ConnectionDidFinishRequestACTokenWithRefreshToken \n\n\n  %@ \n\n .", refreshToken);
     if (naverTokenSend != nil) {
-        naverTokenSend(@[[NSNull null], token]);
+        naverTokenSend(@[[NSNull null], @{
+                             @"refreshToken": refreshToken,
+                             @"expiresAt": [Formatter stringFromDate: expiresAt],
+                             @"tokenType": tokenType
+        }]);
     }
 }
 
@@ -49,32 +65,40 @@
 RCT_EXPORT_MODULE();
 
 ////////////////////////////////////////////////////     _//////////_// 네이버 관련 세팅
-RCT_EXPORT_METHOD(login:(NSString *)keyJson callback:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(login:(NSDictionary *)key callback:(RCTResponseSenderBlock)callback) {
     naverTokenSend = callback;
-    
+
     naverConn = [NaverThirdPartyLoginConnection getSharedInstance];
     naverConn.delegate = self;
-    
-    NSData *jsonData = [keyJson dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *e;
-    NSDictionary *keyObj = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e];
-    
-    [naverConn setConsumerKey:[keyObj objectForKey:@"kConsumerKey"]];
-    [naverConn setConsumerSecret:[keyObj objectForKey:@"kConsumerSecret"]];
-    [naverConn setAppName:[keyObj objectForKey:@"kServiceAppName"]];
-    [naverConn setServiceUrlScheme:[keyObj objectForKey:@"kServiceAppUrlScheme"]];
-    
+
+
+    [naverConn setConsumerKey:[key objectForKey:@"kConsumerKey"]];
+    [naverConn setConsumerSecret:[key objectForKey:@"kConsumerSecret"]];
+    [naverConn setAppName:[key objectForKey:@"kServiceAppName"]];
+    [naverConn setServiceUrlScheme:[key objectForKey:@"kServiceAppUrlScheme"]];
+
     [naverConn setIsNaverAppOauthEnable:YES]; // 네이버 앱 사용 안할 때는 NO
     [naverConn setIsInAppOauthEnable:YES]; // 내장 웹뷰 사용 안할 때는 NO
-    
+
     [naverConn setOnlyPortraitSupportInIphone:YES]; // 포트레이트 레이아웃만 사용하는 경우.
-    
-    NSString *token = [naverConn accessToken];
-    NSLog(@"\n\n\n Nearo Token ::  %@", token);
-    
+
+    NSString *accessToken = [naverConn accessToken];
+    NSLog(@"\n\n\n Nearo accessToken ::  %@", accessToken);
+    NSString *refreshToken = [naverConn refreshToken];
+    NSLog(@"\n\n\n Nearo refreshToken :: %@", refreshToken);
+    NSDate *expiresAt = [naverConn accessTokenExpireDate];
+    NSString *tokenType = [naverConn tokenType];
+
+    NSDateFormatter *Formatter = [[NSDateFormatter alloc] init];
+
     if ([naverConn isValidAccessTokenExpireTimeNow]) {
         NSLog(@"\n\n\n Nearo Token  ::   >>>>>>>>  VALID 바로 RN 로 넘겨줌.");
-        naverTokenSend(@[[NSNull null], token]);
+        naverTokenSend(@[[NSNull null], @{
+                             @"accessToken": accessToken,
+                             @"refreshToken": refreshToken,
+                             @"expiresAt": [Formatter stringFromDate: expiresAt],
+                             @"tokenType": tokenType
+        }]);
     } else {
         NSLog(@"\n\n\n Nearo Token  ::   >>>>>>>>  IN VALID  >>>>>");
         [naverConn requestThirdPartyLogin];

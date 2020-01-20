@@ -156,23 +156,23 @@ import {
 } from "react-native";
 import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
 
-const iosKyes = {
+const iosKeys = {
   kConsumerKey: "VC5CPfjRigclJV_TFACU",
   kConsumerSecret: "f7tLFw0AHn",
   kServiceAppName: "테스트앱(iOS)",
   kServiceAppUrlScheme: "testapp" // only for iOS
 };
 
-const androidKyes = {
+const androidKeys = {
   kConsumerKey: "QfXNXVO8RnqfbPS9x0LR",
   kConsumerSecret: "6ZGEYZabM9",
   kServiceAppName: "테스트앱(안드로이드)"
 };
 
-const initials = Platform.OS === "ios" ? iosKyes : androidKyes;
+const initials = Platform.OS === "ios" ? iosKeys : androidKeys;
 
 const App = () => {
-  const [naverToken, setNaverToken] = React.useState("");
+  const [naverToken, setNaverToken] = React.useState(null);
 
   const naverLogin = props => {
     return new Promise((resolve, reject) => {
@@ -194,7 +194,7 @@ const App = () => {
   };
 
   const getUserProfile = async () => {
-    const profileResult = await getProfile(naverToken);
+    const profileResult = await getProfile(naverToken.accessToken);
     if (profileResult.resultcode === "024") {
       Alert.alert("로그인 실패", profileResult.message);
       return;

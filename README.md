@@ -94,6 +94,8 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 
 #### Android
 
+RN >= 0.60에서는 Autolinking이 지원되어 proguard를 제외한 별도의 설정이 필요하지 않습니다.
+
 1. Open up `android/app/src/main/java/[...]/MainActivity.java`
 
 - Add `import com.dooboolab.naverlogin.RNNaverLoginPackage;` to the imports at the top of the file

@@ -1,10 +1,8 @@
 # @react-native-seoul/naver-login
 
-<p align="left">
-  <a href="https://npmjs.org/package/@react-native-seoul/naver-login"><img alt="npm version" src="http://img.shields.io/npm/v/@react-native-seoul/naver-login.svg?style=flat-square"></a>
-  <a href="https://npmjs.org/package/@react-native-seoul/naver-login"><img src="http://img.shields.io/npm/dm/@react-native-seoul/naver-login.svg?style=flat-square"></a>
-  <a href="https://npmjs.org/package/@react-native-seoul/naver-login"><img src="http://img.shields.io/npm/l/@react-native-seoul/naver-login.svg?style=flat-square"></a>
-</p>
+[![npm version](http://img.shields.io/npm/v/@react-native-seoul/naver-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/naver-login)
+[![downloads](http://img.shields.io/npm/dm/@react-native-seoul/naver-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/naver-login)
+[![license](http://img.shields.io/npm/l/@react-native-seoul/naver-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/naver-login)
 
 React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 [NaverLoginExample](https://github.com/react-native-seoul/react-native-naver-login/tree/master/NaverLoginExample) 에서 확인 가능합니다
 
@@ -30,7 +28,7 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 
 1. [info.plist] 파일 LSApplicationQueriesSchemes 항목에 아래 항목을 추가합니다.
 
-```
+```plist
    <key>LSApplicationQueriesSchemes</key>
    <array>
      <string>naversearchapp</string>
@@ -47,7 +45,7 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 
 - 네이버 앱으로 인증하는 방식을 활성화하려면 앱 델리게이트에 다음 코드를 추가합니다.
 
-```objective-c
+```objc
 #import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
 
 [[NaverThirdPartyLoginConnection getSharedInstance] setIsNaverAppOauthEnable:YES];
@@ -55,7 +53,7 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 
 - SafariViewContoller에서 인증하는 방식을 활성화하려면 앱 델리게이트에 다음 코드를 추가합니다.
 
-```objective-c
+```objc
 #import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
 
 [[NaverThirdPartyLoginConnection getSharedInstance] setIsInAppOauthEnable:YES];
@@ -85,7 +83,7 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 
 1. `app/build.gradle file` => `defaultConfig` 에 `applicationId`가 셋팅 되어 있는지 확인하세요
 
-```
+```gradle
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -99,7 +97,7 @@ android {
 
 2. Build 과정에서 WrongManifestParent 에러 발생 시 (로그에 나오는 대로)아래 코드를 app/build.gradle 에 추가해 줍니다.
 
-```
+```gradle
 android {
     lintOptions {
         checkReleaseBuilds false
@@ -113,7 +111,7 @@ android {
 3. 필요하면 Manifest 파일에 Activity 를 추가합니다.
    첫번째 항목이 있으면 중복된다는 에러가 날 수도 있습니다. (1.3 이후 기준)
 
-```
+```xml
 <activity
   android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
   android:screenOrientation="portrait"
@@ -122,6 +120,15 @@ android {
   android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
   android:label="OAuth2.0 In-app"
   android:screenOrientation="portrait" />
+```
+
+해당 코드에서 android:theme="@android:style/Theme.Translucent.NoTitleBar" 관련 오류가 발생할 시 style.xml 파일에 다음과 같이 작성합니다.
+
+```xml
+<style name="Theme.Translucent.NoTitleBar">
+    <item name="windowNoTitle">true</item>
+    <item name="windowContentOverlay">@null</item>
+</style>
 ```
 
 4. Proguard 적용 제외 설정

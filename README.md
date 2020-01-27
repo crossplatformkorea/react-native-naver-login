@@ -46,7 +46,7 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 - 세팅 후 Facebook 관련 세팅을 할 때 이 항목이 지워지는 경우가 있습니다.
 
 2. [네이버 문서](https://developers.naver.com/docs/login/ios/) 와 같이 세팅 페이지의 info 탭의 URL Types 에 URL Schemes 를 추가합니다(공식문서를 자세히 읽어볼 것을 추천드립니다)
-3. AppDelegate 클래스에 추가되는 세팅은 매뉴얼로 하셔야 합니다.(예제 프로젝트를 참고 하세요)
+3. AppDelegate 클래스에 추가되는 세팅은 매뉴얼로 하셔야 합니다.([예제 프로젝트](https://github.com/react-native-seoul/react-native-naver-login/blob/master/NaverLoginExample/ios/NaverLoginExample/AppDelegate.m)를 참고 하세요)
    `[application: openURL: options]` 에서는 `if ([url.scheme isEqualToString:@"your_apps_urlscheme"])` 을 통하여 이 함수를 사용하는 다른 액션과 구별하시면 됩니다.
    
    ```objc
@@ -74,19 +74,21 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
    ```
 4. 인증방법
 
-- 네이버 앱으로 인증하는 방식을 활성화하려면 앱 델리게이트에 다음 코드를 추가합니다.
+- 네이버 앱으로 인증하는 방식을 활성화하려면 앱 델리게이트 `didFinishLaunchingWithOptions` 메쏘드 내부에 다음 코드를 추가합니다.
 
 ```objc
 #import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
 
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions { ... }
+```
+
+```objc
 [[NaverThirdPartyLoginConnection getSharedInstance] setIsNaverAppOauthEnable:YES];
 ```
 
-- SafariViewContoller에서 인증하는 방식을 활성화하려면 앱 델리게이트에 다음 코드를 추가합니다.
+- SafariViewContoller에서 인증하는 방식을 활성화하려면 다음 코드를 추가합니다.
 
 ```objc
-#import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
-
 [[NaverThirdPartyLoginConnection getSharedInstance] setIsInAppOauthEnable:YES];
 ```
 

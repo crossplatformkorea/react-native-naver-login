@@ -28,7 +28,7 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 
 1. [info.plist] 파일 LSApplicationQueriesSchemes 항목에 아래 항목을 추가합니다.
 
-```plist
+```
    <key>LSApplicationQueriesSchemes</key>
    <array>
      <string>naversearchapp</string>

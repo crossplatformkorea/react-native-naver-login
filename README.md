@@ -48,6 +48,30 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 2. [네이버 문서](https://developers.naver.com/docs/login/ios/) 와 같이 세팅 페이지의 info 탭의 URL Types 에 URL Schemes 를 추가합니다(공식문서를 자세히 읽어볼 것을 추천드립니다)
 3. AppDelegate 클래스에 추가되는 세팅은 매뉴얼로 하셔야 합니다.(예제 프로젝트를 참고 하세요)
    `[application: openURL: options]` 에서는 `if ([url.scheme isEqualToString:@"your_apps_urlscheme"])` 을 통하여 이 함수를 사용하는 다른 액션과 구별하시면 됩니다.
+   
+   ```objc
+   #import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
+   ```
+
+   네이버 로그인만 사용하는 경우
+   
+   ```objc
+   - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary *)options {
+      return [[NaverThirdPartyLoginConnection getSharedInstance] application:app openURL:url options:options];
+   }
+   ```
+   
+   구글 로그인 등과 같이 사용하는 경우
+
+   ```objc
+   - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<NSString *,id> *)options {
+     if ([url.scheme isEqualToString:@"your_apps_urlscheme"]) {
+       return [[NaverThirdPartyLoginConnection getSharedInstance] application:application openURL:url options:options];
+     }
+  
+     return [RNGoogleSignin application:application openURL:url options:options];
+   }
+   ```
 4. 인증방법
 
 - 네이버 앱으로 인증하는 방식을 활성화하려면 앱 델리게이트에 다음 코드를 추가합니다.

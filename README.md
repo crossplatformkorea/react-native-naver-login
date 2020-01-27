@@ -16,9 +16,16 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 
 ### Mostly automatic installation
 
+#### RN version < 0.60
+
 `$ react-native link @react-native-seoul/naver-login`
 
-- RN version > 0.60 부터는 `auto link`가 지원됩니다.
+#### RN version >= 0.60 
+
+- [Autolinking](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)이 지원됩니다.
+- iOS의 경우 추가적으로 pod install이 필요합니다.
+
+    `cd ios && pod install && cd .. # CocoaPods on iOS needs this extra step`
 
 ### Manual installation (Post installation) ❗️Important
 

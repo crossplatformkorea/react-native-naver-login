@@ -101,7 +101,9 @@ RCT_EXPORT_METHOD(login:(NSDictionary *)key callback:(RCTResponseSenderBlock)cal
         }]);
     } else {
         NSLog(@"\n\n\n Nearo Token  ::   >>>>>>>>  IN VALID  >>>>>");
-        [naverConn requestThirdPartyLogin];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [naverConn requestThirdPartyLogin];
+        });
     }
 }
 

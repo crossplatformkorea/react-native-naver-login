@@ -1,4 +1,4 @@
-### Version of kakao-login libraries
+### Version of naver-login libraries
 
 <!-- 사용하고 있는 네이버 로그인 라이브러리 버전을 적어주세요 -->
 

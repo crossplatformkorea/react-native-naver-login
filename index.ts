@@ -24,6 +24,8 @@ export interface GetProfileResponse {
     email: string;
     name: string;
     birthday: string | null;
+    mobile?: string;
+    mobile_e164?: string;
   };
 }
 

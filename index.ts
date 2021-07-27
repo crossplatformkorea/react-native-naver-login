@@ -28,28 +28,28 @@ export interface GetProfileResponse {
 }
 
 export interface ConfigParam {
-    kConsumerKey: string
-    kConsumerSecret: string
-    kServiceAppName: string
+    kConsumerKey: string;
+    kConsumerSecret: string;
+    kServiceAppName: string;
 
     /** Only for iOS */
-    kServiceAppUrlScheme?: string
+    kServiceAppUrlScheme?: string;
 }
 
 const NaverLoginIos = {
-  login(param: ConfigParam, callback: ICallback<TokenResponse>) {
+  login(param: ConfigParam, callback: ICallback<TokenResponse>): void {
     IosNaverLogin.login(param, callback);
   },
-  logout() {
+  logout(): void {
     IosNaverLogin.logout();
   },
 };
 
 const RNNaverLoginAndr = {
-  login(param: ConfigParam, callback: ICallback<TokenResponse>) {
+  login(param: ConfigParam, callback: ICallback<TokenResponse>): void {
     RNNaverLogin.login(param, callback);
   },
-  logout() {
+  logout(): void {
     RNNaverLogin.logout();
   },
 };

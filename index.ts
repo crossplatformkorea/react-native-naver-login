@@ -1,4 +1,4 @@
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules, Platform } from "react-native";
 
 const { IosNaverLogin, RNNaverLogin } = NativeModules; // 여기 이름은 달라야 함.
 
@@ -24,18 +24,22 @@ export interface GetProfileResponse {
     email: string;
     name: string;
     birthday: string | null;
-    mobile?: string;
-    mobile_e164?: string;
+    age: string | null;
+    birthyear: number | null;
+    gender: string | null;
+    mobile: string | null;
+    mobile_e164: string | null;
+    nickname: string | null;
   };
 }
 
 export interface ConfigParam {
-    kConsumerKey: string;
-    kConsumerSecret: string;
-    kServiceAppName: string;
+  kConsumerKey: string;
+  kConsumerSecret: string;
+  kServiceAppName: string;
 
-    /** Only for iOS */
-    kServiceAppUrlScheme?: string;
+  /** Only for iOS */
+  kServiceAppUrlScheme?: string;
 }
 
 const NaverLoginIos = {
@@ -57,10 +61,10 @@ const RNNaverLoginAndr = {
 };
 
 export const getProfile = (token: string): Promise<GetProfileResponse> => {
-  return fetch('https://openapi.naver.com/v1/nid/me', {
-    method: 'GET',
+  return fetch("https://openapi.naver.com/v1/nid/me", {
+    method: "GET",
     headers: {
-      Authorization: 'Bearer ' + token,
+      Authorization: "Bearer " + token,
     },
   })
     .then((response) => response.json())
@@ -68,10 +72,10 @@ export const getProfile = (token: string): Promise<GetProfileResponse> => {
       return responseJson;
     })
     .catch((err) => {
-      console.log('getProfile err');
+      console.log("getProfile err");
       console.log(err);
     });
 };
 
 export const NaverLogin =
-  Platform.OS === 'ios' ? NaverLoginIos : RNNaverLoginAndr;
+  Platform.OS === "ios" ? NaverLoginIos : RNNaverLoginAndr;

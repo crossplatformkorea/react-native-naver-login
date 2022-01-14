@@ -7,6 +7,10 @@
     <activity
             android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
             android:label="OAuth2.0 In-app"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" 
+              />
+            
+    <activity android:name="com.nhn.android.naverlogin.ui.OAuthCustomTabActivity" android:exported="true" />
+            
   </application>
 </manifest>

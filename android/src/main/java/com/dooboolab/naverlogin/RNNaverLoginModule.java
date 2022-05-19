@@ -50,7 +50,9 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void logout() {
-    naverIdLoginSDK.logout();
+    if (naverIdLoginSDK != null) {
+      naverIdLoginSDK.logout();
+    }
   }
 
   // only android

@@ -67,7 +67,8 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void login(ReadableMap initials, final Callback cb) {
     loginAllow = true;
-    final Activity activity = getCurrentActivity();
+    naverIdLoginSDK = NaverIdLoginSDK.INSTANCE;
+
     try {
       naverIdLoginSDK.initialize(
               reactContext,

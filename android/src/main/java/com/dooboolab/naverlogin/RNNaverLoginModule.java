@@ -13,15 +13,15 @@ import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
-import com.nhn.android.naverlogin.OAuthLogin;
-import com.nhn.android.naverlogin.OAuthLoginHandler;
+import com.navercorp.nid.NaverIdLoginSDK;
+import com.navercorp.nid.oauth.OAuthLoginCallback;
 
 public class RNNaverLoginModule extends ReactContextBaseJavaModule {
   final String TAG = "ReactNaverModule";
   private boolean loginAllow = false;
 
   private final ReactApplicationContext reactContext;
-  private OAuthLogin mOAuthLoginModule;
+  private NaverIdLoginSDK naverIdLoginSDK;
 
   public RNNaverLoginModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -50,16 +50,14 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void logout() {
-    if (mOAuthLoginModule != null) {
-      mOAuthLoginModule.logout(reactContext);
-    }
+    naverIdLoginSDK.logout();
   }
 
   // only android
   @ReactMethod
   public void logoutWithCallback(final Callback cb) {
     try {
-      mOAuthLoginModule.logout(reactContext);
+      naverIdLoginSDK.logout();
       cb.invoke(null, true);
     } catch (Exception e) {
       cb.invoke(e.getMessage(), null);
@@ -71,58 +69,63 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
     loginAllow = true;
     final Activity activity = getCurrentActivity();
     try {
-      mOAuthLoginModule = OAuthLogin.getInstance();
-      mOAuthLoginModule.init(
+      naverIdLoginSDK.initialize(
               reactContext,
               initials.getString("kConsumerKey"),
               initials.getString("kConsumerSecret"),
               initials.getString("kServiceAppName")
       );
+
       UiThreadUtil.runOnUiThread(new Runnable() {
         @Override
         public void run() {
-          mOAuthLoginModule.startOauthLoginActivity(
-                  activity,
-                  new OAuthLoginHandler() {
-                    @Override
-                    public void run(boolean success) {
-                      if (success) {
-                        final String accessToken = mOAuthLoginModule.getAccessToken(reactContext);
-                        final String refreshToken = mOAuthLoginModule.getRefreshToken(reactContext);
-                        final long expiresAt = mOAuthLoginModule.getExpiresAt(reactContext);
-                        final String tokenType = mOAuthLoginModule.getTokenType(reactContext);
+          OAuthLoginCallback oAuthLoginCallback = new OAuthLoginCallback() {
+            @Override
+            public void onSuccess() {
+              final String accessToken = naverIdLoginSDK.getAccessToken();
+              final String refreshToken = naverIdLoginSDK.getRefreshToken();
+              final long expiresAt = naverIdLoginSDK.getExpiresAt();
+              final String tokenType = naverIdLoginSDK.getTokenType();
 
-                        try {
-                          WritableMap response = Arguments.createMap();
-                          response.putString("accessToken", accessToken);
-                          response.putString("refreshToken", refreshToken);
-                          response.putString("expiresAt", Long.toString(expiresAt));
-                          response.putString("tokenType", tokenType);
-                          // cb.invoke(null, response.toString());
-                          if (loginAllow) {
-                            cb.invoke(null, response);
-                            loginAllow = false;
-                          }
-                        } catch (Exception je) {
-                          Log.e(TAG, "Exception: " + je.getMessage());
-                          if (loginAllow) {
-                            cb.invoke(je.getMessage(), null);
-                            loginAllow = false;
-                          }
-                        }
-                      } else {
-                        String errCode = mOAuthLoginModule.getLastErrorCode(reactContext).getCode();
-                        String errDesc = mOAuthLoginModule.getLastErrorDesc(reactContext);
-                        String message = "errCode: " + errCode + ", errDesc: " + errDesc;
-                        Log.e(TAG, message);
-                        if (loginAllow) {
-                          cb.invoke(message, null);
-                          loginAllow = false;
-                        }
-                      }
-                    }
-                  }
-          );
+              try {
+                WritableMap response = Arguments.createMap();
+                response.putString("accessToken", accessToken);
+                response.putString("refreshToken", refreshToken);
+                response.putString("expiresAt", Long.toString(expiresAt));
+                response.putString("tokenType", tokenType);
+                // cb.invoke(null, response.toString());
+                if (loginAllow) {
+                  cb.invoke(null, response);
+                  loginAllow = false;
+                }
+              } catch (Exception je) {
+                Log.e(TAG, "Exception: " + je.getMessage());
+                if (loginAllow) {
+                  cb.invoke(je.getMessage(), null);
+                  loginAllow = false;
+                }
+              }
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+              String errCode = naverIdLoginSDK.getLastErrorCode().getCode();
+              String errDesc = naverIdLoginSDK.getLastErrorDescription();
+              String message = "errCode: " + errCode + ", errDesc: " + errDesc;
+              Log.e(TAG, message);
+              if (loginAllow) {
+                cb.invoke(message, null);
+                loginAllow = false;
+              }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+              this.onFailure(i, s);
+            }
+          };
+
+          naverIdLoginSDK.authenticate(reactContext, oAuthLoginCallback);
         }
       });
     } catch (Exception je) {

@@ -37,5 +37,5 @@ repositories {
 
 dependencies {
   compile 'com.facebook.react:react-native:+'
-  implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
+  implementation 'com.navercorp.nid:oauth:5.1.0'
 }

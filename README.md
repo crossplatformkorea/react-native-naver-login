@@ -4,7 +4,7 @@
 [![downloads](http://img.shields.io/npm/dm/@react-native-seoul/naver-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/naver-login)
 [![license](http://img.shields.io/npm/l/@react-native-seoul/naver-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/naver-login)
 
-React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 [NaverLoginExample](https://github.com/react-native-seoul/react-native-naver-login/tree/master/NaverLoginExample)에서 확인 가능합니다
+React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 [NaverLoginExample](https://github.com/react-native-seoul/react-native-naver-login/tree/main/NaverLoginExample)에서 확인 가능합니다
 
 `typescript`와 `flow`를 지원합니다
 
@@ -22,7 +22,7 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 
 #### RN version >= 0.60 
 
-- [Autolinking](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)이 지원됩니다.
+- [Autolinking](https://github.com/react-native-community/cli/blob/main/docs/autolinking.md)이 지원됩니다.
 - iOS의 경우 추가적으로 pod install이 필요합니다.
 
     `cd ios && pod install && cd .. # CocoaPods on iOS needs this extra step`
@@ -46,7 +46,7 @@ React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 
 - 세팅 후 Facebook 관련 세팅을 할 때 이 항목이 지워지는 경우가 있습니다.
 
 2. [네이버 문서](https://developers.naver.com/docs/login/ios/)와 같이 세팅 페이지의 info 탭의 URL Types 에 URL Schemes 를 추가합니다(공식문서를 자세히 읽어볼 것을 추천드립니다)
-3. AppDelegate 클래스에 추가되는 세팅은 매뉴얼로 하셔야 합니다.([예제 프로젝트](https://github.com/react-native-seoul/react-native-naver-login/blob/master/NaverLoginExample/ios/NaverLoginExample/AppDelegate.m)를 참고 하세요)
+3. AppDelegate 클래스에 추가되는 세팅은 매뉴얼로 하셔야 합니다.([예제 프로젝트](https://github.com/react-native-seoul/react-native-naver-login/blob/main/NaverLoginExample/ios/NaverLoginExample/AppDelegate.m)를 참고 하세요)
    `[application: openURL: options]` 에서는 `if ([url.scheme isEqualToString:@"your_apps_urlscheme"])` 을 통하여 이 함수를 사용하는 다른 액션과 구별하시면 됩니다.
    
    ```objc
@@ -190,7 +190,7 @@ android {
 
 ## Usage
 
-- 자세한 예제는 [NaverLoginExample](https://github.com/react-native-seoul/react-native-naver-login/tree/master/NaverLoginExample)에서 확인하세요
+- 자세한 예제는 [NaverLoginExample](https://github.com/react-native-seoul/react-native-naver-login/tree/main/NaverLoginExample)에서 확인하세요
 
 ```javascript
 import React from "react";

@@ -7,13 +7,13 @@ import com.facebook.react.uimanager.ViewManager
 
 class RNNaverLoginPackage : ReactPackage {
     override fun createNativeModules(
-        reactContext: ReactApplicationContext?
+        reactContext: ReactApplicationContext
     ): List<NativeModule> {
-        return listOf(RNNaverLoginModule(reactContext))
+        return arrayListOf(RNNaverLoginModule(reactContext))
     }
 
     override fun createViewManagers(
-        reactContext: ReactApplicationContext?
+        reactContext: ReactApplicationContext
     ): List<ViewManager<*, *>> {
         return emptyList()
     }

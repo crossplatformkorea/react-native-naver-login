@@ -8,7 +8,7 @@ import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
 
 class RNNaverLoginModule(
-    private val reactContext: ReactApplicationContext?
+    private val reactContext: ReactApplicationContext
 ) : ReactContextBaseJavaModule(reactContext) {
     private var isLoginAllowed = false
 
@@ -35,13 +35,13 @@ class RNNaverLoginModule(
 
         runCatching {
             NaverIdLoginSDK.initialize(
-                reactContext
-                    ?: throw IllegalStateException("reactContext is not initialized: $reactContext"),
-                initials.getString("kConsumerKey"),
-                initials.getString("kConsumerSecret"),
-                initials.getString("kServiceAppName")
+                reactContext,
+                initials.getString("kConsumerKey") ?: "",
+                initials.getString("kConsumerSecret") ?: "",
+                initials.getString("kServiceAppName") ?: ""
             )
             UiThreadUtil.runOnUiThread {
+                NaverIdLoginSDK.logout()
                 NaverIdLoginSDK.authenticate(reactContext, getAuthCallback(callback))
             }
         }.onFailure {
@@ -51,6 +51,10 @@ class RNNaverLoginModule(
 
     private fun getAuthCallback(callback: Callback) = object : OAuthLoginCallback {
         override fun onError(errorCode: Int, message: String) {
+            this.onFailure(errorCode, message)
+        }
+
+        override fun onFailure(httpStatus: Int, message: String) {
             val errorMessage =
                 "errCode: ${NaverIdLoginSDK.getLastErrorCode().code}, errDesc: ${NaverIdLoginSDK.getLastErrorDescription()}"
             Log.e(TAG, errorMessage)
@@ -60,13 +64,9 @@ class RNNaverLoginModule(
             }
         }
 
-        override fun onFailure(httpStatus: Int, message: String) {
-            this.onFailure(httpStatus, message)
-        }
-
         override fun onSuccess() {
             runCatching {
-                val response = Arguments.createMap().run {
+                val response = Arguments.createMap().apply {
                     putString("accessToken", NaverIdLoginSDK.getAccessToken())
                     putString("refreshToken", NaverIdLoginSDK.getRefreshToken())
                     putString("expiresAt", NaverIdLoginSDK.getExpiresAt().toString())

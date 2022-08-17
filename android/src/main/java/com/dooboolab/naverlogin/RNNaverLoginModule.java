@@ -114,10 +114,12 @@ public class RNNaverLoginModule extends ReactContextBaseJavaModule {
             public void onFailure(int i, String s) {
               String errCode = naverIdLoginSDK.getLastErrorCode().getCode();
               String errDesc = naverIdLoginSDK.getLastErrorDescription();
-              String message = "errCode: " + errCode + ", errDesc: " + errDesc;
-              Log.e(TAG, message);
+              WritableMap error = Arguments.createMap();
+              error.putString("errCode", errCode);
+              error.putString("errDesc", errDesc);
+              Log.e(TAG, error.toString());
               if (loginAllow) {
-                cb.invoke(message, null);
+                cb.invoke(error, null);
                 loginAllow = false;
               }
             }

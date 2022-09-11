@@ -19,7 +19,7 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - naveridlogin-sdk-ios (4.1.0)
+  - naveridlogin-sdk-ios (4.1.5)
   - RCTRequired (0.61.4)
   - RCTTypeSafety (0.61.4):
     - FBLazyVector (= 0.61.4)
@@ -218,8 +218,8 @@ PODS:
     - React-cxxreact (= 0.61.4)
     - React-jsi (= 0.61.4)
     - ReactCommon/jscallinvoker (= 0.61.4)
-  - RNNaverLogin (1.0.1-rc1):
-    - naveridlogin-sdk-ios (~> 4.1)
+  - RNNaverLogin (2.3.0):
+    - naveridlogin-sdk-ios (~> 4.1.5)
     - React
   - Yoga (1.14.0)
 
@@ -320,7 +320,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 51477b84b1bf7ab6f9ef307c24e3dd675391be44
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  naveridlogin-sdk-ios: eaef9c106bd04f1ec592a9f8418ccb03275ddb02
+  naveridlogin-sdk-ios: 4351fe7162cd6b8b6dbb37bd7cc205304fa1d889
   RCTRequired: f3b3fb6f4723e8e52facb229d0c75fdc76773849
   RCTTypeSafety: 2ec60de6abb1db050b56ecc4b60188026078fd10
   React: 10e0130b57e55a7cd8c3dee37c1261102ce295f4
@@ -340,9 +340,9 @@ SPEC CHECKSUMS:
   React-RCTText: 21934e0a51d522abcd0a275407e80af45d6fd9ec
   React-RCTVibration: 0f76400ee3cec6edb9c125da49fed279340d145a
   ReactCommon: a6a294e7028ed67b926d29551aa9394fd989c24c
-  RNNaverLogin: 93c29f2d33620900db93c96bb41db8da4ae285d3
+  RNNaverLogin: fabbe081569b313d2b1e37bbf157ed0f9a6bfe0f
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
 PODFILE CHECKSUM: 4e11ba7e55be4e26b434721498649a18e6a76450
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.11.3

@@ -1,10 +1,10 @@
-import { NativeModules, Platform } from "react-native";
+import { NativeModules, Platform } from 'react-native';
 
 const { IosNaverLogin, RNNaverLogin } = NativeModules; // 여기 이름은 달라야 함.
 
 export const UserCancelErrorCode = {
   android: 'user_cancel',
-  iOS: 2
+  iOS: 2,
 };
 
 export interface NaverLoginError extends Error {
@@ -69,10 +69,10 @@ const RNNaverLoginAndr = {
 };
 
 export const getProfile = (token: string): Promise<GetProfileResponse> => {
-  return fetch("https://openapi.naver.com/v1/nid/me", {
-    method: "GET",
+  return fetch('https://openapi.naver.com/v1/nid/me', {
+    method: 'GET',
     headers: {
-      Authorization: "Bearer " + token,
+      Authorization: 'Bearer ' + token,
     },
   })
     .then((response) => response.json())
@@ -80,10 +80,10 @@ export const getProfile = (token: string): Promise<GetProfileResponse> => {
       return responseJson;
     })
     .catch((err) => {
-      console.log("getProfile err");
+      console.log('getProfile err');
       console.log(err);
     });
 };
 
 export const NaverLogin =
-  Platform.OS === "ios" ? NaverLoginIos : RNNaverLoginAndr;
+  Platform.OS === 'ios' ? NaverLoginIos : RNNaverLoginAndr;

@@ -2,10 +2,18 @@ import { NativeModules, Platform } from "react-native";
 
 const { IosNaverLogin, RNNaverLogin } = NativeModules; // 여기 이름은 달라야 함.
 
-// const getNaverProfile = {}
+export const UserCancelErrorCode = {
+  android: 'user_cancel',
+  iOS: 2
+};
+
+export interface NaverLoginError extends Error {
+  errCode?: number | string;
+  errDesc?: string;
+}
 
 export interface ICallback<T> {
-  (error: Error | undefined, result: T | undefined): void;
+  (error: NaverLoginError | undefined, result: T | undefined): void;
 }
 
 export interface TokenResponse {

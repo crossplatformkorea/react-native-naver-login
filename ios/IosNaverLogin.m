@@ -61,6 +61,14 @@
     NSLog(@" \n\n\n Nearo oauth20ConnectionDidFinishDeleteToken \n\n\n");
 }
 
+- (void)oauth20Connection:(NaverThirdPartyLoginConnection *)oauthConnection didFailAuthorizationWithRecieveType:(THIRDPARTYLOGIN_RECEIVE_TYPE)receiveType
+{
+    NSLog(@"Getting auth code from NaverApp failed!");
+    if (naverTokenSend != nil) {
+        naverTokenSend(@[@{@"errCode": [[NSNumber alloc] initWithInt:receiveType]}, [NSNull null]]);
+    }
+}
+
 ////////////////////////////////////////////////////     _//////////_//      EXPORT_MODULE
 RCT_EXPORT_MODULE();
 

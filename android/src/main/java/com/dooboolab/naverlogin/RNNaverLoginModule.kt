@@ -37,12 +37,15 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
     }
 
     @ReactMethod
-    fun logout() = NaverIdLoginSDK.logout()
+    fun logout() = try {
+        NaverIdLoginSDK.logout()
+    } catch (_: Exception) {
+    }
 
     // only android
     @ReactMethod
     fun logoutWithCallback(cb: Callback) {
-        NaverIdLoginSDK.logout()
+        logout()
         cb.invoke(null, true)
     }
 

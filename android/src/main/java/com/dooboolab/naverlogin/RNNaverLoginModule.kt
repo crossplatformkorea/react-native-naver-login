@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Callback
+import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -21,6 +22,18 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
     reactContext
 ) {
     override fun getName() = "RNNaverLogin"
+
+    init {
+        reactContext.addLifecycleEventListener(object : LifecycleEventListener {
+            override fun onHostResume() {}
+
+            override fun onHostPause() {}
+
+            override fun onHostDestroy() {
+                dummyActivityResultLauncher = null
+            }
+        })
+    }
 
     @ReactMethod
     fun logout() = NaverIdLoginSDK.logout()
@@ -49,19 +62,11 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
             UiThreadUtil.runOnUiThread {
                 logout()
 
-                loginCallback = callback
+                mutableLoginCallback = callback
                 NaverIdLoginSDK.authenticate(reactContext, dummyActivityResultLauncher!!, object : OAuthLoginCallback {
-                    override fun onSuccess() {
-                        callback.invoke(null, createLoginSuccessResponse())
-                    }
-
-                    override fun onFailure(httpStatus: Int, message: String) {
-                        callback.invoke(createLoginFailureResponse().also { Log.e(TAG, it.toString()) }, null)
-                    }
-
-                    override fun onError(errorCode: Int, message: String) {
-                        callback.invoke(createLoginFailureResponse().also { Log.e(TAG, it.toString()) }, null)
-                    }
+                    override fun onSuccess() = RNNaverLoginModule.onSuccess()
+                    override fun onFailure(httpStatus: Int, message: String) = onFailure()
+                    override fun onError(errorCode: Int, message: String) = onFailure()
                 })
             }
         } catch (je: Exception) {
@@ -73,20 +78,28 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
         private val TAG = RNNaverLoginModule::class.java.simpleName
 
         private var dummyActivityResultLauncher: ActivityResultLauncher<Intent>? = null
-        private var loginCallback: Callback? = null
+        private var mutableLoginCallback: Callback? = null
+        private val loginCallback get() = mutableLoginCallback
+
+        private fun onSuccess() {
+            loginCallback?.invoke(null, createLoginSuccessResponse())
+            mutableLoginCallback = null
+        }
+
+        private fun onFailure() {
+            loginCallback?.invoke(createLoginFailureResponse().also { Log.e(TAG, it.toString()) }, null)
+            mutableLoginCallback = null
+        }
+
         fun initialize(activity: AppCompatActivity) {
             dummyActivityResultLauncher?.unregister()
             dummyActivityResultLauncher = activity.registerForActivityResult(
                 StartActivityForResult()
             ) { result ->
                 when (result.resultCode) {
-                    RESULT_OK -> loginCallback?.invoke(null, createLoginSuccessResponse())
-                    RESULT_CANCELED -> loginCallback?.invoke(createLoginFailureResponse().also {
-                        Log.e(
-                            TAG,
-                            it.toString()
-                        )
-                    }, null)
+                    RESULT_OK -> onSuccess()
+                    RESULT_CANCELED -> onFailure()
+                    else -> onFailure()
                 }
             }
         }

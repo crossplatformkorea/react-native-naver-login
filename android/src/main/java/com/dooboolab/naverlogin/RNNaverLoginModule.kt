@@ -1,6 +1,10 @@
 package com.dooboolab.naverlogin
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.react.bridge.Arguments
@@ -16,28 +20,8 @@ import com.navercorp.nid.oauth.OAuthLoginCallback
 class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(
     reactContext
 ) {
-    private val tag: String get() = this::class.java.simpleName
-
-    private var loginAllow = false
     override fun getName() = "RNNaverLogin"
 
-    private val launcher = (currentActivity as? AppCompatActivity)?.registerForActivityResult(
-        StartActivityForResult()
-    ) {}
-
-    // 자바스크립트에서 처리 하므로 네이티브 코드가 불필요 해서 주석처리 합니다
-    //  @ReactMethod
-    //  public void getProfile(String accessToken, final Callback cb) {
-    //    AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-    //    asyncHttpClient.addHeader("Authorization", "Bearer " + accessToken);
-    //    asyncHttpClient.get(reactContext, "https://openapi.naver.com/v1/nid/me", new JsonHttpResponseHandler() {
-    //      @Override
-    //      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-    //        super.onSuccess(statusCode, headers, response);
-    //        cb.invoke(null, response.toString());
-    //      }
-    //    });
-    //  }
     @ReactMethod
     fun logout() = NaverIdLoginSDK.logout()
 
@@ -49,13 +33,12 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
     }
 
     @ReactMethod
-    fun login(initials: ReadableMap, cb: Callback) {
-        if (launcher == null) {
-            Log.e(tag, "NaverSDK login Failed, Make sure your Activity is AppCompatActivity")
+    fun login(initials: ReadableMap, callback: Callback) {
+        if (dummyActivityResultLauncher == null) {
+            Log.e(TAG, "NaverSDK login Failed, Make sure your Activity is AppCompatActivity")
             return
         }
 
-        loginAllow = true
         try {
             NaverIdLoginSDK.initialize(
                 reactContext,
@@ -65,44 +48,59 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
             )
             UiThreadUtil.runOnUiThread {
                 logout()
-                NaverIdLoginSDK.authenticate(reactContext, launcher!!, object : OAuthLoginCallback {
+
+                loginCallback = callback
+                NaverIdLoginSDK.authenticate(reactContext, dummyActivityResultLauncher!!, object : OAuthLoginCallback {
                     override fun onSuccess() {
-                        if (!loginAllow) return
-                        try {
-                            cb.invoke(null, createLoginSuccessResponse())
-                        } catch (je: Exception) {
-                            Log.e(tag, "Exception: " + je.message)
-                            cb.invoke(je.message, null)
-                        } finally {
-                            loginAllow = false
-                        }
+                        callback.invoke(null, createLoginSuccessResponse())
                     }
 
                     override fun onFailure(httpStatus: Int, message: String) {
-                        if (!loginAllow) return
-                        cb.invoke(createLoginFailureResponse().also { Log.e(tag, it.toString()) }, null)
-                        loginAllow = false
+                        callback.invoke(createLoginFailureResponse().also { Log.e(TAG, it.toString()) }, null)
                     }
 
                     override fun onError(errorCode: Int, message: String) {
-                        this.onFailure(errorCode, message)
+                        callback.invoke(createLoginFailureResponse().also { Log.e(TAG, it.toString()) }, null)
                     }
                 })
             }
         } catch (je: Exception) {
-            Log.e(tag, "Exception: $je")
+            Log.e(TAG, "Exception: $je")
         }
     }
 
-    private fun createLoginSuccessResponse() = Arguments.createMap().apply {
-        putString("accessToken", NaverIdLoginSDK.getAccessToken())
-        putString("refreshToken", NaverIdLoginSDK.getRefreshToken())
-        putString("expiresAt", NaverIdLoginSDK.getExpiresAt().toString())
-        putString("tokenType", NaverIdLoginSDK.getTokenType())
-    }
+    companion object {
+        private val TAG = RNNaverLoginModule::class.java.simpleName
 
-    private fun createLoginFailureResponse() = Arguments.createMap().apply {
-        putString("errCode", NaverIdLoginSDK.getLastErrorCode().code)
-        putString("errDesc", NaverIdLoginSDK.getLastErrorDescription())
+        private var dummyActivityResultLauncher: ActivityResultLauncher<Intent>? = null
+        private var loginCallback: Callback? = null
+        fun initialize(activity: AppCompatActivity) {
+            dummyActivityResultLauncher?.unregister()
+            dummyActivityResultLauncher = activity.registerForActivityResult(
+                StartActivityForResult()
+            ) { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> loginCallback?.invoke(null, createLoginSuccessResponse())
+                    RESULT_CANCELED -> loginCallback?.invoke(createLoginFailureResponse().also {
+                        Log.e(
+                            TAG,
+                            it.toString()
+                        )
+                    }, null)
+                }
+            }
+        }
+
+        private fun createLoginSuccessResponse() = Arguments.createMap().apply {
+            putString("accessToken", NaverIdLoginSDK.getAccessToken())
+            putString("refreshToken", NaverIdLoginSDK.getRefreshToken())
+            putString("expiresAt", NaverIdLoginSDK.getExpiresAt().toString())
+            putString("tokenType", NaverIdLoginSDK.getTokenType())
+        }
+
+        private fun createLoginFailureResponse() = Arguments.createMap().apply {
+            putString("errCode", NaverIdLoginSDK.getLastErrorCode().code)
+            putString("errDesc", NaverIdLoginSDK.getLastErrorDescription())
+        }
     }
 }

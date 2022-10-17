@@ -1,6 +1,8 @@
 package com.dooboolab.naverlogin
 
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.appcompat.app.AppCompatActivity
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactApplicationContext
@@ -18,6 +20,10 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
 
     private var loginAllow = false
     override fun getName() = "RNNaverLogin"
+
+    private val launcher = (currentActivity as? AppCompatActivity)?.registerForActivityResult(
+        StartActivityForResult()
+    ) {}
 
     // 자바스크립트에서 처리 하므로 네이티브 코드가 불필요 해서 주석처리 합니다
     //  @ReactMethod
@@ -44,7 +50,10 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
 
     @ReactMethod
     fun login(initials: ReadableMap, cb: Callback) {
-        if(!reactContext.hasCurrentActivity()) return;
+        if (launcher == null) {
+            Log.e(tag, "NaverSDK login Failed, Make sure your Activity is AppCompatActivity")
+            return
+        }
 
         loginAllow = true
         try {
@@ -56,7 +65,7 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
             )
             UiThreadUtil.runOnUiThread {
                 logout()
-                NaverIdLoginSDK.authenticate(reactContext, object : OAuthLoginCallback {
+                NaverIdLoginSDK.authenticate(reactContext, launcher!!, object : OAuthLoginCallback {
                     override fun onSuccess() {
                         if (!loginAllow) return
                         try {
@@ -75,8 +84,8 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
                         loginAllow = false
                     }
 
-                    override fun onError(i: Int, s: String) {
-                        this.onFailure(i, s)
+                    override fun onError(errorCode: Int, message: String) {
+                        this.onFailure(errorCode, message)
                     }
                 })
             }
@@ -97,5 +106,3 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
         putString("errDesc", NaverIdLoginSDK.getLastErrorDescription())
     }
 }
-
-

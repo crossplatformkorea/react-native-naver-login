@@ -30,6 +30,7 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
             override fun onHostPause() {}
 
             override fun onHostDestroy() {
+                dummyActivityResultLauncher?.unregister()
                 dummyActivityResultLauncher = null
             }
         })
@@ -91,6 +92,7 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
             mutableLoginCallback = null
         }
 
+        /** Call at `onCreate` of main `Activity` */
         fun initialize(activity: AppCompatActivity) {
             dummyActivityResultLauncher?.unregister()
             dummyActivityResultLauncher = activity.registerForActivityResult(

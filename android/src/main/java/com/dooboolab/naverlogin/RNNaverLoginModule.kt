@@ -56,25 +56,27 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
             return
         }
 
-        try {
-            NaverIdLoginSDK.initialize(
-                reactContext,
-                initials.getString("kConsumerKey")!!,
-                initials.getString("kConsumerSecret")!!,
-                initials.getString("kServiceAppName")!!,
-            )
-            UiThreadUtil.runOnUiThread {
-                logout()
+        currentActivity?.let { context ->
+            try {
+                NaverIdLoginSDK.initialize(
+                    context,
+                    initials.getString("kConsumerKey")!!,
+                    initials.getString("kConsumerSecret")!!,
+                    initials.getString("kServiceAppName")!!,
+                )
+                UiThreadUtil.runOnUiThread {
+                    logout()
 
-                mutableLoginCallback = callback
-                NaverIdLoginSDK.authenticate(reactContext, dummyActivityResultLauncher!!, object : OAuthLoginCallback {
-                    override fun onSuccess() = RNNaverLoginModule.onSuccess()
-                    override fun onFailure(httpStatus: Int, message: String) = onFailure()
-                    override fun onError(errorCode: Int, message: String) = onFailure()
-                })
+                    mutableLoginCallback = callback
+                    NaverIdLoginSDK.authenticate(context, dummyActivityResultLauncher!!, object : OAuthLoginCallback {
+                        override fun onSuccess() = RNNaverLoginModule.onSuccess()
+                        override fun onFailure(httpStatus: Int, message: String) = onFailure()
+                        override fun onError(errorCode: Int, message: String) = onFailure()
+                    })
+                }
+            } catch (je: Exception) {
+                Log.e(TAG, "Exception: $je")
             }
-        } catch (je: Exception) {
-            Log.e(TAG, "Exception: $je")
         }
     }
 

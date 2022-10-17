@@ -22,8 +22,8 @@ android {
   buildToolsVersion getExtOrDefault('buildToolsVersion')
 
   defaultConfig {
-    minSdkVersion getExtOrDefault('minSdkVersion')
-    targetSdkVersion getExtOrDefault('targetSdkVersion')
+    minSdkVersion getExtOrDefault('minSdkVersion').toInteger()
+    targetSdkVersion getExtOrDefault('targetSdkVersion').toInteger()
     versionCode 1
     versionName "1.0"
   }

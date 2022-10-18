@@ -1,15 +1,8 @@
 package com.dooboolab.naverlogin
 
-import android.app.Activity.RESULT_CANCELED
-import android.app.Activity.RESULT_OK
-import android.content.Intent
 import android.util.Log
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import androidx.appcompat.app.AppCompatActivity
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Callback
-import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -18,23 +11,10 @@ import com.facebook.react.bridge.UiThreadUtil
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
 
-class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(
+class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(
     reactContext
 ) {
     override fun getName() = "RNNaverLogin"
-
-    init {
-        reactContext.addLifecycleEventListener(object : LifecycleEventListener {
-            override fun onHostResume() {}
-
-            override fun onHostPause() {}
-
-            override fun onHostDestroy() {
-                dummyActivityResultLauncher?.unregister()
-                dummyActivityResultLauncher = null
-            }
-        })
-    }
 
     @ReactMethod
     fun logout() = try {
@@ -42,20 +22,8 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
     } catch (_: Exception) {
     }
 
-    // only android
-    @ReactMethod
-    fun logoutWithCallback(cb: Callback) {
-        logout()
-        cb.invoke(null, true)
-    }
-
     @ReactMethod
     fun login(initials: ReadableMap, callback: Callback) {
-        if (dummyActivityResultLauncher == null) {
-            Log.e(TAG, "NaverSDK login Failed, Make sure your Activity is AppCompatActivity")
-            return
-        }
-
         currentActivity?.let { context ->
             try {
                 NaverIdLoginSDK.initialize(
@@ -67,11 +35,10 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
                 UiThreadUtil.runOnUiThread {
                     logout()
 
-                    mutableLoginCallback = callback
-                    NaverIdLoginSDK.authenticate(context, dummyActivityResultLauncher!!, object : OAuthLoginCallback {
-                        override fun onSuccess() = RNNaverLoginModule.onSuccess()
-                        override fun onFailure(httpStatus: Int, message: String) = onFailure()
-                        override fun onError(errorCode: Int, message: String) = onFailure()
+                    NaverIdLoginSDK.authenticate(context, object : OAuthLoginCallback {
+                        override fun onSuccess() = callback.onSuccess()
+                        override fun onFailure(httpStatus: Int, message: String) = callback.onFailure()
+                        override fun onError(errorCode: Int, message: String) = callback.onFailure()
                     })
                 }
             } catch (je: Exception) {
@@ -80,36 +47,11 @@ class RNNaverLoginModule(private val reactContext: ReactApplicationContext) : Re
         }
     }
 
+    private fun Callback.onSuccess() = invoke(null, createLoginSuccessResponse())
+    private fun Callback.onFailure() = invoke(null, createLoginFailureResponse())
+
     companion object {
         private val TAG = RNNaverLoginModule::class.java.simpleName
-
-        private var dummyActivityResultLauncher: ActivityResultLauncher<Intent>? = null
-        private var mutableLoginCallback: Callback? = null
-        private val loginCallback get() = mutableLoginCallback
-
-        private fun onSuccess() {
-            loginCallback?.invoke(null, createLoginSuccessResponse())
-            mutableLoginCallback = null
-        }
-
-        private fun onFailure() {
-            loginCallback?.invoke(createLoginFailureResponse().also { Log.e(TAG, it.toString()) }, null)
-            mutableLoginCallback = null
-        }
-
-        /** Call at `onCreate` of main `Activity` */
-        fun initialize(activity: AppCompatActivity) {
-            dummyActivityResultLauncher?.unregister()
-            dummyActivityResultLauncher = activity.registerForActivityResult(
-                StartActivityForResult()
-            ) { result ->
-                when (result.resultCode) {
-                    RESULT_OK -> onSuccess()
-                    RESULT_CANCELED -> onFailure()
-                    else -> onFailure()
-                }
-            }
-        }
 
         private fun createLoginSuccessResponse() = Arguments.createMap().apply {
             putString("accessToken", NaverIdLoginSDK.getAccessToken())

@@ -218,7 +218,7 @@ PODS:
     - React-cxxreact (= 0.61.4)
     - React-jsi (= 0.61.4)
     - ReactCommon/jscallinvoker (= 0.61.4)
-  - RNNaverLogin (2.3.0):
+  - RNNaverLogin (2.3.1):
     - naveridlogin-sdk-ios (~> 4.1.5)
     - React
   - Yoga (1.14.0)
@@ -340,9 +340,9 @@ SPEC CHECKSUMS:
   React-RCTText: 21934e0a51d522abcd0a275407e80af45d6fd9ec
   React-RCTVibration: 0f76400ee3cec6edb9c125da49fed279340d145a
   ReactCommon: a6a294e7028ed67b926d29551aa9394fd989c24c
-  RNNaverLogin: fabbe081569b313d2b1e37bbf157ed0f9a6bfe0f
+  RNNaverLogin: 55f822601e31a7c7feeaf167497029c0162115e6
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
 PODFILE CHECKSUM: 4e11ba7e55be4e26b434721498649a18e6a76450
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2

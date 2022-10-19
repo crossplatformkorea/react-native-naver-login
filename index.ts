@@ -2,25 +2,22 @@ import { NativeModules, Platform } from "react-native";
 
 const { IosNaverLogin, RNNaverLogin } = NativeModules; // 여기 이름은 달라야 함.
 
-export const UserCancelErrorCode = {
-  android: "user_cancel",
-  iOS: 2,
-};
-
-export interface NaverLoginError extends Error {
-  errCode?: number | string;
-  errDesc?: string;
-}
-
-export interface ICallback<T> {
-  (error: NaverLoginError | undefined, result: T | undefined): void;
-}
-
-export interface TokenResponse {
-  accessToken: string;
-  refreshToken: string;
-  expiresAt: string;
-  tokenType: string;
+export interface NaverLoginResponse {
+  isSuccess: boolean;
+  /** isSuccess가 true일 때 존재합니다. */
+  successResponse?: {
+    accessToken: string;
+    refreshToken: string;
+    expiresAt: string;
+    tokenType: string;
+  };
+  /** isSuccess가 false일 때 존재합니다. */
+  errorResponse?: {
+    message: string;
+    lastErrorCodeFromNaverSDK: string;
+    lastErrorDescriptionFromNaverSDK: string;
+    isCancel: boolean;
+  };
 }
 
 export interface GetProfileResponse {
@@ -42,31 +39,45 @@ export interface GetProfileResponse {
 }
 
 export interface ConfigParam {
-  kConsumerKey: string;
-  kConsumerSecret: string;
-  kServiceAppName: string;
-
+  consumerKey: string;
+  consumerSecret: string;
+  appName: string;
   /** Only for iOS */
-  kServiceAppUrlScheme?: string;
+  serviceUrlScheme?: string;
 }
 
 const NaverLoginIos = {
-  login(param: ConfigParam, callback: ICallback<TokenResponse>): void {
-    IosNaverLogin.login(param, callback);
+  login: async ({
+    appName,
+    consumerKey,
+    consumerSecret,
+    serviceUrlScheme,
+  }: ConfigParam): Promise<NaverLoginResponse> => {
+    try {
+      return await IosNaverLogin.login(
+        serviceUrlScheme,
+        consumerKey,
+        consumerSecret,
+        appName,
+      );
+    } catch (e) {
+      throw e;
+    }
   },
-  logout(): void {
-    IosNaverLogin.logout();
+  logout: async (): Promise<void> => {
+    await IosNaverLogin.logout();
   },
-};
+} as const;
 
 const RNNaverLoginAndr = {
-  login(param: ConfigParam, callback: ICallback<TokenResponse>): void {
-    RNNaverLogin.login(param, callback);
-  },
-  logout(): void {
-    RNNaverLogin.logout();
-  },
-};
+  login: ({
+    consumerSecret,
+    consumerKey,
+    appName,
+  }: ConfigParam): Promise<NaverLoginResponse> =>
+    RNNaverLogin.login(consumerKey, consumerSecret, appName),
+  logout: (): Promise<void> => RNNaverLogin.logout(),
+} as const;
 
 export const getProfile = (token: string): Promise<GetProfileResponse> => {
   return fetch("https://openapi.naver.com/v1/nid/me", {

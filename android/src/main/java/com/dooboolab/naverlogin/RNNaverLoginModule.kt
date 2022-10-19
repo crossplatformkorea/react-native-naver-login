@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.UiThreadUtil
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthErrorCode
+import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.oauth.OAuthLoginCallback
 
 class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(
@@ -16,19 +17,21 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
     override fun getName() = "RNNaverLogin"
 
     @ReactMethod
-    fun logout(promise: Promise) = try {
-        callLogout()
-        promise.resolve(42)
-    } catch (e: Exception) {
-        promise.reject(e)
+    fun logout(promise: Promise) = UiThreadUtil.runOnUiThread {
+        try {
+            callLogout()
+            promise.resolve(42)
+        } catch (e: Exception) {
+            promise.reject(e)
+        }
     }
 
     private fun callLogout() = NaverIdLoginSDK::logout
 
     @ReactMethod
-    fun login(consumerKey: String, consumerSecret: String, appName: String, promise: Promise) {
+    fun login(consumerKey: String, consumerSecret: String, appName: String, promise: Promise) =
         UiThreadUtil.runOnUiThread {
-            if(currentActivity == null) {
+            if (currentActivity == null) {
                 promise.onFailure("현재 실행중인 Activity 를 찾을 수 없습니다")
                 return@runOnUiThread
             }
@@ -49,6 +52,14 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
                 promise.onFailure(je.localizedMessage)
             }
         }
+
+    @ReactMethod
+    fun deleteToken(promise: Promise) = UiThreadUtil.runOnUiThread {
+        NidOAuthLogin().callDeleteTokenApi(currentActivity!!, object : OAuthLoginCallback {
+            override fun onSuccess() = promise.resolve(42)
+            override fun onFailure(httpStatus: Int, message: String) = promise.reject(message, message)
+            override fun onError(errorCode: Int, message: String) = promise.reject(message, message)
+        })
     }
 
     private fun Promise.onSuccess() = resolve(createLoginSuccessResponse())

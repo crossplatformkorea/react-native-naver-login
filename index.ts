@@ -19,11 +19,14 @@ export interface NaverLoginResponse {
     tokenType: string;
   };
   /** isSuccess가 false일 때 존재합니다. */
-  errorResponse?: {
+  failureResponse?: {
     message: string;
-    lastErrorCodeFromNaverSDK: string;
-    lastErrorDescriptionFromNaverSDK: string;
     isCancel: boolean;
+
+    /** Android Only */
+    lastErrorCodeFromNaverSDK?: string;
+    /** Android Only */
+    lastErrorDescriptionFromNaverSDK?: string;
   };
 }
 
@@ -36,7 +39,14 @@ const login = ({
   Platform.OS === "ios"
     ? RNNaverLogin.login(serviceUrlScheme, consumerKey, consumerSecret, appName)
     : RNNaverLogin.login(consumerKey, consumerSecret, appName);
-const logout = (): Promise<void> => RNNaverLogin.logout();
+
+const logout = async (): Promise<void> => {
+  await RNNaverLogin.logout();
+};
+
+const deleteToken = async (): Promise<void> => {
+  await RNNaverLogin.deleteToken();
+};
 
 export interface GetProfileResponse {
   resultcode: string;
@@ -76,6 +86,7 @@ const getProfile = (token: string): Promise<GetProfileResponse> => {
 const NaverLogin = {
   login,
   logout,
+  deleteToken,
   getProfile,
 };
 export default NaverLogin;

@@ -45,4 +45,5 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation 'com.facebook.react:react-native:+'
   implementation "com.navercorp.nid:oauth:${getExtOrDefault('naverSdkVersion')}"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${getExtOrDefault('coroutineVersion')}"
 }

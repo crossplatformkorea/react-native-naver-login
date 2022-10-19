@@ -1,41 +1,48 @@
 buildscript {
+  ext.getExtOrDefault = {name ->
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['RNNaverLogins_' + name]
+  }
+
   repositories {
     mavenCentral()
     google()
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:4.2.2'
+    classpath "com.android.tools.build:gradle:${getExtOrDefault('gradleVersion')}"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
   }
 }
 
 apply plugin: 'com.android.library'
-
-def DEFAULT_COMPILE_SDK_VERSION = 28
-def DEFAULT_BUILD_TOOLS_VERSION = "28.0.2"
-def DEFAULT_MIN_SDK_VERSION = 16
-def DEFAULT_TARGET_SDK_VERSION = 28
+apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion rootProject.ext.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
-  buildToolsVersion rootProject.ext.hasProperty('buildToolsVersion') ? rootProject.ext.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
+  compileSdkVersion getExtOrDefault('compileSdkVersion').toInteger()
+  buildToolsVersion getExtOrDefault('buildToolsVersion')
 
   defaultConfig {
-    minSdkVersion rootProject.ext.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : DEFAULT_MIN_SDK_VERSION
-    targetSdkVersion rootProject.ext.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : DEFAULT_TARGET_SDK_VERSION
+    minSdkVersion getExtOrDefault('minSdkVersion').toInteger()
+    targetSdkVersion getExtOrDefault('targetSdkVersion').toInteger()
     versionCode 1
     versionName "1.0"
   }
   lintOptions {
     abortOnError false
   }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 repositories {
   mavenCentral()
+  google()
 }
 
 dependencies {
+  //noinspection GradleDynamicVersion
   implementation 'com.facebook.react:react-native:+'
-  implementation 'com.navercorp.nid:oauth:5.1.0'
+  implementation "com.navercorp.nid:oauth:${getExtOrDefault('naverSdkVersion')}"
 }

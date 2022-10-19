@@ -31,6 +31,8 @@ const App = () => {
   const naverLogout = async () => {
     try {
       await NaverLogin.logout();
+      setSuccessResponse(undefined);
+      setErrorResponse(undefined);
     } catch (e) {
       console.error(e);
     }
@@ -48,19 +50,30 @@ const App = () => {
   return (
     <SafeAreaView
       style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
-      <Button title="Sign in with Naver" onPress={naverLogin} />
+      <Button
+        title={success ? 'Logout' : 'Sign in with Naver'}
+        onPress={success ? naverLogout : naverLogin}
+      />
       <Gap />
       {success ? (
         <>
-          <Button title="Logout" onPress={naverLogout} />
-          <Gap />
           <Button title="Get Profile" onPress={getUserProfile} />
           <Gap />
         </>
       ) : null}
-      <Text>{JSON.stringify(success || {}, null, 2)}</Text>
+      {success ? (
+        <View style={{paddingHorizontal: 24}}>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>성공 응답</Text>
+          <Text>{JSON.stringify(success, null, 2)}</Text>
+        </View>
+      ) : null}
       <Gap />
-      <Text>{JSON.stringify(error || {}, null, 2)}</Text>
+      {error ? (
+        <View style={{paddingHorizontal: 24}}>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>실패 응답</Text>
+          <Text>{JSON.stringify(error, null, 2)}</Text>
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 };

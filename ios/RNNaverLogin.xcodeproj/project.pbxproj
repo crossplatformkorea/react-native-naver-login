@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D1B02CC28FFE7440009C9CC /* IosNaverLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1B02CB28FFE7440009C9CC /* IosNaverLogin.swift */; };
-		2D1B02CE28FFE7500009C9CC /* module.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1B02CD28FFE74F0009C9CC /* module.m */; };
-		BDABEAA31F7138BF0078AB33 /* IosNaverLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = BDABEAA21F7138BF0078AB33 /* IosNaverLogin.m */; };
+		2D1B02CC28FFE7440009C9CC /* RNNaverLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1B02CB28FFE7440009C9CC /* RNNaverLogin.swift */; };
+		2D1B02CE28FFE7500009C9CC /* RNNaverLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1B02CD28FFE74F0009C9CC /* RNNaverLogin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,10 +26,8 @@
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNNaverLogin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNaverLogin.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D1B02C828FFE7370009C9CC /* RNNaverLogin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNNaverLogin-Bridging-Header.h"; sourceTree = "<group>"; };
-		2D1B02CB28FFE7440009C9CC /* IosNaverLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosNaverLogin.swift; sourceTree = "<group>"; };
-		2D1B02CD28FFE74F0009C9CC /* module.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = module.m; sourceTree = "<group>"; };
-		BDABEAA11F7138BF0078AB33 /* IosNaverLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IosNaverLogin.h; sourceTree = SOURCE_ROOT; };
-		BDABEAA21F7138BF0078AB33 /* IosNaverLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IosNaverLogin.m; sourceTree = SOURCE_ROOT; };
+		2D1B02CB28FFE7440009C9CC /* RNNaverLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNNaverLogin.swift; sourceTree = "<group>"; };
+		2D1B02CD28FFE74F0009C9CC /* RNNaverLogin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNaverLogin.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,10 +52,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				2D1B02CD28FFE74F0009C9CC /* module.m */,
-				2D1B02CB28FFE7440009C9CC /* IosNaverLogin.swift */,
-				BDABEAA11F7138BF0078AB33 /* IosNaverLogin.h */,
-				BDABEAA21F7138BF0078AB33 /* IosNaverLogin.m */,
+				2D1B02CD28FFE74F0009C9CC /* RNNaverLogin.m */,
+				2D1B02CB28FFE7440009C9CC /* RNNaverLogin.swift */,
 				134814211AA4EA7D00B7C361 /* Products */,
 				2D1B02C828FFE7370009C9CC /* RNNaverLogin-Bridging-Header.h */,
 			);
@@ -122,9 +117,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D1B02CC28FFE7440009C9CC /* IosNaverLogin.swift in Sources */,
-				BDABEAA31F7138BF0078AB33 /* IosNaverLogin.m in Sources */,
-				2D1B02CE28FFE7500009C9CC /* module.m in Sources */,
+				2D1B02CC28FFE7440009C9CC /* RNNaverLogin.swift in Sources */,
+				2D1B02CE28FFE7500009C9CC /* RNNaverLogin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

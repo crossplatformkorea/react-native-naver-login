@@ -1,7 +1,14 @@
 import { NativeModules, Platform } from "react-native";
 
-const { IosNaverLogin, RNNaverLogin } = NativeModules; // 여기 이름은 달라야 함.
+const { RNNaverLogin } = NativeModules;
 
+export interface NaverLoginRequest {
+  consumerKey: string;
+  consumerSecret: string;
+  appName: string;
+  /** Only for iOS */
+  serviceUrlScheme?: string;
+}
 export interface NaverLoginResponse {
   isSuccess: boolean;
   /** isSuccess가 true일 때 존재합니다. */
@@ -19,6 +26,17 @@ export interface NaverLoginResponse {
     isCancel: boolean;
   };
 }
+
+const login = ({
+  appName,
+  consumerKey,
+  consumerSecret,
+  serviceUrlScheme,
+}: NaverLoginRequest): Promise<NaverLoginResponse> =>
+  Platform.OS === "ios"
+    ? RNNaverLogin.login(serviceUrlScheme, consumerKey, consumerSecret, appName)
+    : RNNaverLogin.login(consumerKey, consumerSecret, appName);
+const logout = (): Promise<void> => RNNaverLogin.logout();
 
 export interface GetProfileResponse {
   resultcode: string;
@@ -38,48 +56,7 @@ export interface GetProfileResponse {
   };
 }
 
-export interface ConfigParam {
-  consumerKey: string;
-  consumerSecret: string;
-  appName: string;
-  /** Only for iOS */
-  serviceUrlScheme?: string;
-}
-
-const NaverLoginIos = {
-  login: async ({
-    appName,
-    consumerKey,
-    consumerSecret,
-    serviceUrlScheme,
-  }: ConfigParam): Promise<NaverLoginResponse> => {
-    try {
-      return await IosNaverLogin.login(
-        serviceUrlScheme,
-        consumerKey,
-        consumerSecret,
-        appName,
-      );
-    } catch (e) {
-      throw e;
-    }
-  },
-  logout: async (): Promise<void> => {
-    await IosNaverLogin.logout();
-  },
-} as const;
-
-const RNNaverLoginAndr = {
-  login: ({
-    consumerSecret,
-    consumerKey,
-    appName,
-  }: ConfigParam): Promise<NaverLoginResponse> =>
-    RNNaverLogin.login(consumerKey, consumerSecret, appName),
-  logout: (): Promise<void> => RNNaverLogin.logout(),
-} as const;
-
-export const getProfile = (token: string): Promise<GetProfileResponse> => {
+const getProfile = (token: string): Promise<GetProfileResponse> => {
   return fetch("https://openapi.naver.com/v1/nid/me", {
     method: "GET",
     headers: {
@@ -96,5 +73,9 @@ export const getProfile = (token: string): Promise<GetProfileResponse> => {
     });
 };
 
-export const NaverLogin =
-  Platform.OS === "ios" ? NaverLoginIos : RNNaverLoginAndr;
+const NaverLogin = {
+  login,
+  logout,
+  getProfile,
+};
+export default NaverLogin;

@@ -10,9 +10,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-seoul/naver-login": "file:../",
     "react": "18.1.0",
-    "react-native": "0.70.3",
-    "@react-native-seoul/naver-login": "file:../"
+    "react-native": "0.70.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

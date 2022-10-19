@@ -4,7 +4,7 @@
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>
 
-@interface RCT_EXTERN_MODULE(IosNaverLogin, NSObject)
+@interface RCT_EXTERN_MODULE(RNNaverLogin, NSObject)
 RCT_EXTERN_METHOD(
 				  logout: (RCTPromiseResolveBlock)resolve
 				  reject: (RCTPromiseRejectBlock)reject
@@ -14,7 +14,7 @@ RCT_EXTERN_METHOD(
 				  consumerKey: (NSString) consumerKey
 				  consumerSecret: (NSString) consumerSecret
 				  appName: (NSString) appName
-				  resolve (RCTPromiseResolveBlock)resolve
-				  reject: (RCTPromiseRejectBlock)reject
+				  resolve: (RCTPromiseResolveBlock) resolve
+				  reject: (RCTPromiseRejectBlock) reject
 				  )
 @end

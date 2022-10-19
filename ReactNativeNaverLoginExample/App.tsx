@@ -1,15 +1,11 @@
 import React, {useState} from 'react';
 import {Alert, SafeAreaView, Button, View, Text} from 'react-native';
-import {
-  NaverLogin,
-  getProfile,
-  NaverLoginResponse,
-} from '@react-native-seoul/naver-login';
+import NaverLogin, {NaverLoginResponse} from '@react-native-seoul/naver-login';
 
 const consumerKey = 'UHpUrWB3eVuQz28e9x6v';
 const consumerSecret = 'BF48UHwLU2';
 const appName = 'Hello';
-const serviceUrlScheme = 'testapp';
+const serviceUrlScheme = 'navertest';
 
 const App = () => {
   const [success, setSuccessResponse] =

@@ -141,11 +141,12 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
             putBoolean("isSuccess", false)
             putMap("failureResponse", Arguments.createMap().apply {
                 val lastErrorCode = NaverIdLoginSDK.getLastErrorCode().code
-                val isCancel = lastErrorCode == NidOAuthErrorCode.CLIENT_USER_CANCEL.code
+                val lastErrorDescription = NaverIdLoginSDK.getLastErrorDescription()
+                val isCancel = lastErrorCode == NidOAuthErrorCode.CLIENT_USER_CANCEL.code || (lastErrorCode == "access_denied" && lastErrorDescription == "Canceled By User")
 
                 putString("message", additionalMessage ?: "알 수 없는 에러입니다")
                 putString("lastErrorCodeFromNaverSDK", lastErrorCode)
-                putString("lastErrorDescriptionFromNaverSDK", NaverIdLoginSDK.getLastErrorDescription())
+                putString("lastErrorDescriptionFromNaverSDK", lastErrorDescription)
                 putBoolean("isCancel", isCancel)
             })
         }

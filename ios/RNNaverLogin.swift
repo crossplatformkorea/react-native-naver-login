@@ -20,7 +20,7 @@ class RNNaverLogin: NSObject {
 	
 	@objc
 	func login(_ serviceUrlScheme: String, consumerKey: String, consumerSecret: String,
-			   appName: String, resolve: @escaping RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock){
+			   appName: String, disableNaverAppAuth: Bool, resolve: @escaping RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock){
 		DispatchQueue.main.async { [unowned self] in
 			loginPromiseResolver = resolve
 			
@@ -29,7 +29,7 @@ class RNNaverLogin: NSObject {
 			connection.consumerSecret = consumerSecret
 			connection.appName = appName
 			
-			connection.isNaverAppOauthEnable = false
+			connection.isNaverAppOauthEnable = disableNaverAppAuth ? false : true
 			connection.isInAppOauthEnable = true
 			
 			connection.delegate = self
@@ -54,19 +54,7 @@ class RNNaverLogin: NSObject {
 		}
 	}
 	
-	func debugE(_ msg : Any...){
-#if DEBUG
-		if msg.count == 0{
-			print("🧩",msg,"🧩")
-		}else{
-			var msgs = ""
-			for i in msg{
-				msgs += "\(i) "
-			}
-			print("🧩",msgs,"🧩")
-		}
-#endif
-	}
+	
 }
 
 extension RNNaverLogin: NaverThirdPartyLoginConnectionDelegate {
@@ -182,3 +170,18 @@ extension RNNaverLogin: NaverThirdPartyLoginConnectionDelegate {
 		deleteTokenPromiseRejector = nil
 	}
 }
+
+fileprivate func debugE(_ msg: Any...){
+#if DEBUG
+	if msg.count == 0{
+		print("🧩",msg,"🧩")
+	}else{
+		var msgs = ""
+		for i in msg{
+			msgs += "\(i) "
+		}
+		print("🧩",msgs,"🧩")
+	}
+#endif
+}
+

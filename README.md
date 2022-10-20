@@ -148,6 +148,7 @@ export interface NaverLoginRequest {
   consumerKey: string;
   consumerSecret: string;
   appName: string;
+  disableNaverAppAuth?: boolean;
   /** Only for iOS */
   serviceUrlScheme?: string;
 }

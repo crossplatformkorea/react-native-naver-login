@@ -14,6 +14,7 @@ RCT_EXTERN_METHOD(
 				  consumerKey: (NSString) consumerKey
 				  consumerSecret: (NSString) consumerSecret
 				  appName: (NSString) appName
+				  disableNaverAppAuth: (BOOL) disableNaverAppAuth
 				  resolve: (RCTPromiseResolveBlock) resolve
 				  reject: (RCTPromiseRejectBlock) reject
 				  )

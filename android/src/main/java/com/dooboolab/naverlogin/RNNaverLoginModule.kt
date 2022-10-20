@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.UiThreadUtil
 import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.NidOAuthBehavior.CUSTOMTABS
 import com.navercorp.nid.oauth.NidOAuthErrorCode
 import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.oauth.OAuthLoginCallback
@@ -29,29 +30,39 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
     private fun callLogout() = NaverIdLoginSDK::logout
 
     @ReactMethod
-    fun login(consumerKey: String, consumerSecret: String, appName: String, promise: Promise) =
-        UiThreadUtil.runOnUiThread {
-            if (currentActivity == null) {
-                promise.onFailure("현재 실행중인 Activity 를 찾을 수 없습니다")
-                return@runOnUiThread
-            }
-            try {
-                NaverIdLoginSDK.initialize(
-                    currentActivity!!,
-                    consumerKey,
-                    consumerSecret,
-                    appName,
-                )
-                callLogout()
-                NaverIdLoginSDK.authenticate(currentActivity!!, object : OAuthLoginCallback {
-                    override fun onSuccess() = promise.onSuccess()
-                    override fun onFailure(httpStatus: Int, message: String) = promise.onFailure(message)
-                    override fun onError(errorCode: Int, message: String) = promise.onFailure(message)
-                })
-            } catch (je: Exception) {
-                promise.onFailure(je.localizedMessage)
-            }
+    fun login(
+        consumerKey: String,
+        consumerSecret: String,
+        appName: String,
+        disableNaverAppAuth: Boolean,
+        promise: Promise
+    ) = UiThreadUtil.runOnUiThread {
+        if (currentActivity == null) {
+            promise.onFailure("현재 실행중인 Activity 를 찾을 수 없습니다")
+            return@runOnUiThread
         }
+        try {
+            NaverIdLoginSDK.initialize(
+                currentActivity!!,
+                consumerKey,
+                consumerSecret,
+                appName,
+            )
+            callLogout()
+
+            // DEFAULTS 는 naver app -> custom tab -> webview
+            // CUSTOMTABS 는 custom tab -> webview 의 우선순위로 실행되는 것으로 보인다.
+            // WebView는 SDK 5.2.0 부터 deprecated 되므로 migration시 주의를 요한다. (현재 5.1.0 사용)
+            if(disableNaverAppAuth) NaverIdLoginSDK.behavior = CUSTOMTABS
+            NaverIdLoginSDK.authenticate(currentActivity!!, object : OAuthLoginCallback {
+                override fun onSuccess() = promise.onSuccess()
+                override fun onFailure(httpStatus: Int, message: String) = promise.onFailure(message)
+                override fun onError(errorCode: Int, message: String) = promise.onFailure(message)
+            })
+        } catch (je: Exception) {
+            promise.onFailure(je.localizedMessage)
+        }
+    }
 
     @ReactMethod
     fun deleteToken(promise: Promise) = UiThreadUtil.runOnUiThread {

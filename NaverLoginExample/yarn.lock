@@ -1290,7 +1290,7 @@
   integrity sha512-o6aam+0Ug1xGK3ABYmBm0B1YuEKfM/5kaoZO0eHbZwSpw9UzDX4G5y4Nx/K20FHqUmJHkZmLvOUFYwN4N+HqKA==
 
 "@react-native-seoul/naver-login@file:..":
-  version "2.3.1"
+  version "3.0.0-alpha.3"
   dependencies:
     dooboolab-welcome "^1.3.2"
 
@@ -5682,9 +5682,9 @@ react-is@^17.0.1:
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
 react-native-codegen@^0.70.5:
-  version "0.70.5"
-  resolved "https://registry.yarnpkg.com/react-native-codegen/-/react-native-codegen-0.70.5.tgz#afcfec394fc9357d870452eace5c7550e6ac403f"
-  integrity sha512-vXqgCWWIWlzsCtwD6hbmwmCleGNJYm+n4xO9VMfzzlF3xt9gjC7/USSMTf/YZlCK/hDwQU412QrNS6A9OH+mag==
+  version "0.70.6"
+  resolved "https://registry.yarnpkg.com/react-native-codegen/-/react-native-codegen-0.70.6.tgz#2ce17d1faad02ad4562345f8ee7cbe6397eda5cb"
+  integrity sha512-kdwIhH2hi+cFnG5Nb8Ji2JwmcCxnaOOo9440ov7XDzSvGfmUStnCzl+MCW8jLjqHcE4icT7N9y+xx4f50vfBTw==
   dependencies:
     "@babel/parser" "^7.14.0"
     flow-parser "^0.121.0"

@@ -6,6 +6,7 @@ export interface NaverLoginRequest {
   consumerKey: string;
   consumerSecret: string;
   appName: string;
+  disableNaverAppAuth?: boolean;
   /** Only for iOS */
   serviceUrlScheme?: string;
 }
@@ -35,10 +36,22 @@ const login = ({
   consumerKey,
   consumerSecret,
   serviceUrlScheme,
+  disableNaverAppAuth = false,
 }: NaverLoginRequest): Promise<NaverLoginResponse> =>
   Platform.OS === "ios"
-    ? RNNaverLogin.login(serviceUrlScheme, consumerKey, consumerSecret, appName)
-    : RNNaverLogin.login(consumerKey, consumerSecret, appName);
+    ? RNNaverLogin.login(
+        serviceUrlScheme,
+        consumerKey,
+        consumerSecret,
+        appName,
+        disableNaverAppAuth
+      )
+    : RNNaverLogin.login(
+        consumerKey,
+        consumerSecret,
+        appName,
+        disableNaverAppAuth
+      );
 
 const logout = async (): Promise<void> => {
   await RNNaverLogin.logout();

@@ -12,9 +12,7 @@ React Native 네이버 로그인 라이브러리 입니다.
 
 ## Installation
 
-❗️ `2.x` 버전은 [2.x branch](https://github.com/react-native-seoul/react-native-naver-login/tree/2.x) 의 
-설치 가이드를 
-설치 가이드와 사용법을 따라주세요.
+❗️ `2.x` 버전은 [2.x branch](https://github.com/react-native-seoul/react-native-naver-login/tree/2.x) 의 설치 가이드와 사용법을 따라주세요.
 
 
 ```shell

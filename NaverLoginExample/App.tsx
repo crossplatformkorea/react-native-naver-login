@@ -33,6 +33,7 @@ const App = () => {
       await NaverLogin.logout();
       setSuccessResponse(undefined);
       setFailureResponse(undefined);
+      setGetProfileRes(undefined);
     } catch (e) {
       console.error(e);
     }
@@ -52,6 +53,7 @@ const App = () => {
       await NaverLogin.deleteToken();
       setSuccessResponse(undefined);
       setFailureResponse(undefined);
+      setGetProfileRes(undefined);
     } catch (e) {
       console.error(e);
     }

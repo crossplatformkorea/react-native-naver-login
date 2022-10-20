@@ -4,273 +4,331 @@
 [![downloads](http://img.shields.io/npm/dm/@react-native-seoul/naver-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/naver-login)
 [![license](http://img.shields.io/npm/l/@react-native-seoul/naver-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/naver-login)
 
-React Native 네이버 로그인 라이브러리 입니다. 자세한 예제는 [NaverLoginExample](https://github.com/react-native-seoul/react-native-naver-login/tree/main/NaverLoginExample)에서 확인 가능합니다
+React Native 네이버 로그인 라이브러리 입니다.
 
 `typescript`와 `flow`를 지원합니다
 
-## Getting started
+<img src="https://user-images.githubusercontent.com/33388801/196834333-69841305-ebd2-4b59-b02b-b079aafd7523.gif" width=400 />
 
-`$ npm install @react-native-seoul/naver-login --save`  
-또는  
-`$ yarn add @react-native-seoul/naver-login`
+## Installation
 
-### Mostly automatic installation
+```shell
+# npm
+npm install @react-native-seoul/naver-login --save
 
-#### RN version < 0.60
-
-`$ react-native link @react-native-seoul/naver-login`
-
-#### RN version >= 0.60 
-
-- [Autolinking](https://github.com/react-native-community/cli/blob/main/docs/autolinking.md)이 지원됩니다.
-- iOS의 경우 추가적으로 pod install이 필요합니다.
-
-    `cd ios && pod install && cd .. # CocoaPods on iOS needs this extra step`
-
-### Manual installation (Post installation) ❗️Important
-
-#### iOS
-
-프로젝트 링크(Xcode project 와 Build Phase에 libRNNaverLogin.a 파일 링크)는 react-native link 명령어를 통하여 세팅이 되며 추가적인 세팅, 주의사항은 아래와 같습니다.
-
-1. [info.plist] 파일 LSApplicationQueriesSchemes 항목에 아래 항목을 추가합니다.
-
-```xml
-   <key>LSApplicationQueriesSchemes</key>
-   <array>
-     <string>naversearchapp</string>
-     <string>naversearchthirdlogin</string>
-   </array>
+# yarn
+yarn add @react-native-seoul/naver-login
 ```
 
-- 세팅 후 Facebook 관련 세팅을 할 때 이 항목이 지워지는 경우가 있습니다.
+### RN version >= `0.60` 
 
-2. [네이버 문서](https://developers.naver.com/docs/login/ios/)와 같이 세팅 페이지의 info 탭의 URL Types 에 URL Schemes 를 추가합니다(공식문서를 자세히 읽어볼 것을 추천드립니다)
-3. AppDelegate 클래스에 추가되는 세팅은 매뉴얼로 하셔야 합니다.([예제 프로젝트](https://github.com/react-native-seoul/react-native-naver-login/blob/main/NaverLoginExample/ios/NaverLoginExample/AppDelegate.m)를 참고 하세요)
-   `[application: openURL: options]` 에서는 `if ([url.scheme isEqualToString:@"your_apps_urlscheme"])` 을 통하여 이 함수를 사용하는 다른 액션과 구별하시면 됩니다.
-   
-   ```objc
-   #import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
-   ```
+- Auto Linking 이 적용됩니다.
+- iOS의 경우 추가적으로 Cocoapods 설치가 필요합니다.
 
-   네이버 로그인만 사용하는 경우
-   
-   ```objc
-   - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary *)options {
-      return [[NaverThirdPartyLoginConnection getSharedInstance] application:app openURL:url options:options];
-   }
-   ```
-   
-   구글 로그인 등과 같이 사용하는 경우
+```shell
+cd ios && pod install
+```
 
-   ```objc
-   - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<NSString *,id> *)options {
-     if ([url.scheme isEqualToString:@"your_apps_urlscheme"]) {
-       return [[NaverThirdPartyLoginConnection getSharedInstance] application:application openURL:url options:options];
-     }
-  
-     return [RNGoogleSignin application:application openURL:url options:options];
-   }
-   ```
-4. 인증방법
+### RN version < `0.60`
 
-- 네이버 앱으로 인증하는 방식을 활성화하려면 앱 델리게이트 `didFinishLaunchingWithOptions` 메소드 내부에 다음 코드를 추가합니다.
+- `0.60` 미만의 React Native를 사용중이시라면 [Manual Linking Guide](./README-manual-linking.md)를 참고해주세요.
+
+
+### 추가 작업 - iOS ❗️Important
+
+#### 1. Launch Service Queries Schemes 추가
+
+로그인 시에 네이버 앱을 실행시키기 위해 [Launch Services Queries Schemes](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html) 를 등록해주어야 합니다.
+
+`Info.plist` 파일안에 다음과 같은 항목을 추가합니다. 
+
+- `naversearchapp`
+- `naversearchthirdlogin`
+
+이미 `LSApplicationQueriesSchemes` 가 항목으로 추가되어 있다면, `<array>` 안에 두 가지만 더 추가해주세요.
+
+```
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>naversearchapp</string>
+  <string>naversearchthirdlogin</string>
+</array>
+```
+
+![image](https://user-images.githubusercontent.com/33388801/196834997-40ca2368-50e6-45cb-9b68-2cf5307fd792.png)
+
+#### 2. custom URL scheme 추가
+
+네이버 로그인이 완료된 뒤 다시 우리의 앱으로 돌아오기 위해 `URL Scheme`를 `Info.plist` 에 정의해주어야 합니다.
+
+아래 코드들에서 `{{ CUSTOM URL SCHEME }}`는 커스텀하게 정의할 우리 앱에 사용될 URL scheme라고 생각하시면 됩니다.
+
+주의할 점은 다음과 같습니다.
+
+- 네이버 개발자 콘솔에 기입한 `URL Scheme`와 동일해야 합니다.
+- `login` 함수 호출시에 `serviceUrlScheme` 로 동일하게 전달해주어야 합니다.
+- TODO 설명 및 이미지 추가
+
+대략 다음과 같이 `Info.plist`에 입력되게 됩니다.
+```
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLName</key>
+		<string>naver</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>{{ CUSTOM URL SCHEME }}</string>
+		</array>
+	</dict>
+	...
+</array>
+```
+
+![image](https://user-images.githubusercontent.com/33388801/196835050-3d887f3c-1d07-4be3-a2cf-27ed18a48691.png)
+
+#### 3. `AppDelegate`의 `application:openURL:options` 에서 URL 핸들링 로직 추가
+
+네이버 로그인이 성공한 후 우리앱으로 다시 돌아와 URL을 처리하기 위해 필요한 과정입니다.
 
 ```objc
 #import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
+...
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions { ... }
+// 다른 URL 핸들링 로직이 없는경우
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+   return [[NaverThirdPartyLoginConnection getSharedInstance] application:app openURL:url options:options];
+}
+
+// 다른 URL 핸들링 로직이 같이 있는 경우
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+  // naver
+  if ([url.scheme isEqualToString:@"{{ CUSTOM URL SCHEME }}"]) {
+    return [[NaverThirdPartyLoginConnection getSharedInstance] application:application openURL:url options:options];
+  }
+  
+  // kakao
+  if([RNKakaoLogins isKakaoTalkLoginUrl:url]) {
+    return [RNKakaoLogins handleOpenUrl: url];
+  }
+  
+  ...
+}
 ```
 
-```objc
-[[NaverThirdPartyLoginConnection getSharedInstance] setIsNaverAppOauthEnable:YES];
-```
 
-- SafariViewContoller에서 인증하는 방식을 활성화하려면 다음 코드를 추가합니다.
+### 추가 작업 - Android ❗️Important
 
-```objc
-[[NaverThirdPartyLoginConnection getSharedInstance] setIsInAppOauthEnable:YES];
-```
+#### 1. MainActivity에 `initialize` 코드 추가
 
-#### Android
+`onCreate` 가 없다면 추가해주세요. 
 
-RN >= 0.60에서는 Autolinking이 지원되어 proguard를 제외한 별도의 설정이 필요하지 않습니다.
+`react-native-screens` 패키지를 쓴다면 `super.onCreate`에 `null`을 [전달하라고 할 수도](https://github.com/software-mansion/react-native-screens#android) 있습니다.
 
-1. Open up `android/app/src/main/java/[...]/MainApplication.java`
+**Java**
+```java
+public class MainActivity extends ReactActivity {
 
-- Add `import com.dooboolab.naverlogin.RNNaverLoginPackage;` to the imports at the top of the file
-- Add `new RNNaverLoginPackage()` to the list returned by the `getPackages()` method
-
-  ```java
-  List<ReactPackage> packages = new PackageList(this).getPackages();
-  packages.add(new RNNaverLoginPackage());
-  ```
-
-2. Append the following lines to `android/settings.gradle`:
-
-   ```gradle
-   include ':react-native-seoul-naver-login'
-   project(':react-native-seoul-naver-login').projectDir = new File(rootProject.projectDir, 	'../node_modules/@react-native-seoul/naver-login/android')
-   ```
-
-3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-
-   ```gradle
-    implementation project(':react-native-seoul-naver-login')
-   ```
-
-### Additional Check in Android
-
-1. `app/build.gradle file` => `defaultConfig` 에 `applicationId`가 셋팅 되어 있는지 확인하세요
-
-```gradle
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    RNNaverLoginModule.initialize(this);
     ...
+  }
+```
 
-    defaultConfig {
-        applicationId "com.my.app.name"
+**Kotlin**
+```kotlin
+class MainActivity : ReactActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        RNNaverLoginModule.initialize(this)
         ...
-}
-```
-
-2. Build 과정에서 WrongManifestParent 에러 발생 시 (로그에 나오는 대로)아래 코드를 app/build.gradle 에 추가해 줍니다.
-
-```gradle
-android {
-    lintOptions {
-        checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
-        abortOnError false
     }
-}
 ```
 
-3. 필요하면 Manifest 파일에 Activity 를 추가합니다.
-   첫번째 항목이 있으면 중복된다는 에러가 날 수도 있습니다. (1.3 이후 기준)
+#### 2. Proguard
 
-```xml
-<activity
-  android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
-  android:screenOrientation="portrait"
-  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-<activity
-  android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
-  android:label="OAuth2.0 In-app"
-  android:screenOrientation="portrait" />
-```
+만약 Release build에서 R8 컴파일러를 이용해 code obfuscating을 하신다면, app/build.gradle 설정에 `minifyEnabled`이 `true`로 설정이 되어있을 것입니다.
 
-해당 코드에서 android:theme="@android:style/Theme.Translucent.NoTitleBar" 관련 오류가 발생할 시 style.xml 파일에 다음과 같이 작성합니다.
+그 경우 다음과 같은 Proguard 규칙이 필요합니다.
 
-```xml
-<style name="Theme.Translucent.NoTitleBar">
-    <item name="windowNoTitle">true</item>
-    <item name="windowContentOverlay">@null</item>
-</style>
-```
+만약 그렇지 않다면 별도의 설정이 필요하지 않습니다.
 
-4. Proguard 적용 제외 설정
-   네이버 아이디로 로그인 라이브러리는 ProGuard로 코드 난독화를 적용하면 안 됩니다. 네이버 아이디로 로그인 라이브러리를 사용하는 애플리케이션을 .apk 파일로 빌드할 때 ProGuard를 적용한다면, 다음과 같이 proguard-project.txt 파일을 수정해 ProGuard 적용 대상에서 네이버 아이디로 로그인 라이브러리 파일을 제외합니다. 라이브러리 파일의 이름과 폴더는 버전이나 개발 환경에 따라 다를 수 있습니다. (혹은 proguard-rules.pro)
-
-```
+```text
 -keep public class com.nhn.android.naverlogin.** {
        public protected *;
 }
 ```
 
-#### Methods
+## API
 
-| Func       |  Param   |  Return   | Description      |
-| :--------- | :------: | :-------: | :--------------- |
-| login      | `Object` | `Promise` | 로그인.          |
-| getProfile | `String` | `Promise` | 프로필 불러오기. |
-| logout     |          |           | 로그아웃.        |
+| Func        |        Param        |            Return             | Description                        |
+|:------------|:-------------------:|:-----------------------------:|:-----------------------------------|
+| login       | `NaverLoginRequest` | `Promise<NaverLoginResponse>` | 로그인, 반환되는 `Promise`는 항상 resolve된다. |
+| getProfile  |      `String`       | `Promise<GetProfileResponse>` | 프로필 불러오기                           |
+| logout      |                     |        `Promise<void>`        | 로그아웃                               |
+| deleteToken |                     |        `Promise<void>`        | 네이버 앱 연동 삭제                        |
+
+### Type
+
+**NaverLoginRequest**
+```typescript
+export interface NaverLoginRequest {
+  consumerKey: string;
+  consumerSecret: string;
+  appName: string;
+  disableNaverAppAuth?: boolean;
+  /** Only for iOS */
+  serviceUrlScheme?: string;
+}
+```
+
+**NaverLoginResponse**
+```typescript
+export interface NaverLoginResponse {
+  isSuccess: boolean;
+  /** isSuccess가 true일 때 존재합니다. */
+  successResponse?: {
+    accessToken: string;
+    refreshToken: string;
+    expiresAtUnixSecondString: string;
+    tokenType: string;
+  };
+  /** isSuccess가 false일 때 존재합니다. */
+  failureResponse?: {
+    message: string;
+    isCancel: boolean;
+
+    /** Android Only */
+    lastErrorCodeFromNaverSDK?: string;
+    /** Android Only */
+    lastErrorDescriptionFromNaverSDK?: string;
+  };
+}
+```
+
+**GetProfileResponse**
+```typescript
+export interface GetProfileResponse {
+  resultcode: string;
+  message: string;
+  response: {
+    id: string;
+    profile_image: string | null;
+    email: string;
+    name: string;
+    birthday: string | null;
+    age: string | null;
+    birthyear: number | null;
+    gender: string | null;
+    mobile: string | null;
+    mobile_e164: string | null;
+    nickname: string | null;
+  };
+}
+```
+
 
 ## Usage
 
-- 자세한 예제는 [NaverLoginExample](https://github.com/react-native-seoul/react-native-naver-login/tree/main/NaverLoginExample)에서 확인하세요
+- 자세한 예제는 [예제 프로젝트](./NaverLoginExample)를 참고해주세요
 
-```javascript
-import React from "react";
-import {
-  Alert,
-  SafeAreaView,
-  StyleSheet,
-  Button,
-  Platform
-} from "react-native";
-import { NaverLogin, getProfile } from "@react-native-seoul/naver-login";
+```typescript jsx
+import React, {useState} from 'react';
+import {Alert, SafeAreaView, Button, View, Text} from 'react-native';
+import NaverLogin, {NaverLoginResponse} from '@react-native-seoul/naver-login';
 
-const iosKeys = {
-  kConsumerKey: "VC5CPfjRigclJV_TFACU",
-  kConsumerSecret: "f7tLFw0AHn",
-  kServiceAppName: "테스트앱(iOS)",
-  kServiceAppUrlScheme: "testapp" // only for iOS
-};
-
-const androidKeys = {
-  kConsumerKey: "QfXNXVO8RnqfbPS9x0LR",
-  kConsumerSecret: "6ZGEYZabM9",
-  kServiceAppName: "테스트앱(안드로이드)"
-};
-
-const initials = Platform.OS === "ios" ? iosKeys : androidKeys;
+const consumerKey = '';
+const consumerSecret = '';
+const appName = 'Hello';
+const serviceUrlScheme = '';
 
 const App = () => {
-  const [naverToken, setNaverToken] = React.useState(null);
+  const [success, setSuccessResponse] =
+    useState<NaverLoginResponse['successResponse']>();
+  const [failure, setFailureResponse] =
+    useState<NaverLoginResponse['failureResponse']>();
 
-  const naverLogin = props => {
-    return new Promise((resolve, reject) => {
-      NaverLogin.login(props, (err, token) => {
-        console.log(`\n\n  Token is fetched  :: ${token} \n\n`);
-        setNaverToken(token);
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(token);
-      });
+  const login = async () => {
+    const {failureResponse, successResponse} = await NaverLogin.login({
+      appName,
+      consumerKey,
+      consumerSecret,
+      serviceUrlScheme,
     });
+    setSuccessResponse(successResponse);
+    setFailureResponse(failureResponse);
   };
 
-  const naverLogout = () => {
-    NaverLogin.logout();
-    setNaverToken("");
+  const logout = async () => {
+    try {
+      await NaverLogin.logout();
+      setSuccessResponse(undefined);
+      setFailureResponse(undefined);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  const getUserProfile = async () => {
-    const profileResult = await getProfile(naverToken.accessToken);
-    if (profileResult.resultcode === "024") {
-      Alert.alert("로그인 실패", profileResult.message);
+  const getProfile = async () => {
+    const profileResult = await NaverLogin.getProfile(success!.accessToken);
+    if (profileResult.resultcode === '024') {
+      Alert.alert('로그인 실패', profileResult.message);
       return;
     }
-    console.log("profileResult", profileResult);
+    console.log('profileResult', profileResult);
+  };
+
+  const deleteToken = async () => {
+    try {
+      await NaverLogin.deleteToken();
+      setSuccessResponse(undefined);
+      setFailureResponse(undefined);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
       <Button
-        title="네이버 아이디로 로그인하기"
-        onPress={() => naverLogin(initials)}
+        title={success ? 'Logout' : 'Sign in with Naver'}
+        onPress={success ? logout : login}
       />
-      {!!naverToken && <Button title="로그아웃하기" onPress={naverLogout} />}
-
-      {!!naverToken && (
-        <Button title="회원정보 가져오기" onPress={getUserProfile} />
-      )}
+      <Gap />
+      {success ? (
+        <>
+          <Button title="Get Profile" onPress={getProfile} />
+          <Gap />
+        </>
+      ) : null}
+      {success ? (
+        <View style={{paddingHorizontal: 24}}>
+          <Button title="Delete Token" onPress={deleteToken} />
+          <Gap />
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>성공 응답</Text>
+          <Text>{JSON.stringify(success, null, 2)}</Text>
+        </View>
+      ) : null}
+      <Gap />
+      {failure ? (
+        <View style={{paddingHorizontal: 24}}>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>실패 응답</Text>
+          <Text>{JSON.stringify(failure, null, 2)}</Text>
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "space-evenly",
-    alignItems: "center"
-  }
-});
+const Gap = () => <View style={{marginTop: 24}} />;
 
 export default App;
 ```

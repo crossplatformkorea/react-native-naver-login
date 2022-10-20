@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.author             = { "author" => "dooboolab@gmail.com" }
   s.platform     = :ios, "9.0"
   s.source       = { :git => "https://github.com/react-native-seoul/react-native-naver-login.git", :tag => "main" }
-  s.source_files  = "ios/**/*.{h,m}"
+  s.source_files  = "ios/**/*.{h,m,swift}"
   s.requires_arc = true
 
 

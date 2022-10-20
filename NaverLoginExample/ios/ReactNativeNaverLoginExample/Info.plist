@@ -20,12 +20,12 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
   <key>LSApplicationQueriesSchemes</key>
   <array>
     <string>naversearchapp</string>
     <string>naversearchthirdlogin</string>
   </array>
+	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>

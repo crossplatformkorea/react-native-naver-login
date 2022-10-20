@@ -1,5 +1,5 @@
 {
-  "name": "@mj-studio/naver-login",
+  "name": "@react-native-seoul/naver-login",
   "version": "3.0.0-alpha.3",
   "description": "React Native Module for Naver Login",
   "main": "index.js",

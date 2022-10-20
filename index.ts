@@ -16,7 +16,7 @@ export interface NaverLoginResponse {
   successResponse?: {
     accessToken: string;
     refreshToken: string;
-    expiresAt: string;
+    expiresAtUnixSecondString: string;
     tokenType: string;
   };
   /** isSuccess가 false일 때 존재합니다. */

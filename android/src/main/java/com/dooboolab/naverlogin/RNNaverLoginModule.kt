@@ -82,7 +82,7 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
             putMap("successResponse", Arguments.createMap().apply {
                 putString("accessToken", NaverIdLoginSDK.getAccessToken())
                 putString("refreshToken", NaverIdLoginSDK.getRefreshToken())
-                putString("expiresAt", NaverIdLoginSDK.getExpiresAt().toString())
+                putString("expiresAtUnixSecondString", NaverIdLoginSDK.getExpiresAt().toString())
                 putString("tokenType", NaverIdLoginSDK.getTokenType())
             })
         }

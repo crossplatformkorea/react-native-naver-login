@@ -64,7 +64,7 @@ extension RNNaverLogin: NaverThirdPartyLoginConnectionDelegate {
 			"successResponse": [
 				"accessToken": connection.accessToken ?? "",
 				"refreshToken": connection.refreshToken ?? "",
-				"expiresAt": connection.accessTokenExpireDate.timeIntervalSince1970,
+				"expiresAtUnixSecondString": "\(Int(connection.accessTokenExpireDate.timeIntervalSince1970))",
 				"tokenType": connection.tokenType ?? "",
 			],
 		];

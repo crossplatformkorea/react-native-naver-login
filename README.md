@@ -23,6 +23,18 @@ npm install @react-native-seoul/naver-login --save
 yarn add @react-native-seoul/naver-login
 ```
 
+현재 `3.x` 이 npm에 배포가 안된 상태라면
+
+```shell
+# npm
+npm install @mj-studio/naver-login --save
+
+# yarn
+yarn add @mj-studio/naver-login
+```
+
+로 설치해주세요.
+
 ### RN version >= `0.60` 
 
 - Auto Linking 이 적용됩니다.

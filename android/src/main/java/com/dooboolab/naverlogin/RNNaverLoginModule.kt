@@ -14,7 +14,6 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.UiThreadUtil
 import com.navercorp.nid.NaverIdLoginSDK
-import com.navercorp.nid.oauth.NidOAuthBehavior.CUSTOMTABS
 import com.navercorp.nid.oauth.NidOAuthErrorCode
 import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.oauth.OAuthLoginCallback
@@ -71,6 +70,7 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
                 appName,
             )
 
+            callLogout()
             NaverIdLoginSDK.authenticate(currentActivity!!, dummyActivityResultLauncher!!, object : OAuthLoginCallback {
                 override fun onSuccess() {
                     onLoginSuccess()

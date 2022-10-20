@@ -6,8 +6,9 @@ export interface NaverLoginRequest {
   consumerKey: string;
   consumerSecret: string;
   appName: string;
+  /** (iOS) 네이버앱을 사용하는 인증을 비활성화 한다. (default: false) */
   disableNaverAppAuth?: boolean;
-  /** Only for iOS */
+  /** (iOS) */
   serviceUrlScheme?: string;
 }
 export interface NaverLoginResponse {
@@ -46,12 +47,7 @@ const login = ({
         appName,
         disableNaverAppAuth
       )
-    : RNNaverLogin.login(
-        consumerKey,
-        consumerSecret,
-        appName,
-        disableNaverAppAuth
-      );
+    : RNNaverLogin.login(consumerKey, consumerSecret, appName);
 
 const logout = async (): Promise<void> => {
   await RNNaverLogin.logout();

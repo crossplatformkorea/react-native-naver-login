@@ -52,7 +52,7 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
 
     @ReactMethod
     fun login(
-        consumerKey: String, consumerSecret: String, appName: String, disableNaverAppAuth: Boolean, promise: Promise
+        consumerKey: String, consumerSecret: String, appName: String, promise: Promise
     ) = UiThreadUtil.runOnUiThread {
         loginPromise = promise
         if (currentActivity == null) {
@@ -71,10 +71,6 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
                 appName,
             )
 
-            // DEFAULTS 는 naver app -> custom tab -> webview
-            // CUSTOMTABS 는 custom tab -> webview 의 우선순위로 실행되는 것으로 보인다.
-            // WebView는 SDK 5.2.0 부터 deprecated 되므로 migration시 주의를 요한다. (현재 5.1.0 사용)
-            if (disableNaverAppAuth) NaverIdLoginSDK.behavior = CUSTOMTABS
             NaverIdLoginSDK.authenticate(currentActivity!!, dummyActivityResultLauncher!!, object : OAuthLoginCallback {
                 override fun onSuccess() {
                     onLoginSuccess()

@@ -8,6 +8,8 @@ React Native 네이버 로그인 라이브러리 입니다.
 
 `typescript`와 `flow`를 지원합니다
 
+<img src="https://user-images.githubusercontent.com/33388801/196834333-69841305-ebd2-4b59-b02b-b079aafd7523.gif" width=400 />
+
 ## Installation
 
 ```shell
@@ -53,6 +55,8 @@ cd ios && pod install
 </array>
 ```
 
+![image](https://user-images.githubusercontent.com/33388801/196834997-40ca2368-50e6-45cb-9b68-2cf5307fd792.png)
+
 #### 2. custom URL scheme 추가
 
 네이버 로그인이 완료된 뒤 다시 우리의 앱으로 돌아오기 위해 `URL Scheme`를 `Info.plist` 에 정의해주어야 합니다.
@@ -83,7 +87,11 @@ cd ios && pod install
 </array>
 ```
 
+![image](https://user-images.githubusercontent.com/33388801/196835050-3d887f3c-1d07-4be3-a2cf-27ed18a48691.png)
+
 #### 3. `AppDelegate`의 `application:openURL:options` 에서 URL 핸들링 로직 추가
+
+네이버 로그인이 성공한 후 우리앱으로 다시 돌아와 URL을 처리하기 위해 필요한 과정입니다.
 
 ```objc
 #import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>

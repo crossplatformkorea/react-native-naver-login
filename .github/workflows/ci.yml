@@ -34,4 +34,4 @@ jobs:
       run: yarn lint
 
     - name: Build typescript
-        run: yarn tsc
+      run: yarn tsc

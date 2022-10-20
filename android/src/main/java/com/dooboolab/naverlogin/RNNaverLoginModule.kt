@@ -1,6 +1,13 @@
 package com.dooboolab.naverlogin
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.appcompat.app.AppCompatActivity
 import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -17,6 +24,20 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
 ) {
     override fun getName() = "RNNaverLogin"
 
+    init {
+        reactContext.addLifecycleEventListener(object : LifecycleEventListener {
+            override fun onHostResume() {}
+
+            override fun onHostPause() {}
+
+            override fun onHostDestroy() {
+                dummyActivityResultLauncher?.unregister()
+                dummyActivityResultLauncher = null
+                loginPromise = null
+            }
+        })
+    }
+
     @ReactMethod
     fun logout(promise: Promise) = UiThreadUtil.runOnUiThread {
         try {
@@ -31,14 +52,15 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
 
     @ReactMethod
     fun login(
-        consumerKey: String,
-        consumerSecret: String,
-        appName: String,
-        disableNaverAppAuth: Boolean,
-        promise: Promise
+        consumerKey: String, consumerSecret: String, appName: String, disableNaverAppAuth: Boolean, promise: Promise
     ) = UiThreadUtil.runOnUiThread {
+        loginPromise = promise
         if (currentActivity == null) {
-            promise.onFailure("현재 실행중인 Activity 를 찾을 수 없습니다")
+            onLoginFailure("현재 실행중인 Activity 를 찾을 수 없습니다")
+            return@runOnUiThread
+        }
+        if (dummyActivityResultLauncher == null) {
+            onLoginFailure("ActivityResultLauncher 가 등록되지 않았습니다. MainActivity 가 AppCompatActivity 인지 확인해주세요")
             return@runOnUiThread
         }
         try {
@@ -48,19 +70,26 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
                 consumerSecret,
                 appName,
             )
-            callLogout()
 
             // DEFAULTS 는 naver app -> custom tab -> webview
             // CUSTOMTABS 는 custom tab -> webview 의 우선순위로 실행되는 것으로 보인다.
             // WebView는 SDK 5.2.0 부터 deprecated 되므로 migration시 주의를 요한다. (현재 5.1.0 사용)
-            if(disableNaverAppAuth) NaverIdLoginSDK.behavior = CUSTOMTABS
-            NaverIdLoginSDK.authenticate(currentActivity!!, object : OAuthLoginCallback {
-                override fun onSuccess() = promise.onSuccess()
-                override fun onFailure(httpStatus: Int, message: String) = promise.onFailure(message)
-                override fun onError(errorCode: Int, message: String) = promise.onFailure(message)
+            if (disableNaverAppAuth) NaverIdLoginSDK.behavior = CUSTOMTABS
+            NaverIdLoginSDK.authenticate(currentActivity!!, dummyActivityResultLauncher!!, object : OAuthLoginCallback {
+                override fun onSuccess() {
+                    onLoginSuccess()
+                }
+
+                override fun onFailure(httpStatus: Int, message: String) {
+                    onLoginFailure(message)
+                }
+
+                override fun onError(errorCode: Int, message: String) {
+                    onLoginFailure(message)
+                }
             })
         } catch (je: Exception) {
-            promise.onFailure(je.localizedMessage)
+            onLoginFailure(je.localizedMessage)
         }
     }
 
@@ -73,10 +102,35 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
         })
     }
 
-    private fun Promise.onSuccess() = resolve(createLoginSuccessResponse())
-    private fun Promise.onFailure(message: String?) = resolve(createLoginFailureResponse(message))
-
     companion object {
+        private var dummyActivityResultLauncher: ActivityResultLauncher<Intent>? = null
+        private var loginPromise: Promise? = null
+
+        /** Call at `onCreate` of main `Activity` */
+        @JvmStatic
+        fun initialize(activity: AppCompatActivity) {
+            dummyActivityResultLauncher?.unregister()
+            dummyActivityResultLauncher = activity.registerForActivityResult(
+                StartActivityForResult()
+            ) { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> onLoginSuccess()
+                    RESULT_CANCELED -> onLoginFailure(null)
+                    else -> onLoginFailure(null)
+                }
+            }
+        }
+
+        private fun onLoginSuccess() = loginPromise?.run {
+            resolve(createLoginSuccessResponse())
+            loginPromise = null
+        }
+
+        private fun onLoginFailure(message: String?) = loginPromise?.run {
+            resolve(createLoginFailureResponse(message))
+            loginPromise = null
+        }
+
         private fun createLoginSuccessResponse() = Arguments.createMap().apply {
             putBoolean("isSuccess", true)
             putMap("successResponse", Arguments.createMap().apply {

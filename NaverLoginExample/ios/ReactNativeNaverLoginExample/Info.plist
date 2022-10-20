@@ -21,6 +21,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
+  <key>LSApplicationQueriesSchemes</key>
+  <array>
+    <string>naversearchapp</string>
+    <string>naversearchthirdlogin</string>
+  </array>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>

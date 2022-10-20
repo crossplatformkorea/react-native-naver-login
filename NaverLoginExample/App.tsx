@@ -88,10 +88,12 @@ const App = (): ReactElement => {
 
   return (
     <SafeAreaView
-      style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+      style={{alignItems: 'center', justifyContent: 'center', flex: 1}}
+    >
       <ScrollView
         style={{flex: 1}}
-        contentContainerStyle={{flexGrow: 1, padding: 24}}>
+        contentContainerStyle={{flexGrow: 1, padding: 24}}
+      >
         <Button title={'Login'} onPress={login} />
         <Gap />
         <Button title={'Logout'} onPress={logout} />

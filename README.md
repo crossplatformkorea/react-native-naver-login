@@ -202,7 +202,7 @@ export interface GetProfileResponse {
 
 ## Usage
 
-- 자세한 예제는 [예제 프로젝트](./ReactNativeNaverLoginExample)를 참고해주세요
+- 자세한 예제는 [예제 프로젝트](./NaverLoginExample)를 참고해주세요
 
 ```typescript jsx
 import React, {useState} from 'react';

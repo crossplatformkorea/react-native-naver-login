@@ -6,7 +6,15 @@
 
 React Native 네이버 로그인 라이브러리 입니다.
 
-`typescript`와 `flow`를 지원합니다
+### Supported platforms
+
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
+
+### Supported typing
+
+- TypeScript
+- Flow
 
 <img src="https://user-images.githubusercontent.com/33388801/196834333-69841305-ebd2-4b59-b02b-b079aafd7523.gif" width=400 />
 

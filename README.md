@@ -136,6 +136,9 @@ cd ios && pod install
 
 **Java**
 ```java
+import com.dooboolab.naverlogin.RNNaverLoginModule
+...
+
 public class MainActivity extends ReactActivity {
 
   @Override
@@ -148,6 +151,9 @@ public class MainActivity extends ReactActivity {
 
 **Kotlin**
 ```kotlin
+import com.dooboolab.naverlogin.RNNaverLoginModule
+...
+
 class MainActivity : ReactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

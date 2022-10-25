@@ -140,13 +140,21 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
         private fun createLoginFailureResponse(additionalMessage: String?) = Arguments.createMap().apply {
             putBoolean("isSuccess", false)
             putMap("failureResponse", Arguments.createMap().apply {
-                val lastErrorCode = NaverIdLoginSDK.getLastErrorCode().code
-                val lastErrorDescription = NaverIdLoginSDK.getLastErrorDescription()
-                val isCancel = lastErrorCode == NidOAuthErrorCode.CLIENT_USER_CANCEL.code || (lastErrorCode == "access_denied" && lastErrorDescription == "Canceled By User")
+
+                val (errorCode, errorDescription) = try {
+                    NaverIdLoginSDK.getLastErrorCode().code to NaverIdLoginSDK.getLastErrorDescription()
+                } catch (e: Exception) {
+                    val errorMessage =
+                        "failed to call NaverIdLoginSDK.getLastErrorCode() or NaverIdLoginSDK.getLastErrordescription()"
+                    errorMessage to errorMessage
+                }
+
+                val isCancel =
+                    errorCode == NidOAuthErrorCode.CLIENT_USER_CANCEL.code || (errorCode == "access_denied" && errorDescription == "Canceled By User")
 
                 putString("message", additionalMessage ?: "알 수 없는 에러입니다")
-                putString("lastErrorCodeFromNaverSDK", lastErrorCode)
-                putString("lastErrorDescriptionFromNaverSDK", lastErrorDescription)
+                putString("lastErrorCodeFromNaverSDK", errorCode)
+                putString("lastErrorDescriptionFromNaverSDK", errorDescription)
                 putBoolean("isCancel", isCancel)
             })
         }

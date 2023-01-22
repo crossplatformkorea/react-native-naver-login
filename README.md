@@ -136,41 +136,7 @@ cd ios && pod install
 
 ### 추가 작업 - Android ❗️Important
 
-#### 1. MainActivity에 `initialize` 코드 추가
-
-`onCreate` 가 없다면 추가해주세요. 
-
-`react-native-screens` 패키지를 쓴다면 `super.onCreate`에 `null`을 [전달하라고 할 수도](https://github.com/software-mansion/react-native-screens#android) 있습니다.
-
-**Java**
-```java
-import com.dooboolab.naverlogin.RNNaverLoginModule
-...
-
-public class MainActivity extends ReactActivity {
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    RNNaverLoginModule.initialize(this);
-    ...
-  }
-```
-
-**Kotlin**
-```kotlin
-import com.dooboolab.naverlogin.RNNaverLoginModule
-...
-
-class MainActivity : ReactActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        RNNaverLoginModule.initialize(this)
-        ...
-    }
-```
-
-#### 2. Proguard
+#### 1. Proguard
 
 만약 Release build에서 R8 컴파일러를 이용해 code obfuscating을 하신다면, app/build.gradle 설정에 `minifyEnabled`이 `true`로 설정이 되어있을 것입니다.
 

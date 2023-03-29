@@ -9,12 +9,12 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                   RNNaverLogin
                    DESC
-  s.homepage     = "https://github.com/react-native-seoul/react-native-naver-login.git"
+  s.homepage     = "https://github.com/crossplatformkorea/react-native-naver-login.git"
   s.license      = "MIT"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
   s.author             = { "author" => "dooboolab@gmail.com" }
   s.platform     = :ios, "9.0"
-  s.source       = { :git => "https://github.com/react-native-seoul/react-native-naver-login.git", :tag => "main" }
+  s.source       = { :git => "https://github.com/crossplatformkorea/react-native-naver-login.git", :tag => "main" }
   s.source_files  = "ios/**/*.{h,m,swift}"
   s.requires_arc = true
 

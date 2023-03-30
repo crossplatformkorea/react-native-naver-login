@@ -53,6 +53,21 @@ const logout = async (): Promise<void> => {
   await RNNaverLogin.logout();
 };
 
+/** (Android) deleteToken 실행 전에 NaverIdLoginSDK를 초기화한다. (ios에서는 기본 deleteToken 메서드 실행) */
+const deleteTokenWithInit = async ({
+    appName,
+    consumerKey,
+    consumerSecret,
+  }: NaverLoginRequest): Promise<void> => {
+    Platform.OS === 'ios'
+      ? await RNNaverLogin.deleteToken()
+      : await RNNaverLogin.deleteTokenWithInit(
+          consumerKey,
+          consumerSecret,
+          appName,
+        );
+  };
+
 const deleteToken = async (): Promise<void> => {
   await RNNaverLogin.deleteToken();
 };
@@ -96,6 +111,7 @@ const NaverLogin = {
   login,
   logout,
   deleteToken,
+  deleteTokenWithInit,
   getProfile,
 };
 export default NaverLogin;

@@ -64,6 +64,29 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
             onLoginFailure(je.localizedMessage)
         }
     }
+    
+    @ReactMethod
+    fun deleteTokenWithInit(consumerKey: String, consumerSecret: String, appName: String, promise: Promise) = UiThreadUtil.runOnUiThread {
+        if (currentActivity == null) {
+            onLoginFailure("현재 실행중인 Activity 를 찾을 수 없습니다")
+            return@runOnUiThread
+        }
+        try {
+            NaverIdLoginSDK.initialize(
+                currentActivity!!,
+                consumerKey,
+                consumerSecret,
+                appName,
+            )
+            NidOAuthLogin().callDeleteTokenApi(currentActivity!!, object : OAuthLoginCallback {
+                override fun onSuccess() = promise.safeResolve(null)
+                override fun onFailure(httpStatus: Int, message: String) = promise.safeReject(message, message)
+                override fun onError(errorCode: Int, message: String) = promise.safeReject(message, message)
+            })
+        } catch (e: Exception) {
+            promise.safeReject(e)
+        }
+    }
 
     @ReactMethod
     fun deleteToken(promise: Promise) = UiThreadUtil.runOnUiThread {

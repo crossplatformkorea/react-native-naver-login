@@ -363,7 +363,8 @@ const loginAfterDeleteToken = async () => {
       appName,
       consumerKey,
       consumerSecret,
-    }).then(() => login());
+    });
+    login()
   };
 
 ```

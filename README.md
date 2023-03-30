@@ -158,6 +158,7 @@ cd ios && pod install
 | getProfile  |      `String`       | `Promise<GetProfileResponse>` | 프로필 불러오기                           |
 | logout      |                     |        `Promise<void>`        | 로그아웃                               |
 | deleteToken |                     |        `Promise<void>`        | 네이버 앱 연동 삭제                        |
+| deleteTokenWithInit |`NaverLoginRequest`|`Promise<void>`.         | (Android) deleteToken 이전에 SDK initialize 선행   |
 
 ### Type
 

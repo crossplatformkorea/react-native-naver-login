@@ -364,7 +364,7 @@ const loginAfterDeleteToken = async () => {
       consumerKey,
       consumerSecret,
     });
-    login()
+    setTimeout(login, 200);
   };
 
 ```

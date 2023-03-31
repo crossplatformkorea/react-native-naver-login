@@ -341,7 +341,7 @@ export default App;
 ```
 
 ## Troubleshooting
-<a href='https://github.com/crossplatformkorea/react-native-naver-login/issues/163'>issue #163</a> <a href='https://github.com/crossplatformkorea/react-native-naver-login/issues/164'>issue #164</a> 에서 언급한대로, RN에서 발급받은 Access Token을 받아 외부에서 이 토큰을 사용해 인증하려고하면 invalid token error가 발생하는 이슈가 있었습니다. 여기에 대한 대응으로 근본적인 해결책은 아니지만 deleteToken을 호출해 token을 무효화 한 이후에 login을 진행하면 정상작동하는 것을 확인했습니다.
+<a href='https://github.com/crossplatformkorea/react-native-naver-login/issues/163'>issue #163</a> 에서 언급한대로, RN에서 발급받은 Access Token을 받아 외부에서 이 토큰을 사용해 인증하려고하면 invalid token error가 발생하는 이슈가 있었습니다. 여기에 대한 대응으로 근본적인 해결책은 아니지만 deleteToken을 호출해 token을 무효화 한 이후에 login을 진행하면 정상작동하는 것을 확인했습니다.
 
 다만 <a href='https://github.com/crossplatformkorea/react-native-naver-login/issues/156'>issue #156</a>에서도 언급했듯이, android에서 deleteToken을 호출하면 앱이 crash가 나는 현상이 있습니다. 이 문제는 NaverIdLoginSDK가 초기화되기 전에 deleteToken이 먼저 실행되면서 생기는 문제로, deleteToken 대신에 deleteTokenWithInit를 사용하여 해결할 수 있습니다.
 

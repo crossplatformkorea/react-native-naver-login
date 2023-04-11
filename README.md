@@ -150,6 +150,35 @@ cd ios && pod install
 }
 ```
 
+### EXPO
+
+1. app.json 파일을 아래와 같이 수정합니다.
+
+```text
+{
+  "expo": {
+    ...
+    "plugins": [
+      ...,
+      [
+        "@react-native-seoul/naver-login",
+        {
+          "urlScheme": "CUSTOM URL SCHEME" // 네이버 url scheme를 적어주세요.
+        }
+      ]
+    ],
+    ...
+  }
+}
+```
+
+2.
+
+- Bare workflow의 경우에는 expo prebuild를 이용합니다.
+- Managed Workflow의 경우에는 EAS Build 이후 expo start --dev-client를 이용합니다.
+
+3. (Optional) Android에서 proguard rules 등을 적용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 참고하세요.
+
 ## API
 
 | Func        |        Param        |            Return             | Description                        |

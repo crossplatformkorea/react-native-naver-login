@@ -112,7 +112,7 @@ cd ios && pod install
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-   return [[NaverThirdPartyLoginConnection getSharedInstance] application:app openURL:url options:options];
+   return [[NaverThirdPartyLoginConnection getSharedInstance] application:application openURL:url options:options];
 }
 
 // 다른 URL 핸들링 로직이 같이 있는 경우

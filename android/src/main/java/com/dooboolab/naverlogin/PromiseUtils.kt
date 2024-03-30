@@ -9,7 +9,7 @@ import com.facebook.react.bridge.Promise
  * want to crash in the case of it being resolved/rejected more than once
  */
 
-const val TAG = "IapPromises"
+const val TAG = "RNNaverLogin"
 
 fun Promise.safeResolve(value: Any?) {
     try {

@@ -44,6 +44,21 @@ cd ios && pod install
 
 - `0.60` 미만의 React Native를 사용중이시라면 [Manual Linking Guide](./README-manual-linking.md)를 참고해주세요.
 
+## Configuration
+
+### `initialize` 함수 호출
+
+다음과 같이 앱의 `index.js`나 로그인이 필요한 시점 전에 초기화 함수를 호출합니다.
+
+```tsx
+ NaverLogin.initialize({
+      appName,
+      consumerKey,
+      consumerSecret,
+      serviceUrlScheme,
+      disableNaverAppAuth: true,
+ });
+```
 
 ### 추가 작업 - iOS 🍎
 

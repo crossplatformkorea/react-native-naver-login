@@ -197,7 +197,7 @@ cd ios && pod install
 | Func        |         Param          |            Return             | Description  |
 |:------------|:----------------------:|:-----------------------------:|:-------------|
 | initialize  | `NaverLoginInitParams` |            `void`             | 네이버 SDK 초기화  |
-| login       |  `NaverLoginRequest`   | `Promise<NaverLoginResponse>` | 로그인          |
+| login       |                        | `Promise<NaverLoginResponse>` | 로그인          |
 | getProfile  |        `String`        | `Promise<GetProfileResponse>` | 프로필 불러오기     |
 | logout      |                        |        `Promise<void>`        | 로그아웃         |
 | deleteToken |                        |        `Promise<void>`        | 네이버 계정 연동 해제 |

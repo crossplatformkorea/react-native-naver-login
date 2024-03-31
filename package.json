@@ -3,6 +3,10 @@
   "version": "3.0.0",
   "description": "React Native Module for Naver Login",
   "postinstall": "dooboolab-welcome postinstall",
+  "main": "dist/index",
+  "types": "dist/index.d.ts",
+  "flow": "dist/index.flow.js",
+  "source": "src/index",
   "scripts": {
     "example": "yarn workspace example",
     "typecheck": "tsc --noEmit",
@@ -95,10 +99,5 @@
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
     ]
-  },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "flow": "dist/index.flow.js",
-  "react-native": "index",
-  "source": "index"
+  }
 }

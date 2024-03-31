@@ -25,8 +25,6 @@
 		735D9374ED4087FD7D511C87 /* libPods-ReactNativeNaverLoginExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeNaverLoginExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		789FA2350B0F99827F8E2917 /* Pods-ReactNativeNaverLoginExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeNaverLoginExample.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeNaverLoginExample/Pods-ReactNativeNaverLoginExample.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ReactNativeNaverLoginExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A398D98B65F07907E2D3C156 /* Pods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests/Pods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		D0DC2931303D783FCA263D7F /* Pods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests/Pods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FDCB3EDEF6E9E4FBD4A26D80 /* libPods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -100,8 +98,6 @@
 			children = (
 				41EF68BAEB7B7D646841C7F7 /* Pods-ReactNativeNaverLoginExample.debug.xcconfig */,
 				789FA2350B0F99827F8E2917 /* Pods-ReactNativeNaverLoginExample.release.xcconfig */,
-				D0DC2931303D783FCA263D7F /* Pods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests.debug.xcconfig */,
-				A398D98B65F07907E2D3C156 /* Pods-ReactNativeNaverLoginExample-ReactNativeNaverLoginExampleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";

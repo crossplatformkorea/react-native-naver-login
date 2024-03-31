@@ -6,21 +6,21 @@
 
 React Native 네이버 로그인 라이브러리 입니다.
 
-### Supported platforms
+## Supported platforms
 
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
 
-### Supported typing
+## Supported typing
 
 - TypeScript
 - Flow
 
-<img src="https://user-images.githubusercontent.com/33388801/196834333-69841305-ebd2-4b59-b02b-b079aafd7523.gif" width=400 />
+<img alt="screenshots" src="https://user-images.githubusercontent.com/33388801/196834333-69841305-ebd2-4b59-b02b-b079aafd7523.gif" width=400 />
 
 ## Installation
 
-❗️ `2.x` 버전은 [2.x branch](https://github.com/react-native-seoul/react-native-naver-login/tree/2.x) 의 설치 가이드와 사용법을 따라주세요.
+> ❗️ `2.x` 버전은 [2.x branch](https://github.com/react-native-seoul/react-native-naver-login/tree/2.x) 의 설치 가이드와 사용법을 따라주세요.
 
 
 ```shell
@@ -45,7 +45,7 @@ cd ios && pod install
 - `0.60` 미만의 React Native를 사용중이시라면 [Manual Linking Guide](./README-manual-linking.md)를 참고해주세요.
 
 
-### 추가 작업 - iOS ❗️Important
+### 추가 작업 - iOS 🍎
 
 #### 1. Launch Service Queries Schemes 추가
 
@@ -58,7 +58,7 @@ cd ios && pod install
 
 이미 `LSApplicationQueriesSchemes` 가 항목으로 추가되어 있다면, `<array>` 안에 두 가지만 더 추가해주세요.
 
-```
+```xml
 <key>LSApplicationQueriesSchemes</key>
 <array>
   <string>naversearchapp</string>
@@ -78,10 +78,10 @@ cd ios && pod install
 
 - 네이버 개발자 콘솔에 기입한 `URL Scheme`와 동일해야 합니다.
 - `login` 함수 호출시에 `serviceUrlScheme` 로 동일하게 전달해주어야 합니다.
-- TODO 설명 및 이미지 추가
 
 대략 다음과 같이 `Info.plist`에 입력되게 됩니다.
-```
+
+```xml
 <key>CFBundleURLTypes</key>
 <array>
 	<dict>
@@ -104,18 +104,19 @@ cd ios && pod install
 
 네이버 로그인이 성공한 후 우리앱으로 다시 돌아와 URL을 처리하기 위해 필요한 과정입니다.
 
+- 다른 URL 핸들링 로직이 없는경우
 ```objc
 #import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
 ...
-
-// 다른 URL 핸들링 로직이 없는경우
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
    return [[NaverThirdPartyLoginConnection getSharedInstance] application:app openURL:url options:options];
 }
+```
 
-// 다른 URL 핸들링 로직이 같이 있는 경우
+- 다른 URL 핸들링 로직이 같이 있는 경우
+```objc
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
@@ -128,13 +129,12 @@ cd ios && pod install
   if([RNKakaoLogins isKakaoTalkLoginUrl:url]) {
     return [RNKakaoLogins handleOpenUrl: url];
   }
-  
   ...
 }
 ```
 
 
-### 추가 작업 - Android ❗️Important
+### 추가 작업 - Android 🤖
 
 #### 1. Proguard
 
@@ -150,11 +150,11 @@ cd ios && pod install
 }
 ```
 
-### EXPO
+### 추가 작업 - EXPO
 
 1. app.json 파일을 아래와 같이 수정합니다.
 
-```text
+```json
 {
   "expo": {
     ...
@@ -172,12 +172,10 @@ cd ios && pod install
 }
 ```
 
-2.
+- Bare workflow의 경우에는 `expo prebuild`를 이용합니다.
+- Managed Workflow의 경우에는 EAS Build 이후 `expo start --dev-client`를 이용합니다.
 
-- Bare workflow의 경우에는 expo prebuild를 이용합니다.
-- Managed Workflow의 경우에는 EAS Build 이후 expo start --dev-client를 이용합니다.
-
-3. (Optional) Android에서 proguard rules 등을 적용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 참고하세요.
+2. (Optional) Android에서 proguard rules 등을 적용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 참고하세요.
 
 ## API
 
@@ -186,7 +184,7 @@ cd ios && pod install
 | login       | `NaverLoginRequest` | `Promise<NaverLoginResponse>` | 로그인, 반환되는 `Promise`는 항상 resolve된다. |
 | getProfile  |      `String`       | `Promise<GetProfileResponse>` | 프로필 불러오기                           |
 | logout      |                     |        `Promise<void>`        | 로그아웃                               |
-| deleteToken |                     |        `Promise<void>`        | 네이버 앱 연동 삭제                        |
+| deleteToken |                     |        `Promise<void>`        | 네이버 계정 연동 해제                       |
 
 ### Type
 
@@ -203,7 +201,7 @@ export interface NaverLoginRequest {
 ```
 
 **NaverLoginResponse**
-```typescript
+```ts
 export interface NaverLoginResponse {
   isSuccess: boolean;
   /** isSuccess가 true일 때 존재합니다. */
@@ -227,7 +225,7 @@ export interface NaverLoginResponse {
 ```
 
 **GetProfileResponse**
-```typescript
+```ts
 export interface GetProfileResponse {
   resultcode: string;
   message: string;
@@ -252,7 +250,7 @@ export interface GetProfileResponse {
 
 - 자세한 예제는 [예제 프로젝트](./NaverLoginExample)를 참고해주세요
 
-```typescript jsx
+```tsx
 import React, {useState} from 'react';
 import {SafeAreaView, Button, View, Text, ScrollView} from 'react-native';
 import NaverLogin, {

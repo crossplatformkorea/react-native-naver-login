@@ -3,7 +3,8 @@
   "compilerOptions": {
     "paths": {},
     "outDir": "dist",
-    "declaration": true
+    "declaration": true,
+    "rootDir": "./src"
   },
   "exclude": [
     "example",

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "@react-native-seoul/naver-login": ["./index"]
+      "@react-native-seoul/naver-login": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

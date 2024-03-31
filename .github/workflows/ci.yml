@@ -11,27 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Install modules
       run: yarn
 
-    - name: Check linting
-      run: yarn lint
+    - name: Check
+      run: yarn validate
 
     - name: Build typescript & flow
       run: yarn build
-
-  check-example-project:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Install modules
-      run: yarn
-
-    - name: Check linting
-      run: yarn lint
-
-    - name: Build typescript
-      run: yarn tsc

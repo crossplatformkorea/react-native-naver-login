@@ -1,0 +1,2 @@
+echo '🚀 pre-commit validation has been started...'
+yarn validate

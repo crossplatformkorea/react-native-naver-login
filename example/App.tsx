@@ -1,13 +1,13 @@
-import {Button, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import { Button, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import type {
   GetProfileResponse,
   NaverLoginResponse,
 } from '@react-native-seoul/naver-login';
 import NaverLogin from '@react-native-seoul/naver-login';
-import type {ReactElement} from 'react';
-import React, {useState} from 'react';
+import type { ReactElement } from 'react';
+import React, { useState } from 'react';
 
-const Gap = (): ReactElement => <View style={{marginTop: 24}} />;
+const Gap = (): ReactElement => <View style={{ marginTop: 24 }} />;
 const ResponseJsonText = ({
   json = {},
   name,
@@ -21,11 +21,12 @@ const ResponseJsonText = ({
       borderRadius: 16,
       borderWidth: 1,
       backgroundColor: '#242c3d',
-    }}>
-    <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
+    }}
+  >
+    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>
       {name}
     </Text>
-    <Text style={{color: 'white', fontSize: 13, lineHeight: 20}}>
+    <Text style={{ color: 'white', fontSize: 13, lineHeight: 20 }}>
       {JSON.stringify(json, null, 4)}
     </Text>
   </View>
@@ -45,7 +46,7 @@ const App = (): ReactElement => {
   const [getProfileRes, setGetProfileRes] = useState<GetProfileResponse>();
 
   const login = async (): Promise<void> => {
-    const {failureResponse, successResponse} = await NaverLogin.login({
+    const { failureResponse, successResponse } = await NaverLogin.login({
       appName,
       consumerKey,
       consumerSecret,
@@ -88,11 +89,11 @@ const App = (): ReactElement => {
 
   return (
     <SafeAreaView
-      style={{alignItems: 'center', justifyContent: 'center', flex: 1}}
+      style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
     >
       <ScrollView
-        style={{flex: 1}}
-        contentContainerStyle={{flexGrow: 1, padding: 24}}
+        style={{ flex: 1 }}
+        contentContainerStyle={{ flexGrow: 1, padding: 24 }}
       >
         <Button title={'Login'} onPress={login} />
         <Gap />

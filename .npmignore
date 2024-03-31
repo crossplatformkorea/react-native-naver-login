@@ -2,6 +2,6 @@
 .idea/
 gen/
 node_modules/
-NaverLoginExample/
+example/
 
 index.ts

@@ -248,7 +248,7 @@ export interface GetProfileResponse {
 
 ## Usage
 
-- 자세한 예제는 [예제 프로젝트](./NaverLoginExample)를 참고해주세요
+- 자세한 예제는 [예제 프로젝트](./example)를 참고해주세요
 
 ```tsx
 import React, {useState} from 'react';
@@ -365,3 +365,11 @@ const ResponseJsonText = ({json = {}, name}: {json?: object; name: string}) => (
 
 export default App;
 ```
+
+## Contributing
+
+See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+
+## License
+
+MIT

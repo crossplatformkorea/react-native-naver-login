@@ -30,23 +30,23 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
     }
 
     @ReactMethod
-    fun login(
-        consumerKey: String, consumerSecret: String, appName: String, promise: Promise
-    ) = UiThreadUtil.runOnUiThread {
+    fun initialize(consumerKey: String, consumerSecret: String, appName: String) = UiThreadUtil.runOnUiThread {
+        NaverIdLoginSDK.initialize(
+            reactApplicationContext,
+            clientId = consumerKey,
+            clientSecret = consumerSecret,
+            clientName = appName,
+        )
+    }
+
+    @ReactMethod
+    fun login(promise: Promise) = UiThreadUtil.runOnUiThread {
         loginPromise = promise
         if (currentActivity == null) {
             onLoginFailure("현재 실행중인 Activity 를 찾을 수 없습니다")
             return@runOnUiThread
         }
         try {
-            NaverIdLoginSDK.initialize(
-                currentActivity!!,
-                consumerKey,
-                consumerSecret,
-                appName,
-            )
-
-            callLogout()
             NaverIdLoginSDK.authenticate(currentActivity!!, object : OAuthLoginCallback {
                 override fun onSuccess() {
                     onLoginSuccess()

@@ -17,21 +17,24 @@ class RNNaverLogin: NSObject {
 	static func requiresMainQueueSetup() -> Bool{
 		return false;
 	}
+  
+  @objc
+  func initialize(_ serviceUrlScheme: String, consumerKey: String, consumerSecret: String,
+                  appName: String, disableNaverAppAuth: Bool) {
+    DispatchQueue.main.async { [unowned self] in
+      connection.serviceUrlScheme = serviceUrlScheme
+      connection.consumerKey = consumerKey
+      connection.consumerSecret = consumerSecret
+      connection.appName = appName
+      connection.isNaverAppOauthEnable = disableNaverAppAuth ? false : true
+      connection.isInAppOauthEnable = true
+    }
+  }
 	
 	@objc
-	func login(_ serviceUrlScheme: String, consumerKey: String, consumerSecret: String,
-			   appName: String, disableNaverAppAuth: Bool, resolve: @escaping RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock){
+	func login(_ resolve: @escaping RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock){
 		DispatchQueue.main.async { [unowned self] in
 			loginPromiseResolver = resolve
-			
-			connection.serviceUrlScheme = serviceUrlScheme
-			connection.consumerKey = consumerKey
-			connection.consumerSecret = consumerSecret
-			connection.appName = appName
-			
-			connection.isNaverAppOauthEnable = disableNaverAppAuth ? false : true
-			connection.isInAppOauthEnable = true
-			
 			connection.delegate = self
 			connection.requestThirdPartyLogin()
 		}

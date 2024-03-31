@@ -2,7 +2,7 @@ import { NativeModules, Platform } from 'react-native';
 
 const { RNNaverLogin } = NativeModules;
 
-export interface NaverLoginRequest {
+export interface NaverLoginInitParams {
   consumerKey: string;
   consumerSecret: string;
   appName: string;
@@ -32,22 +32,28 @@ export interface NaverLoginResponse {
   };
 }
 
-const login = ({
+const initialize = ({
   appName,
   consumerKey,
   consumerSecret,
-  serviceUrlScheme,
   disableNaverAppAuth = false,
-}: NaverLoginRequest): Promise<NaverLoginResponse> => {
-  return Platform.OS === 'ios'
-    ? RNNaverLogin.login(
-        serviceUrlScheme,
-        consumerKey,
-        consumerSecret,
-        appName,
-        disableNaverAppAuth
-      )
-    : RNNaverLogin.login(consumerKey, consumerSecret, appName);
+  serviceUrlScheme = '',
+}: NaverLoginInitParams) => {
+  if (Platform.OS === 'ios') {
+    RNNaverLogin.initialize(
+      serviceUrlScheme,
+      consumerKey,
+      consumerSecret,
+      appName,
+      disableNaverAppAuth
+    );
+  } else if (Platform.OS === 'android') {
+    RNNaverLogin.initialize(consumerKey, consumerSecret, appName);
+  }
+};
+
+const login = (): Promise<NaverLoginResponse> => {
+  return RNNaverLogin.login();
 };
 
 const logout = async (): Promise<void> => {
@@ -94,6 +100,7 @@ const getProfile = (token: string): Promise<GetProfileResponse> => {
 };
 
 const NaverLogin = {
+  initialize,
   login,
   logout,
   deleteToken,

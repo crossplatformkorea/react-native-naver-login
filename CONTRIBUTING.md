@@ -19,7 +19,7 @@ yarn
 
 > Since the project relies on Yarn workspaces, you cannot use [`npm`](https://github.com/npm/cli) for development.
 
-The [example app](/example/) demonstrates usage of the library. You need to run it to test any changes you make.
+The [example app](/example/) demonstrates usage of the library. 
 
 It is configured to use the local version of the library, so any changes you make to the library's source code will be reflected in the example app. Changes to the library's JavaScript code will be reflected in the example app without a rebuild, but native code changes will require a rebuild of the example app.
 
@@ -60,12 +60,6 @@ To fix formatting errors, run the following:
 yarn lint --fix
 ```
 
-Remember to add tests for your change if possible. Run the unit tests by:
-
-```sh
-yarn test
-```
-
 ### Commit message convention
 
 We follow the [conventional commits specification](https://www.conventionalcommits.org/en) for our commit messages:
@@ -74,18 +68,17 @@ We follow the [conventional commits specification](https://www.conventionalcommi
 - `feat`: new features, e.g. add new method to the module.
 - `refactor`: code refactor, e.g. migrate from class components to hooks.
 - `docs`: changes into documentation, e.g. add usage example for the module..
-- `test`: adding or updating tests, e.g. add integration tests using detox.
 - `chore`: tooling changes, e.g. change CI config.
 
 Our pre-commit hooks verify that your commit message matches this format when committing.
 
-### Linting and tests
+### Linting
 
 [ESLint](https://eslint.org/), [Prettier](https://prettier.io/), [TypeScript](https://www.typescriptlang.org/)
 
-We use [TypeScript](https://www.typescriptlang.org/) for type checking, [ESLint](https://eslint.org/) with [Prettier](https://prettier.io/) for linting and formatting the code, and [Jest](https://jestjs.io/) for testing.
+We use [TypeScript](https://www.typescriptlang.org/) for type checking, [ESLint](https://eslint.org/) with [Prettier](https://prettier.io/) for linting and formatting the code.
 
-Our pre-commit hooks verify that the linter and tests pass when committing.
+Our pre-commit hooks verify that the linter pass when committing.
 
 ### Publishing to npm
 
@@ -104,7 +97,6 @@ The `package.json` file contains various scripts for common tasks:
 - `yarn`: setup project by installing dependencies.
 - `yarn typecheck`: type-check files with TypeScript.
 - `yarn lint`: lint files with ESLint.
-- `yarn test`: run unit tests with Jest.
 - `yarn example start`: start the Metro server for the example app.
 - `yarn example android`: run the example app on Android.
 - `yarn example ios`: run the example app on iOS.
@@ -116,7 +108,7 @@ The `package.json` file contains various scripts for common tasks:
 When you're sending a pull request:
 
 - Prefer small pull requests focused on one change.
-- Verify that linters and tests are passing.
+- Verify that linters are passing.
 - Review the documentation to make sure it looks good.
 - Follow the pull request template when opening a pull request.
 - For pull requests that change the API or implementation, discuss with maintainers first by opening an issue.

@@ -6,7 +6,7 @@
   "scripts": {
     "example": "yarn workspace example",
     "typecheck": "tsc --noEmit",
-    "build": "rm -rf dist && tsc --project tsconfig.build.json && tsc --project ./plugin",
+    "build": "rm -rf dist && tsc --project tsconfig.build.json && tsc --project ./plugin && flowgen dist/index.d.ts -o dist/index.flow.js",
     "lint": "eslint",
     "validate": "yarn lint && yarn typecheck",
     "prepare": "husky"
@@ -50,6 +50,7 @@
     "eslint-plugin-jest": "^27.9.0",
     "eslint-plugin-prettier": "^5.0.1",
     "expo-module-scripts": "^3.0.7",
+    "flowgen": "^1.21.0",
     "husky": "^9.0.11",
     "jest": "^29.7.0",
     "prettier": "^3.0.3",
@@ -96,6 +97,7 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "flow": "dist/index.flow.js",
   "react-native": "index",
   "source": "index"
 }

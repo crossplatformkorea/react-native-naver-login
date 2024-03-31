@@ -38,8 +38,9 @@ const login = ({
   consumerSecret,
   serviceUrlScheme,
   disableNaverAppAuth = false,
-}: NaverLoginRequest): Promise<NaverLoginResponse> =>
-  Platform.OS === 'ios'
+}: NaverLoginRequest): Promise<NaverLoginResponse> => {
+  console.log(1);
+  return Platform.OS === 'ios'
     ? RNNaverLogin.login(
         serviceUrlScheme,
         consumerKey,
@@ -48,6 +49,7 @@ const login = ({
         disableNaverAppAuth
       )
     : RNNaverLogin.login(consumerKey, consumerSecret, appName);
+};
 
 const logout = async (): Promise<void> => {
   await RNNaverLogin.logout();

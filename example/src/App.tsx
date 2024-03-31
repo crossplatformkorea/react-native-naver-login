@@ -32,9 +32,12 @@ const ResponseJsonText = ({
   </View>
 );
 
+/** Fill your keys */
 const consumerKey = '';
 const consumerSecret = '';
-const appName = 'Hello';
+const appName = 'App';
+
+/** This key is setup in iOS. So don't touch it */
 const serviceUrlScheme = 'navertest';
 
 const App = (): ReactElement => {

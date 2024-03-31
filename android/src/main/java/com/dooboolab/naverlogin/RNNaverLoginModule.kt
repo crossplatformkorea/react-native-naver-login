@@ -25,7 +25,7 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
 
     private fun callLogout() = try {
         NaverIdLoginSDK::logout
-    } catch(e: Throwable) {
+    } catch (e: Throwable) {
         Log.d(name, "callLogout failed: $e")
     }
 
@@ -67,7 +67,7 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
 
     @ReactMethod
     fun deleteToken(promise: Promise) = UiThreadUtil.runOnUiThread {
-        NidOAuthLogin().callDeleteTokenApi(currentActivity!!, object : OAuthLoginCallback {
+        NidOAuthLogin().callDeleteTokenApi(object : OAuthLoginCallback {
             override fun onSuccess() = promise.safeResolve(null)
             override fun onFailure(httpStatus: Int, message: String) = promise.safeReject(message, message)
             override fun onError(errorCode: Int, message: String) = promise.safeReject(message, message)

@@ -1,1 +1,3 @@
-<manifest package="com.dooboolab.naverlogin"/>
+<manifest
+    package="com.dooboolab.naverlogin">
+</manifest>

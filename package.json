@@ -23,6 +23,7 @@
     "type": "git",
     "url": "git+https://github.com/crossplatformkorea/react-native-naver-login"
   },
+  "homepage": "https://github.com/crossplatformkorea/react-native-naver-login",
   "keywords": [
     "react-native",
     "naver",
@@ -32,7 +33,7 @@
     "dooboolab",
     "naver-login"
   ],
-  "author": "dooboolab, Jongwoo Moon",
+  "author": "dooboolab, Jongwoo Moon, MJ Studio",
   "license": "MIT",
   "peerDependencies": {
     "react": "*",
@@ -74,8 +75,6 @@
     "android",
     "ios",
     "cpp",
-    "index.js",
-    "index.d.ts",
     "app.plugin.js",
     "plugin/build",
     "*.podspec",
@@ -87,7 +86,8 @@
     "!android/local.properties",
     "!**/__tests__",
     "!**/__fixtures__",
-    "!**/__mocks__"
+    "!**/__mocks__",
+    "!**/.*"
   ],
   "packageManager": "yarn@4.1.1",
   "workspaces": [

@@ -1,4 +1,4 @@
-import { NativeModules, Platform } from "react-native";
+import { NativeModules, Platform } from 'react-native';
 
 const { RNNaverLogin } = NativeModules;
 
@@ -38,8 +38,8 @@ const login = ({
   consumerSecret,
   serviceUrlScheme,
   disableNaverAppAuth = false,
-}: NaverLoginRequest): Promise<NaverLoginResponse> =>
-  Platform.OS === "ios"
+}: NaverLoginRequest): Promise<NaverLoginResponse> => {
+  return Platform.OS === 'ios'
     ? RNNaverLogin.login(
         serviceUrlScheme,
         consumerKey,
@@ -48,6 +48,7 @@ const login = ({
         disableNaverAppAuth
       )
     : RNNaverLogin.login(consumerKey, consumerSecret, appName);
+};
 
 const logout = async (): Promise<void> => {
   await RNNaverLogin.logout();
@@ -76,10 +77,10 @@ export interface GetProfileResponse {
 }
 
 const getProfile = (token: string): Promise<GetProfileResponse> => {
-  return fetch("https://openapi.naver.com/v1/nid/me", {
-    method: "GET",
+  return fetch('https://openapi.naver.com/v1/nid/me', {
+    method: 'GET',
     headers: {
-      Authorization: "Bearer " + token,
+      Authorization: 'Bearer ' + token,
     },
   })
     .then((response) => response.json())
@@ -87,7 +88,7 @@ const getProfile = (token: string): Promise<GetProfileResponse> => {
       return responseJson;
     })
     .catch((err) => {
-      console.log("getProfile err");
+      console.log('getProfile err');
       console.log(err);
     });
 };

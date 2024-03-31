@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "paths": {},
+    "outDir": "dist",
+    "declaration": true
+  },
+  "exclude": [
+    "example",
+    "plugin"
+  ]
+}

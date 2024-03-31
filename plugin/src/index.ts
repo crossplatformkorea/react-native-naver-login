@@ -1,21 +1,21 @@
+import type { ConfigPlugin } from '@expo/config-plugins';
 import {
-  ConfigPlugin,
   withAppDelegate,
   withInfoPlist,
   WarningAggregator,
-} from "@expo/config-plugins";
+} from '@expo/config-plugins';
 
 interface NaverLoginPluginProps {
   urlScheme: string;
 }
 
 const NAVER_LAUNCH_SERVICE_QUERIES_SCHEMES = [
-  "naversearchapp",
-  "naversearchthirdlogin",
+  'naversearchapp',
+  'naversearchthirdlogin',
 ];
 
 const NAVER_HEADER_IMPORT_STRING =
-  "#import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>";
+  '#import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>';
 
 const createNaverLinkingString = (
   urlScheme: string
@@ -45,13 +45,13 @@ const modifyInfoPlist: ConfigPlugin<NaverLoginPluginProps> = (
 
     const isExist = config.modResults.CFBundleURLTypes.some(
       (item) =>
-        item.CFBundleURLName === "naver" &&
+        item.CFBundleURLName === 'naver' &&
         item.CFBundleURLSchemes.includes(urlScheme)
     );
 
     if (!isExist) {
       config.modResults.CFBundleURLTypes.push({
-        CFBundleURLName: "naver",
+        CFBundleURLName: 'naver',
         CFBundleURLSchemes: [urlScheme],
       });
     }
@@ -63,7 +63,7 @@ const modifyInfoPlist: ConfigPlugin<NaverLoginPluginProps> = (
 const modifyContents = (contents: string, urlScheme: string) => {
   if (!contents.includes(NAVER_HEADER_IMPORT_STRING)) {
     contents = contents.replace(
-      "#import <React/RCTLinkingManager.h>",
+      '#import <React/RCTLinkingManager.h>',
       `#import <React/RCTLinkingManager.h>
 ${NAVER_HEADER_IMPORT_STRING}`
     );
@@ -73,7 +73,7 @@ ${NAVER_HEADER_IMPORT_STRING}`
 
   if (!contents.includes(naverLinkingString)) {
     contents = contents.replace(
-      "options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {",
+      'options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {',
       `options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
   ${naverLinkingString}
 `
@@ -88,15 +88,15 @@ const modifyAppDelegate: ConfigPlugin<NaverLoginPluginProps> = (
   { urlScheme }
 ) => {
   return withAppDelegate(config, async (config) => {
-    if (["objc", "objcpp"].includes(config.modResults.language)) {
+    if (['objc', 'objcpp'].includes(config.modResults.language)) {
       config.modResults.contents = modifyContents(
         config.modResults.contents,
         urlScheme
       );
     } else {
       WarningAggregator.addWarningIOS(
-        "withNaverLogin",
-        "Swift AppDelegate files are not supported yet."
+        'withNaverLogin',
+        'Swift AppDelegate files are not supported yet.'
       );
     }
 

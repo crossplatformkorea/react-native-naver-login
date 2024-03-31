@@ -39,7 +39,6 @@ const login = ({
   serviceUrlScheme,
   disableNaverAppAuth = false,
 }: NaverLoginRequest): Promise<NaverLoginResponse> => {
-  console.log(1);
   return Platform.OS === 'ios'
     ? RNNaverLogin.login(
         serviceUrlScheme,

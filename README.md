@@ -44,6 +44,21 @@ cd ios && pod install
 
 - `0.60` 미만의 React Native를 사용중이시라면 [Manual Linking Guide](./README-manual-linking.md)를 참고해주세요.
 
+## Configuration
+
+### `initialize` 함수 호출
+
+다음과 같이 앱의 `index.js`나 로그인이 필요한 시점 전에 초기화 함수를 호출합니다.
+
+```tsx
+ NaverLogin.initialize({
+      appName,
+      consumerKey,
+      consumerSecret,
+      serviceUrlScheme,
+      disableNaverAppAuth: true,
+ });
+```
 
 ### 추가 작업 - iOS 🍎
 
@@ -179,23 +194,25 @@ cd ios && pod install
 
 ## API
 
-| Func        |        Param        |            Return             | Description                        |
-|:------------|:-------------------:|:-----------------------------:|:-----------------------------------|
-| login       | `NaverLoginRequest` | `Promise<NaverLoginResponse>` | 로그인, 반환되는 `Promise`는 항상 resolve된다. |
-| getProfile  |      `String`       | `Promise<GetProfileResponse>` | 프로필 불러오기                           |
-| logout      |                     |        `Promise<void>`        | 로그아웃                               |
-| deleteToken |                     |        `Promise<void>`        | 네이버 계정 연동 해제                       |
+| Func        |         Param          |            Return             | Description  |
+|:------------|:----------------------:|:-----------------------------:|:-------------|
+| initialize  | `NaverLoginInitParams` |            `void`             | 네이버 SDK 초기화  |
+| login       |                        | `Promise<NaverLoginResponse>` | 로그인          |
+| getProfile  |        `String`        | `Promise<GetProfileResponse>` | 프로필 불러오기     |
+| logout      |                        |        `Promise<void>`        | 로그아웃         |
+| deleteToken |                        |        `Promise<void>`        | 네이버 계정 연동 해제 |
 
 ### Type
 
-**NaverLoginRequest**
+**NaverLoginInitParams**
 ```typescript
-export interface NaverLoginRequest {
+export interface NaverLoginInitParams {
   consumerKey: string;
   consumerSecret: string;
   appName: string;
+  /** (iOS) 네이버앱을 사용하는 인증을 비활성화 한다. (default: false) */
   disableNaverAppAuth?: boolean;
-  /** Only for iOS */
+  /** (iOS) */
   serviceUrlScheme?: string;
 }
 ```
@@ -251,37 +268,39 @@ export interface GetProfileResponse {
 - 자세한 예제는 [예제 프로젝트](./example)를 참고해주세요
 
 ```tsx
-import React, {useState} from 'react';
-import {SafeAreaView, Button, View, Text, ScrollView} from 'react-native';
-import NaverLogin, {
-  NaverLoginResponse,
-  GetProfileResponse,
-} from '@react-native-seoul/naver-login';
-
+/** Fill your keys */
 const consumerKey = '';
 const consumerSecret = '';
-const appName = 'Hello';
+const appName = 'testapp';
+
+/** This key is setup in iOS. So don't touch it */
 const serviceUrlScheme = 'navertest';
 
-const App = () => {
-  const [success, setSuccessResponse] =
-    useState<NaverLoginResponse['successResponse']>();
-  const [failure, setFailureResponse] =
-    useState<NaverLoginResponse['failureResponse']>();
-  const [getProfileRes, setGetProfileRes] = useState<GetProfileResponse>();
-
-  const login = async () => {
-    const {failureResponse, successResponse} = await NaverLogin.login({
+const App = (): ReactElement => {
+  useEffect(() => {
+    NaverLogin.initialize({
       appName,
       consumerKey,
       consumerSecret,
       serviceUrlScheme,
+      disableNaverAppAuth: true,
     });
+  }, []);
+
+  const [success, setSuccessResponse] =
+    useState<NaverLoginResponse['successResponse']>();
+
+  const [failure, setFailureResponse] =
+    useState<NaverLoginResponse['failureResponse']>();
+  const [getProfileRes, setGetProfileRes] = useState<GetProfileResponse>();
+
+  const login = async (): Promise<void> => {
+    const { failureResponse, successResponse } = await NaverLogin.login();
     setSuccessResponse(successResponse);
     setFailureResponse(failureResponse);
   };
 
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
     try {
       await NaverLogin.logout();
       setSuccessResponse(undefined);
@@ -292,7 +311,7 @@ const App = () => {
     }
   };
 
-  const getProfile = async () => {
+  const getProfile = async (): Promise<void> => {
     try {
       const profileResult = await NaverLogin.getProfile(success!.accessToken);
       setGetProfileRes(profileResult);
@@ -301,7 +320,7 @@ const App = () => {
     }
   };
 
-  const deleteToken = async () => {
+  const deleteToken = async (): Promise<void> => {
     try {
       await NaverLogin.deleteToken();
       setSuccessResponse(undefined);
@@ -314,10 +333,12 @@ const App = () => {
 
   return (
     <SafeAreaView
-      style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+      style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
+    >
       <ScrollView
-        style={{flex: 1}}
-        contentContainerStyle={{flexGrow: 1, padding: 24}}>
+        style={{ flex: 1 }}
+        contentContainerStyle={{ flexGrow: 1, padding: 24 }}
+      >
         <Button title={'Login'} onPress={login} />
         <Gap />
         <Button title={'Logout'} onPress={logout} />
@@ -345,25 +366,6 @@ const App = () => {
     </SafeAreaView>
   );
 };
-const Gap = () => <View style={{marginTop: 24}} />;
-const ResponseJsonText = ({json = {}, name}: {json?: object; name: string}) => (
-  <View
-    style={{
-      padding: 12,
-      borderRadius: 16,
-      borderWidth: 1,
-      backgroundColor: '#242c3d',
-    }}>
-    <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
-      {name}
-    </Text>
-    <Text style={{color: 'white', fontSize: 13, lineHeight: 20}}>
-      {JSON.stringify(json, null, 4)}
-    </Text>
-  </View>
-);
-
-export default App;
 ```
 
 ## Contributing

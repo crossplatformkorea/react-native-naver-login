@@ -2,14 +2,18 @@ import { NativeModules, Platform } from 'react-native';
 
 const { RNNaverLogin } = NativeModules;
 
-export interface NaverLoginRequest {
+const printWarning = (message: string) => {
+  console.warn(`['RNNaverLogin'] ${message}`);
+};
+
+export interface NaverLoginInitParams {
   consumerKey: string;
   consumerSecret: string;
   appName: string;
   /** (iOS) 네이버앱을 사용하는 인증을 비활성화 한다. (default: false) */
-  disableNaverAppAuth?: boolean;
-  /** (iOS) */
-  serviceUrlScheme?: string;
+  disableNaverAppAuthIOS?: boolean;
+  /** (iOS) Info.plist의 서비스에서 설정한 URL Type의 Schemes */
+  serviceUrlSchemeIOS?: string;
 }
 export interface NaverLoginResponse {
   isSuccess: boolean;
@@ -32,22 +36,32 @@ export interface NaverLoginResponse {
   };
 }
 
-const login = ({
+const initialize = ({
   appName,
   consumerKey,
   consumerSecret,
-  serviceUrlScheme,
-  disableNaverAppAuth = false,
-}: NaverLoginRequest): Promise<NaverLoginResponse> => {
-  return Platform.OS === 'ios'
-    ? RNNaverLogin.login(
-        serviceUrlScheme,
-        consumerKey,
-        consumerSecret,
-        appName,
-        disableNaverAppAuth
-      )
-    : RNNaverLogin.login(consumerKey, consumerSecret, appName);
+  disableNaverAppAuthIOS = false,
+  serviceUrlSchemeIOS = '',
+}: NaverLoginInitParams) => {
+  if (Platform.OS === 'ios') {
+    if (!serviceUrlSchemeIOS) {
+      printWarning('serviceUrlSchemeIOS is missing in iOS initialize.');
+      return;
+    }
+    RNNaverLogin.initialize(
+      serviceUrlSchemeIOS,
+      consumerKey,
+      consumerSecret,
+      appName,
+      disableNaverAppAuthIOS
+    );
+  } else if (Platform.OS === 'android') {
+    RNNaverLogin.initialize(consumerKey, consumerSecret, appName);
+  }
+};
+
+const login = (): Promise<NaverLoginResponse> => {
+  return RNNaverLogin.login();
 };
 
 const logout = async (): Promise<void> => {
@@ -94,6 +108,7 @@ const getProfile = (token: string): Promise<GetProfileResponse> => {
 };
 
 const NaverLogin = {
+  initialize,
   login,
   logout,
   deleteToken,

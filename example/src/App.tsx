@@ -4,8 +4,7 @@ import type {
   NaverLoginResponse,
 } from '@react-native-seoul/naver-login';
 import NaverLogin from '@react-native-seoul/naver-login';
-import type { ReactElement } from 'react';
-import React, { useState } from 'react';
+import React, { type ReactElement, useEffect, useState } from 'react';
 
 const Gap = (): ReactElement => <View style={{ marginTop: 24 }} />;
 const ResponseJsonText = ({
@@ -35,12 +34,22 @@ const ResponseJsonText = ({
 /** Fill your keys */
 const consumerKey = '';
 const consumerSecret = '';
-const appName = 'App';
+const appName = 'testapp';
 
 /** This key is setup in iOS. So don't touch it */
 const serviceUrlScheme = 'navertest';
 
 const App = (): ReactElement => {
+  useEffect(() => {
+    NaverLogin.initialize({
+      appName,
+      consumerKey,
+      consumerSecret,
+      serviceUrlSchemeIOS: serviceUrlScheme,
+      disableNaverAppAuthIOS: true,
+    });
+  }, []);
+
   const [success, setSuccessResponse] =
     useState<NaverLoginResponse['successResponse']>();
 
@@ -49,12 +58,7 @@ const App = (): ReactElement => {
   const [getProfileRes, setGetProfileRes] = useState<GetProfileResponse>();
 
   const login = async (): Promise<void> => {
-    const { failureResponse, successResponse } = await NaverLogin.login({
-      appName,
-      consumerKey,
-      consumerSecret,
-      serviceUrlScheme,
-    });
+    const { failureResponse, successResponse } = await NaverLogin.login();
     setSuccessResponse(successResponse);
     setFailureResponse(failureResponse);
   };

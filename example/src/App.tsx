@@ -45,8 +45,8 @@ const App = (): ReactElement => {
       appName,
       consumerKey,
       consumerSecret,
-      serviceUrlScheme,
-      disableNaverAppAuth: true,
+      serviceUrlSchemeIOS: serviceUrlScheme,
+      disableNaverAppAuthIOS: true,
     });
   }, []);
 

@@ -2,14 +2,18 @@ import { NativeModules, Platform } from 'react-native';
 
 const { RNNaverLogin } = NativeModules;
 
+const printWarning = (message: string) => {
+  console.warn(`['RNNaverLogin'] ${message}`);
+};
+
 export interface NaverLoginInitParams {
   consumerKey: string;
   consumerSecret: string;
   appName: string;
   /** (iOS) 네이버앱을 사용하는 인증을 비활성화 한다. (default: false) */
-  disableNaverAppAuth?: boolean;
-  /** (iOS) */
-  serviceUrlScheme?: string;
+  disableNaverAppAuthIOS?: boolean;
+  /** (iOS) Info.plist의 서비스에서 설정한 URL Type의 Schemes */
+  serviceUrlSchemeIOS?: string;
 }
 export interface NaverLoginResponse {
   isSuccess: boolean;
@@ -36,16 +40,20 @@ const initialize = ({
   appName,
   consumerKey,
   consumerSecret,
-  disableNaverAppAuth = false,
-  serviceUrlScheme = '',
+  disableNaverAppAuthIOS = false,
+  serviceUrlSchemeIOS = '',
 }: NaverLoginInitParams) => {
   if (Platform.OS === 'ios') {
+    if (!serviceUrlSchemeIOS) {
+      printWarning('serviceUrlSchemeIOS is missing in iOS initialize.');
+      return;
+    }
     RNNaverLogin.initialize(
-      serviceUrlScheme,
+      serviceUrlSchemeIOS,
       consumerKey,
       consumerSecret,
       appName,
-      disableNaverAppAuth
+      disableNaverAppAuthIOS
     );
   } else if (Platform.OS === 'android') {
     RNNaverLogin.initialize(consumerKey, consumerSecret, appName);

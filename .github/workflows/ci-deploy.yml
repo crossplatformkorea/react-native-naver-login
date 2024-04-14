@@ -6,6 +6,9 @@ on:
     types: [created]
 jobs:
   build:
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -18,6 +21,15 @@ jobs:
     - run: yarn
     - run: yarn validate
     - run: yarn build
-    - run: yarn publish
+    - name: 'NPM Identity'
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: |
+        echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+        cat .npmrc
+    - name: Publish Beta
+      if: github.ref == 'beta'
+      run: npm publish --tag beta
+    - name: PreRelease
+      if: github.ref != 'beta'
+      run: npm publish

@@ -14,7 +14,8 @@
     "lint": "eslint",
     "validate": "yarn lint && yarn typecheck",
     "prepare": "husky",
-    "prepack": "yarn build"
+    "prepack": "yarn build",
+    "publish": "npm publish"
   },
   "publishConfig": {
     "access": "public"

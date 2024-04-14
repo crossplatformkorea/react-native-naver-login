@@ -28,8 +28,11 @@ jobs:
         echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
         cat .npmrc
     - name: Publish Beta
-      if: github.ref == 'beta'
+      if: contains(github.ref, 'beta')
       run: npm publish --tag beta
-    - name: PreRelease
-      if: github.ref != 'beta'
+    - name: Publish Alpha
+      if: contains(github.ref, 'alpha')
+      run: npm publish --tag alpha
+    - name: Publish Latest
+      if: !contains(github.ref, 'beta') && !contains(github.ref, 'alpha')
       run: npm publish

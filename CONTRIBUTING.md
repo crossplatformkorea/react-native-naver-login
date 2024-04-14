@@ -45,6 +45,7 @@ To run the example app on iOS:
 
 ```sh
 yarn example ios
+yarn example pod:{old, new}
 ```
 
 Make sure your code passes TypeScript and ESLint. Run the following to verify:

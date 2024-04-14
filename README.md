@@ -1,8 +1,11 @@
 # @react-native-seoul/naver-login
 
-[![npm version](http://img.shields.io/npm/v/@react-native-seoul/naver-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/naver-login)
-[![downloads](http://img.shields.io/npm/dm/@react-native-seoul/naver-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/naver-login)
-[![license](http://img.shields.io/npm/l/@react-native-seoul/naver-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/naver-login)
+[![npm version](http://img.shields.io/npm/v/@react-native-seoul/naver-login.svg)](https://npmjs.org/package/@react-native-seoul/naver-login)
+![Android SDK - 5.9.1](https://img.shields.io/badge/Android_SDK-5.9.1-2ea44f)
+![iOS SDK - 4.2.1](https://img.shields.io/badge/iOS_SDK-4.2.1-3522ff)
+
+[![downloads](http://img.shields.io/npm/dm/@react-native-seoul/naver-login.svg)](https://npmjs.org/package/@react-native-seoul/naver-login)
+[![license](http://img.shields.io/npm/l/@react-native-seoul/naver-login.svg)](https://npmjs.org/package/@react-native-seoul/naver-login)
 
 React Native 네이버 로그인 라이브러리 입니다.
 

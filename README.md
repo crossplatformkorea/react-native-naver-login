@@ -166,6 +166,9 @@ cd ios && pod install
 -keep public class com.nhn.android.naverlogin.** {
        public protected *;
 }
+-keep public class com.navercorp.nid.** {
+       public *;
+}
 ```
 
 ### 추가 작업 - EXPO

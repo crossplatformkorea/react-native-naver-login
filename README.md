@@ -163,13 +163,15 @@ cd ios && pod install
 만약 그렇지 않다면 별도의 설정이 필요하지 않습니다.
 
 ```text
--keep public class com.nhn.android.naverlogin.** {
-       public protected *;
-}
--keep public class com.navercorp.nid.** {
-       public *;
-}
+-keep public class com.navercorp.nid.** { *; }
 ```
+
+>[!NOTE]
+>이 규칙은 확실하지 않으나 Android Native SDK 코드에서 proguard consumer rules가 정의되어있지 않아 삽입된 구문입니다.
+>
+>이것을 추가해주었음에도 난독화로 인해 에러가 나는 상황에서는 [OKHttp](https://square.github.io/okhttp/features/r8_proguard/), [Retrofit](https://github.com/square/retrofit/blob/trunk/retrofit/src/main/resources/META-INF/proguard/retrofit2.pro) 라이브러리들의 Proguard Rule들을 직접 같이 추가해주는 것을 추천드립니다.
+>
+>R8 컴파일러로 안드로이드 프로젝트를 빌드하면 Okhtttp, Retrofit과 같은 라이브러리들은 내부적으로 JAR, AAR에 rule을 포함시켜두었기 때문에 문제가 되지 않아야 정상입니다.
 
 ### 추가 작업 - EXPO
 

@@ -84,4 +84,6 @@ dependencies {
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation "com.navercorp.nid:oauth:${getExtOrDefault('naverSdkVersion')}"
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
+
 }

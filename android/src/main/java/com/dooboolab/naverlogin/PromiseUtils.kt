@@ -20,13 +20,24 @@ fun Promise.safeResolve(value: Any?) {
 }
 
 fun Promise.safeReject(message: String) = this.safeReject(null, message, null)
+
 fun Promise.safeReject(e: Exception) = this.safeReject(null, e.message, e)
 
-fun Promise.safeReject(code: String?, message: String?) = this.safeReject(code, message, null)
-fun Promise.safeReject(code: String?, throwable: Throwable?) =
-    this.safeReject(code, null, throwable)
+fun Promise.safeReject(
+    code: String?,
+    message: String?,
+) = this.safeReject(code, message, null)
 
-fun Promise.safeReject(code: String?, message: String?, throwable: Throwable?) {
+fun Promise.safeReject(
+    code: String?,
+    throwable: Throwable?,
+) = this.safeReject(code, null, throwable)
+
+fun Promise.safeReject(
+    code: String?,
+    message: String?,
+    throwable: Throwable?,
+) {
     try {
         this.reject(code, message, throwable)
     } catch (oce: ObjectAlreadyConsumedException) {

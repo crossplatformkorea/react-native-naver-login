@@ -25,7 +25,6 @@ React Native 네이버 로그인 라이브러리 입니다.
 
 > ❗️ `2.x` 버전은 [2.x branch](https://github.com/react-native-seoul/react-native-naver-login/tree/2.x) 의 설치 가이드와 사용법을 따라주세요.
 
-
 ```shell
 # npm
 npm install @react-native-seoul/naver-login --save
@@ -34,7 +33,7 @@ npm install @react-native-seoul/naver-login --save
 yarn add @react-native-seoul/naver-login
 ```
 
-### RN version >= `0.60` 
+### RN version >= `0.60`
 
 - Auto Linking 이 적용됩니다.
 - iOS의 경우 추가적으로 Cocoapods 설치가 필요합니다.
@@ -54,13 +53,13 @@ cd ios && pod install
 다음과 같이 앱의 `index.js`나 로그인이 필요한 시점 전에 초기화 함수를 호출합니다.
 
 ```tsx
- NaverLogin.initialize({
-      appName,
-      consumerKey,
-      consumerSecret,
-      serviceUrlScheme,
-      disableNaverAppAuth: true,
- });
+NaverLogin.initialize({
+  appName,
+  consumerKey,
+  consumerSecret,
+  serviceUrlSchemeIOS,
+  disableNaverAppAuthIOS: true,
+});
 ```
 
 ### 추가 작업 - iOS 🍎
@@ -69,7 +68,7 @@ cd ios && pod install
 
 로그인 시에 네이버 앱을 실행시키기 위해 [Launch Services Queries Schemes](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html) 를 등록해주어야 합니다.
 
-`Info.plist` 파일안에 다음과 같은 항목을 추가합니다. 
+`Info.plist` 파일안에 다음과 같은 항목을 추가합니다.
 
 - `naversearchapp`
 - `naversearchthirdlogin`
@@ -95,7 +94,7 @@ cd ios && pod install
 주의할 점은 다음과 같습니다.
 
 - 네이버 개발자 콘솔에 기입한 `URL Scheme`와 동일해야 합니다.
-- `login` 함수 호출시에 `serviceUrlScheme` 로 동일하게 전달해주어야 합니다.
+- `initialize` 함수 호출시에 `serviceUrlSchemeIOS` 로 동일하게 전달해주어야 합니다.
 
 대략 다음과 같이 `Info.plist`에 입력되게 됩니다.
 
@@ -123,6 +122,7 @@ cd ios && pod install
 네이버 로그인이 성공한 후 우리앱으로 다시 돌아와 URL을 처리하기 위해 필요한 과정입니다.
 
 - 다른 URL 핸들링 로직이 없는경우
+
 ```objc
 #import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
 ...
@@ -134,6 +134,7 @@ cd ios && pod install
 ```
 
 - 다른 URL 핸들링 로직이 같이 있는 경우
+
 ```objc
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
@@ -142,7 +143,7 @@ cd ios && pod install
   if ([url.scheme isEqualToString:@"{{ CUSTOM URL SCHEME }}"]) {
     return [[NaverThirdPartyLoginConnection getSharedInstance] application:app openURL:url options:options];
   }
-  
+
   // kakao
   if([RNKakaoLogins isKakaoTalkLoginUrl:url]) {
     return [RNKakaoLogins handleOpenUrl: url];
@@ -150,7 +151,6 @@ cd ios && pod install
   ...
 }
 ```
-
 
 ### 추가 작업 - Android 🤖
 
@@ -166,12 +166,12 @@ cd ios && pod install
 -keep public class com.navercorp.nid.** { *; }
 ```
 
->[!NOTE]
->이 규칙은 확실하지 않으나 Android Native SDK 코드에서 proguard consumer rules가 정의되어있지 않아 삽입된 구문입니다.
+> [!NOTE]
+> 이 규칙은 확실하지 않으나 Android Native SDK 코드에서 proguard consumer rules가 정의되어있지 않아 삽입된 구문입니다.
 >
->이것을 추가해주었음에도 난독화로 인해 에러가 나는 상황에서는 [OKHttp](https://square.github.io/okhttp/features/r8_proguard/), [Retrofit](https://github.com/square/retrofit/blob/trunk/retrofit/src/main/resources/META-INF/proguard/retrofit2.pro) 라이브러리들의 Proguard Rule들을 직접 같이 추가해주는 것을 추천드립니다.
+> 이것을 추가해주었음에도 난독화로 인해 에러가 나는 상황에서는 [OKHttp](https://square.github.io/okhttp/features/r8_proguard/), [Retrofit](https://github.com/square/retrofit/blob/trunk/retrofit/src/main/resources/META-INF/proguard/retrofit2.pro) 라이브러리들의 Proguard Rule들을 직접 같이 추가해주는 것을 추천드립니다.
 >
->R8 컴파일러로 안드로이드 프로젝트를 빌드하면 Okhtttp, Retrofit과 같은 라이브러리들은 내부적으로 JAR, AAR에 rule을 포함시켜두었기 때문에 문제가 되지 않아야 정상입니다.
+> R8 컴파일러로 안드로이드 프로젝트를 빌드하면 Okhtttp, Retrofit과 같은 라이브러리들은 내부적으로 JAR, AAR에 rule을 포함시켜두었기 때문에 문제가 되지 않아야 정상입니다.
 
 ### 추가 작업 - EXPO
 
@@ -202,30 +202,32 @@ cd ios && pod install
 
 ## API
 
-| Func        |         Param          |            Return             | Description  |
-|:------------|:----------------------:|:-----------------------------:|:-------------|
-| initialize  | `NaverLoginInitParams` |            `void`             | 네이버 SDK 초기화  |
-| login       |                        | `Promise<NaverLoginResponse>` | 로그인          |
-| getProfile  |        `String`        | `Promise<GetProfileResponse>` | 프로필 불러오기     |
-| logout      |                        |        `Promise<void>`        | 로그아웃         |
+| Func        |         Param          |            Return             | Description           |
+| :---------- | :--------------------: | :---------------------------: | :-------------------- |
+| initialize  | `NaverLoginInitParams` |            `void`             | 네이버 SDK 초기화     |
+| login       |                        | `Promise<NaverLoginResponse>` | 로그인                |
+| getProfile  |        `String`        | `Promise<GetProfileResponse>` | 프로필 불러오기       |
+| logout      |                        |        `Promise<void>`        | 로그아웃              |
 | deleteToken |                        |        `Promise<void>`        | 네이버 계정 연동 해제 |
 
 ### Type
 
 **NaverLoginInitParams**
+
 ```typescript
 export interface NaverLoginInitParams {
   consumerKey: string;
   consumerSecret: string;
   appName: string;
   /** (iOS) 네이버앱을 사용하는 인증을 비활성화 한다. (default: false) */
-  disableNaverAppAuth?: boolean;
+  disableNaverAppAuthIOS?: boolean;
   /** (iOS) */
-  serviceUrlScheme?: string;
+  serviceUrlSchemeIOS?: string;
 }
 ```
 
 **NaverLoginResponse**
+
 ```ts
 export interface NaverLoginResponse {
   isSuccess: boolean;
@@ -250,6 +252,7 @@ export interface NaverLoginResponse {
 ```
 
 **GetProfileResponse**
+
 ```ts
 export interface GetProfileResponse {
   resultcode: string;
@@ -270,7 +273,6 @@ export interface GetProfileResponse {
 }
 ```
 
-
 ## Usage
 
 - 자세한 예제는 [예제 프로젝트](./example)를 참고해주세요
@@ -282,7 +284,7 @@ const consumerSecret = '';
 const appName = 'testapp';
 
 /** This key is setup in iOS. So don't touch it */
-const serviceUrlScheme = 'navertest';
+const serviceUrlSchemeIOS = 'navertest';
 
 const App = (): ReactElement => {
   useEffect(() => {
@@ -290,8 +292,8 @@ const App = (): ReactElement => {
       appName,
       consumerKey,
       consumerSecret,
-      serviceUrlScheme,
-      disableNaverAppAuth: true,
+      serviceUrlSchemeIOS,
+      disableNaverAppAuthIOS: true,
     });
   }, []);
 

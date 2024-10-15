@@ -65,7 +65,7 @@ PODS:
     - hermes-engine/Pre-built (= 0.73.6)
   - hermes-engine/Pre-built (0.73.6)
   - libevent (2.1.12)
-  - naveridlogin-sdk-ios (4.2.1)
+  - naveridlogin-sdk-ios (4.2.3)
   - OpenSSL-Universal (1.1.1100)
   - RCT-Folly (2022.05.16.00):
     - boost
@@ -1153,10 +1153,10 @@ PODS:
     - React-jsi (= 0.73.6)
     - React-logger (= 0.73.6)
     - React-perflogger (= 0.73.6)
-  - RNNaverLogin (3.0.0):
+  - RNNaverLogin (4.0.1):
     - glog
     - hermes-engine
-    - naveridlogin-sdk-ios (= 4.2.1)
+    - naveridlogin-sdk-ios (= 4.2.3)
     - RCT-Folly (= 2022.05.16.00)
     - RCTRequired
     - RCTTypeSafety
@@ -1396,7 +1396,7 @@ SPEC CHECKSUMS:
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: 9cecf9953a681df7556b8cc9c74905de8f3293c0
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  naveridlogin-sdk-ios: d5f9d92905a7e964976ebfdd665bee5fb75845c5
+  naveridlogin-sdk-ios: d9d46d02119d303023d7000cd5963864d5bb89e5
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
   RCTRequired: ca1d7414aba0b27efcfa2ccd37637edb1ab77d96
@@ -1443,7 +1443,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 9636eee762c699ca7c85751a359101797e4c8b3b
   React-utils: d16c1d2251c088ad817996621947d0ac8167b46c
   ReactCommon: 2aa35648354bd4c4665b9a5084a7d37097b89c10
-  RNNaverLogin: 6534a9ad894e2df3175096896cd1569df1b6c73b
+  RNNaverLogin: 0c7e6ae51f0e68035dc8f96df0575a7c1bade9da
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 805bf71192903b20fc14babe48080582fee65a80
 

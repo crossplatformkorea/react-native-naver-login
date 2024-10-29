@@ -39,7 +39,7 @@ fun Promise.safeReject(
     throwable: Throwable?,
 ) {
     try {
-        this.reject(code, message, throwable)
+        this.reject(code ?? "UNKNOWN", message, throwable)
     } catch (oce: ObjectAlreadyConsumedException) {
         Log.d(TAG, "Already consumed ${oce.message}")
     }

@@ -46,7 +46,7 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
     }
 
     @ReactMethod
-    fun login(promise: Promise) =
+    fun login(promise: Promise){
         UiThreadUtil.runOnUiThread {
             loginPromise = promise
             if (currentActivity == null) {
@@ -80,6 +80,8 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
                 onLoginFailure(je.localizedMessage)
             }
         }
+    } 
+      
 
     @ReactMethod
     fun deleteToken(promise: Promise) =

@@ -18,11 +18,13 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
     override fun getName() = "RNNaverLogin"
 
     @ReactMethod
-    fun logout(promise: Promise) =
+    fun logout(promise: Promise) {
+        // to change it as void type
         UiThreadUtil.runOnUiThread {
             callLogout()
             promise.safeResolve(null)
         }
+    }
 
     private fun callLogout() =
         try {
@@ -47,6 +49,7 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
 
     @ReactMethod
     fun login(promise: Promise){
+        // to change it as void type
         UiThreadUtil.runOnUiThread {
             loginPromise = promise
             if (currentActivity == null) {
@@ -84,7 +87,8 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
       
 
     @ReactMethod
-    fun deleteToken(promise: Promise) =
+    fun deleteToken(promise: Promise){
+        // to change it as void type
         UiThreadUtil.runOnUiThread {
             NidOAuthLogin().callDeleteTokenApi(
                 object : OAuthLoginCallback {
@@ -102,6 +106,8 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
                 },
             )
         }
+    }
+
 
     companion object {
         private var loginPromise: Promise? = null

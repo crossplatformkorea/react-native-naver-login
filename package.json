@@ -1,6 +1,6 @@
 {
   "name": "@react-native-seoul/naver-login",
-  "version": "4.0.5",
+  "version": "4.1.0",
   "description": "React Native Module for Naver Login",
   "postinstall": "dooboolab-welcome postinstall",
   "main": "dist/index",

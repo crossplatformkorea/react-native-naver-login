@@ -104,6 +104,7 @@ const getProfile = (token: string): Promise<GetProfileResponse> => {
     .catch((err) => {
       console.log('getProfile err');
       console.log(err);
+      throw err
     });
 };
 
@@ -130,6 +131,7 @@ const getAgreement = async (token: string): Promise<GetAgreementResponse> => {
     .catch((err) => {
       console.log('getAgreement err');
       console.log(err);
+      throw err
     });
 };
 

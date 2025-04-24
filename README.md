@@ -202,13 +202,14 @@ NaverLogin.initialize({
 
 ## API
 
-| Func        |         Param          |            Return             | Description           |
-| :---------- | :--------------------: | :---------------------------: | :-------------------- |
-| initialize  | `NaverLoginInitParams` |            `void`             | 네이버 SDK 초기화     |
-| login       |                        | `Promise<NaverLoginResponse>` | 로그인                |
-| getProfile  |        `String`        | `Promise<GetProfileResponse>` | 프로필 불러오기       |
-| logout      |                        |        `Promise<void>`        | 로그아웃              |
-| deleteToken |                        |        `Promise<void>`        | 네이버 계정 연동 해제 |
+| Func         |         Param          |             Return              | Description                      |
+| :----------- | :--------------------: | :-----------------------------: | :------------------------------- |
+| initialize   | `NaverLoginInitParams` |             `void`              | 네이버 SDK 초기화                |
+| login        |                        |  `Promise<NaverLoginResponse>`  | 로그인                           |
+| getProfile   |        `String`        |  `Promise<GetProfileResponse>`  | 프로필 불러오기                  |
+| getAgreement |        `String`        | `Promise<GetAgreementResponse>` | 약관 동의 대행 동의여부 불러오기 |
+| logout       |                        |         `Promise<void>`         | 로그아웃                         |
+| deleteToken  |                        |         `Promise<void>`         | 네이버 계정 연동 해제            |
 
 ### Type
 
@@ -270,6 +271,22 @@ export interface GetProfileResponse {
     mobile_e164: string | null;
     nickname: string | null;
   };
+}
+```
+
+**GetAgreementResponse**
+
+```ts
+export interface GetAgreementResponse {
+  result: string;
+  accessToken: string;
+  agreementInfos: AgreementInfo[];
+}
+
+export interface AgreementInfo {
+  termCode: string;
+  clientId: string;
+  agreeDate: string;
 }
 ```
 

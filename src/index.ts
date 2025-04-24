@@ -104,8 +104,37 @@ const getProfile = (token: string): Promise<GetProfileResponse> => {
     .catch((err) => {
       console.log('getProfile err');
       console.log(err);
+      throw err
     });
 };
+
+export interface AgreementInfo {termCode: string, clientId: string, agreeDate: string}
+
+export interface GetAgreementResponse {
+  result	: string
+  accessToken: string
+  agreementInfos: AgreementInfo[]
+}
+
+
+const getAgreement = async (token: string): Promise<GetAgreementResponse> => {
+  return fetch('https://openapi.naver.com/v1/nid/agreement', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((err) => {
+      console.log('getAgreement err');
+      console.log(err);
+      throw err
+    });
+};
+
 
 const NaverLogin = {
   initialize,
@@ -113,5 +142,7 @@ const NaverLogin = {
   logout,
   deleteToken,
   getProfile,
+  getAgreement,
+
 };
 export default NaverLogin;

@@ -85,7 +85,7 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
 
     @ReactMethod
     fun deleteToken(promise: Promise) {
-        UiThreadUtil.runOnUiThread {    
+        UiThreadUtil.runOnUiThread {
             NidOAuthLogin().callDeleteTokenApi(
                 object : OAuthLoginCallback {
                     override fun onSuccess() = promise.safeResolve(null)

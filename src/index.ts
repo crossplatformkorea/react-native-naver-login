@@ -97,38 +97,31 @@ export interface NaverApiError {
   path: string;
 }
 
-const handleNaverApiResponse = async <T>(response: Response): Promise<T> => {
+const handleNaverApiResponse = async (response: Response) => {
   if (!response.ok) {
     try {
-      const errorData: NaverApiError = await response.json();
-      throw errorData;
+      throw await response.json();
     } catch (error) {
-      const parseError: NaverApiError = {
+      throw {
         timestamp: Date.now(),
         status: response.status,
         error: `네이버 API 호출 실패 (${response.status})`,
         path: response.url,
-      };
-      throw parseError;
+      } satisfies NaverApiError;
     }
   }
 
   return response.json();
 };
 
-const getProfile = (token: string): Promise<GetProfileResponse> => {
-  return fetch('https://openapi.naver.com/v1/nid/me', {
+const getProfile = async (token: string): Promise<GetProfileResponse> => {
+  const response = await fetch('https://openapi.naver.com/v1/nid/me', {
     method: 'GET',
     headers: {
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
     },
-  })
-    .then((response) => handleNaverApiResponse<GetProfileResponse>(response))
-    .then((responseJson) => responseJson)
-    .catch((err) => {
-      console.log('getProfile err', err);
-      throw err;
-    });
+  });
+  return await handleNaverApiResponse(response);
 };
 
 export interface AgreementInfo {
@@ -144,18 +137,13 @@ export interface GetAgreementResponse {
 }
 
 const getAgreement = async (token: string): Promise<GetAgreementResponse> => {
-  return fetch('https://openapi.naver.com/v1/nid/agreement', {
+  const response = await fetch('https://openapi.naver.com/v1/nid/agreement', {
     method: 'GET',
     headers: {
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
     },
-  })
-    .then((response) => handleNaverApiResponse<GetAgreementResponse>(response))
-    .then((responseJson) => responseJson)
-    .catch((err) => {
-      console.log('getAgreement err', err);
-      throw err;
-    });
+  });
+  return handleNaverApiResponse(response);
 };
 
 const NaverLogin = {

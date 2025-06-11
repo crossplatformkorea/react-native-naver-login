@@ -36,32 +36,6 @@ export interface NaverLoginResponse {
   };
 }
 
-export interface NaverApiError {
-  timestamp: number;
-  status: number;
-  error: string;
-  path: string;
-}
-
-const handleNaverApiResponse = async <T>(response: Response): Promise<T> => {
-  if (!response.ok) {
-    try {
-      const errorData: NaverApiError = await response.json();
-      throw errorData;
-    } catch (error) {
-      const parseError: NaverApiError = {
-        timestamp: Date.now(),
-        status: response.status,
-        error: `네이버 API 호출 실패 (${response.status})`,
-        path: response.url,
-      };
-      throw parseError;
-    }
-  }
-
-  return response.json();
-};
-
 const initialize = ({
   appName,
   consumerKey,
@@ -115,6 +89,32 @@ export interface GetProfileResponse {
     nickname: string | null;
   };
 }
+
+export interface NaverApiError {
+  timestamp: number;
+  status: number;
+  error: string;
+  path: string;
+}
+
+const handleNaverApiResponse = async <T>(response: Response): Promise<T> => {
+  if (!response.ok) {
+    try {
+      const errorData: NaverApiError = await response.json();
+      throw errorData;
+    } catch (error) {
+      const parseError: NaverApiError = {
+        timestamp: Date.now(),
+        status: response.status,
+        error: `네이버 API 호출 실패 (${response.status})`,
+        path: response.url,
+      };
+      throw parseError;
+    }
+  }
+
+  return response.json();
+};
 
 const getProfile = (token: string): Promise<GetProfileResponse> => {
   return fetch('https://openapi.naver.com/v1/nid/me', {

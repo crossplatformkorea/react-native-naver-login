@@ -36,6 +36,32 @@ export interface NaverLoginResponse {
   };
 }
 
+export interface NaverApiError {
+  timestamp: number;
+  status: number;
+  error: string;
+  path: string;
+}
+
+const handleNaverApiResponse = async <T>(response: Response): Promise<T> => {
+  if (!response.ok) {
+    try {
+      const errorData: NaverApiError = await response.json();
+      throw errorData;
+    } catch (error) {
+      const parseError: NaverApiError = {
+        timestamp: Date.now(),
+        status: response.status,
+        error: `네이버 API 호출 실패 (${response.status})`,
+        path: response.url,
+      };
+      throw parseError;
+    }
+  }
+
+  return response.json();
+};
+
 const initialize = ({
   appName,
   consumerKey,
@@ -97,25 +123,25 @@ const getProfile = (token: string): Promise<GetProfileResponse> => {
       Authorization: 'Bearer ' + token,
     },
   })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      return responseJson;
-    })
+    .then((response) => handleNaverApiResponse<GetProfileResponse>(response))
+    .then((responseJson) => responseJson)
     .catch((err) => {
-      console.log('getProfile err');
-      console.log(err);
-      throw err
+      console.log('getProfile err', err);
+      throw err;
     });
 };
 
-export interface AgreementInfo {termCode: string, clientId: string, agreeDate: string}
-
-export interface GetAgreementResponse {
-  result	: string
-  accessToken: string
-  agreementInfos: AgreementInfo[]
+export interface AgreementInfo {
+  termCode: string;
+  clientId: string;
+  agreeDate: string;
 }
 
+export interface GetAgreementResponse {
+  result: string;
+  accessToken: string;
+  agreementInfos: AgreementInfo[];
+}
 
 const getAgreement = async (token: string): Promise<GetAgreementResponse> => {
   return fetch('https://openapi.naver.com/v1/nid/agreement', {
@@ -124,17 +150,13 @@ const getAgreement = async (token: string): Promise<GetAgreementResponse> => {
       Authorization: 'Bearer ' + token,
     },
   })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      return responseJson;
-    })
+    .then((response) => handleNaverApiResponse<GetAgreementResponse>(response))
+    .then((responseJson) => responseJson)
     .catch((err) => {
-      console.log('getAgreement err');
-      console.log(err);
-      throw err
+      console.log('getAgreement err', err);
+      throw err;
     });
 };
-
 
 const NaverLogin = {
   initialize,
@@ -143,6 +165,5 @@ const NaverLogin = {
   deleteToken,
   getProfile,
   getAgreement,
-
 };
 export default NaverLogin;

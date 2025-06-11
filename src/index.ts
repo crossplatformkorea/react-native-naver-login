@@ -121,7 +121,7 @@ const getProfile = async (token: string): Promise<GetProfileResponse> => {
       Authorization: `Bearer ${token}`,
     },
   });
-  return await handleNaverApiResponse(response);
+  return handleNaverApiResponse(response);
 };
 
 export interface AgreementInfo {

@@ -114,8 +114,19 @@ NaverLogin.initialize({
 	...
 </array>
 ```
-
 ![image](https://user-images.githubusercontent.com/33388801/196835050-3d887f3c-1d07-4be3-a2cf-27ed18a48691.png)
+
+p.s 
+Info.plist에 naversearchapp 추가해도 작동이 안된다면 최대개수를 넘은걸 수 있습니다.(최대수 50개)
+참조) https://developer.apple.com/documentation/uikit/uiapplication/canopenurl(_:)
+<img width="1674" height="422" alt="image" src="https://github.com/user-attachments/assets/b8252109-4e35-46b6-b59a-79b0f1eea651" />
+
+```xml
+<array>
+    ...
+    <string>naversearchapp</string> // 51번째일때에 미작동
+</array>
+```
 
 #### 3. `AppDelegate`의 `application:openURL:options` 에서 URL 핸들링 로직 추가
 

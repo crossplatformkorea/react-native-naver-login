@@ -9,12 +9,14 @@
   "source": "src/index",
   "scripts": {
     "example": "yarn workspace example",
+    "example53": "yarn workspace example-expo53",
     "typecheck": "tsc --noEmit",
     "build": "rm -rf dist && tsc --project tsconfig.build.json && tsc --project ./plugin && flowgen dist/index.d.ts -o dist/index.flow.js",
     "lint": "eslint",
     "validate": "yarn lint && yarn typecheck",
     "prepare": "husky",
-    "prepack": "yarn build"
+    "prepack": "yarn build",
+    "update-package": "yarn build && yarn example53 update-package "
   },
   "publishConfig": {
     "access": "public"
@@ -91,7 +93,8 @@
   ],
   "packageManager": "yarn@4.1.1",
   "workspaces": [
-    "example"
+    "example",
+    "example-expo53"
   ],
   "jest": {
     "preset": "react-native",

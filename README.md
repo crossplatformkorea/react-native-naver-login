@@ -163,6 +163,19 @@ Info.plist에 naversearchapp 추가해도 작동이 안된다면 최대개수를
 }
 ```
 
+- AppDelegate.swift 사용 시
+
+```swift
+import NaverThirdPartyLogin
+
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+  // naver
+  if url.scheme == "{{ CUSTOM URL SCHEME }}" {
+    return NaverThirdPartyLoginConnection.getSharedInstance().application(app, open: url, options: options)
+  }
+}
+```
+
 ### 추가 작업 - Android 🤖
 
 #### 1. Proguard

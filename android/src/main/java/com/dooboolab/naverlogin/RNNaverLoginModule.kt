@@ -37,13 +37,15 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
         consumerKey: String,
         consumerSecret: String,
         appName: String,
-    ) = UiThreadUtil.runOnUiThread {
-        NaverIdLoginSDK.initialize(
-            reactApplicationContext,
-            clientId = consumerKey,
-            clientSecret = consumerSecret,
-            clientName = appName,
-        )
+    ) {
+        UiThreadUtil.runOnUiThread {
+            NaverIdLoginSDK.initialize(
+                reactApplicationContext,
+                clientId = consumerKey,
+                clientSecret = consumerSecret,
+                clientName = appName,
+            )
+        }
     }
 
     @ReactMethod

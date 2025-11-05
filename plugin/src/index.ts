@@ -75,14 +75,11 @@ const modifyContentSwift = (contents: string, urlScheme: string) => {
 ${NAVER_HEADER_IMPORT_STRING_SWIFT}`
     );
   }
-  // Add NidOAuth initialization in didFinishLaunchingWithOptions
-  if (!contents.includes('NidOAuth.shared.initialize()')) {
-    contents = contents.replace(
-      'return super.application(application, didFinishLaunchingWithOptions: launchOptions)',
-      `    NidOAuth.shared.initialize()
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)`
-    );
-  }
+  // Note: NidOAuth initialization is not needed in AppDelegate.
+  // The library handles initialization through NaverLogin.initialize() called from JavaScript.
+  // The newer versions of NidThirdPartyLogin SDK require parameters (appName, clientId, clientSecret, urlScheme),
+  // but these are properly managed by the JavaScript layer when calling NaverLogin.initialize().
+  // Removing this to prevent build errors with SDK updates.
 
   // Add URL handling for Naver login
   if (!contents.includes('NidOAuth.shared.handle')) {

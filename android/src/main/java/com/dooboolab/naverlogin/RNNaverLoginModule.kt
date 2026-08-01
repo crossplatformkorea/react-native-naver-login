@@ -27,7 +27,9 @@ class RNNaverLoginModule(reactContext: ReactApplicationContext) : ReactContextBa
 
     private fun callLogout() =
         try {
-            NaverIdLoginSDK::logout
+            // `NaverIdLoginSDK::logout` only produced a callable reference and threw it
+            // away, so logout never ran and the local token was never cleared.
+            NaverIdLoginSDK.logout()
         } catch (e: Throwable) {
             Log.d(name, "callLogout failed: $e")
         }

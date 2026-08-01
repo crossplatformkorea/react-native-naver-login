@@ -12,7 +12,7 @@
     "example53": "yarn workspace example-expo53",
     "typecheck": "tsc --noEmit",
     "build": "rm -rf dist && tsc --project tsconfig.build.json && tsc --project ./plugin && flowgen dist/index.d.ts -o dist/index.flow.js",
-    "lint": "eslint",
+    "lint": "eslint .",
     "validate": "yarn lint && yarn typecheck",
     "prepare": "husky",
     "prepack": "yarn build",
@@ -49,14 +49,13 @@
     "@babel/plugin-transform-react-jsx": "^7.29.7",
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
-    "@react-native/eslint-config": "^0.73.1",
+    "@react-native/eslint-config": "^0.86.2",
     "@types/jest": "^30.0.0",
     "@types/react": "^18.2.44",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.51.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-jest": "^27.9.0",
-    "eslint-plugin-prettier": "^5.0.1",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
     "expo-module-scripts": "^3.0.7",
     "flowgen": "^1.21.0",
     "husky": "^9.1.7",
@@ -102,5 +101,8 @@
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
     ]
+  },
+  "resolutions": {
+    "eslint-plugin-ft-flow": "^3.0.11"
   }
 }

@@ -1,8 +1,5 @@
 import { Button, SafeAreaView, ScrollView, Text, View } from 'react-native';
-import type {
-  GetProfileResponse,
-  NaverLoginResponse,
-} from '../src/index';
+import type { GetProfileResponse, NaverLoginResponse } from '../src/index';
 import NaverLogin from '../src/index';
 import React, { type ReactElement, useEffect, useState } from 'react';
 
@@ -78,7 +75,7 @@ const App = (): ReactElement => {
     try {
       const profileResult = await NaverLogin.getProfile(success!.accessToken);
       setGetProfileRes(profileResult);
-    } catch (e) {
+    } catch {
       setGetProfileRes(undefined);
     }
   };

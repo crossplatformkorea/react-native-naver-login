@@ -78,7 +78,7 @@ const App = (): ReactElement => {
     try {
       const profileResult = await NaverLogin.getProfile(success!.accessToken);
       setGetProfileRes(profileResult);
-    } catch (e) {
+    } catch {
       setGetProfileRes(undefined);
     }
   };

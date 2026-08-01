@@ -101,7 +101,7 @@ const handleNaverApiResponse = async (response: Response) => {
   if (!response.ok) {
     try {
       throw await response.json();
-    } catch (error) {
+    } catch {
       throw {
         timestamp: Date.now(),
         status: response.status,

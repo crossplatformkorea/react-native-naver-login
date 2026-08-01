@@ -1,18 +1,23 @@
 buildscript {
-  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["RNNaverLogins_kotlinVersion"]
-
   ext.getExtOrDefault = {name ->
     return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['RNNaverLogins_' + name]
   }
 
-  repositories {
-    mavenCentral()
-    google()
-  }
+  // Only put the Android/Kotlin Gradle plugins on the buildscript classpath when this
+  // library is built on its own. When it is consumed by an app, the app's root
+  // buildscript already provides both, and Gradle resolves a shared buildscript
+  // classpath to the highest requested version — so declaring versions here would
+  // silently force the consuming app's entire build onto our AGP/Kotlin.
+  if (project == rootProject) {
+    repositories {
+      mavenCentral()
+      google()
+    }
 
-  dependencies {
-    classpath "com.android.tools.build:gradle:${getExtOrDefault('gradleVersion')}"
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    dependencies {
+      classpath "com.android.tools.build:gradle:${project.properties['RNNaverLogins_gradleVersion']}"
+      classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${project.properties['RNNaverLogins_kotlinVersion']}"
+    }
   }
 }
 
@@ -47,11 +52,11 @@ android {
     }
   }
 
-  compileSdkVersion getExtOrDefault('compileSdkVersion').toInteger()
+  compileSdk getExtOrDefault('compileSdkVersion').toInteger()
 
   defaultConfig {
-    minSdkVersion getExtOrDefault('minSdkVersion').toInteger()
-    targetSdkVersion getExtOrDefault('targetSdkVersion').toInteger()
+    minSdk getExtOrDefault('minSdkVersion').toInteger()
+    targetSdk getExtOrDefault('targetSdkVersion').toInteger()
   }
 
   buildTypes {
@@ -60,13 +65,17 @@ android {
     }
   }
 
-  lintOptions {
+  lint {
     disable "GradleCompatible"
   }
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+
+  kotlinOptions {
+    jvmTarget = "17"
   }
 }
 
@@ -84,6 +93,4 @@ dependencies {
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation "com.navercorp.nid:oauth:${getExtOrDefault('naverSdkVersion')}"
-  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
-
 }

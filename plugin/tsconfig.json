@@ -1,8 +1,24 @@
 {
-  "extends": "expo-module-scripts/tsconfig.plugin",
   "compilerOptions": {
     "outDir": "build",
-    "rootDir": "src"
+    "rootDir": "src",
+
+    "lib": ["es2023"],
+    "target": "es2022",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "moduleDetection": "force",
+
+    "declaration": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolvePackageJsonExports": true,
+    "resolvePackageJsonImports": true,
+    "useDefineForClassFields": true,
+    "skipLibCheck": true,
+
+    "strict": true,
+    "noImplicitReturns": true
   },
   "include": ["./src"]
 }

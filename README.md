@@ -140,7 +140,7 @@ Info.plist에 naversearchapp 추가해도 작동이 안된다면 최대개수를
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-   return [[NaverThirdPartyLoginConnection getSharedInstance] application:app openURL:url options:options];
+   return [[NaverThirdPartyLoginConnection getSharedInstance] application:application openURL:url options:options];
 }
 ```
 
@@ -152,7 +152,7 @@ Info.plist에 naversearchapp 추가해도 작동이 안된다면 최대개수를
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
   // naver
   if ([url.scheme isEqualToString:@"{{ CUSTOM URL SCHEME }}"]) {
-    return [[NaverThirdPartyLoginConnection getSharedInstance] application:app openURL:url options:options];
+    return [[NaverThirdPartyLoginConnection getSharedInstance] application:application openURL:url options:options];
   }
 
   // kakao
